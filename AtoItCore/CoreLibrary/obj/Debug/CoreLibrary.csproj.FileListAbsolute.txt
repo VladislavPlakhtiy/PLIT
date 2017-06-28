@@ -1,5 +1,0 @@
-D:\ATOIT\PLIT\AtoItCore\CoreLibrary\bin\Debug\CoreLibrary.dll
-D:\ATOIT\PLIT\AtoItCore\CoreLibrary\bin\Debug\CoreLibrary.pdb
-D:\ATOIT\PLIT\AtoItCore\CoreLibrary\obj\Debug\CoreLibrary.csprojResolveAssemblyReference.cache
-D:\ATOIT\PLIT\AtoItCore\CoreLibrary\obj\Debug\CoreLibrary.dll
-D:\ATOIT\PLIT\AtoItCore\CoreLibrary\obj\Debug\CoreLibrary.pdb
