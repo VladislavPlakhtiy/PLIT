@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
-using DressShopDomain.Entities;
 
 
 namespace DressShopWebUI.Controllers
@@ -19,7 +18,7 @@ namespace DressShopWebUI.Controllers
             
             return View();
         }
-        // страница ONLINE-гардероб
+        // страница каталога (ONLINE-гардероб)
         public ViewResult DressingRoom()
         {
             return View();
@@ -31,6 +30,11 @@ namespace DressShopWebUI.Controllers
         }
         // страница Партнеры
         public ViewResult Partners()
+        {
+            return View();
+        }
+        // страница Отзывы
+        public ViewResult ClientFeedback()
         {
             return View();
         }

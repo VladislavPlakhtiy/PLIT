@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="ShopModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="ShopModelTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ShopModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ShopContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Product" EntityType="ShopModel.Product" />
+          <EntitySet Name="Category" EntityType="ShopModel.Category" />
+          <EntitySet Name="OrdersHistory" EntityType="ShopModel.Status" />
+          <EntitySet Name="Orders" EntityType="ShopModel.Orders" />
+          <EntitySet Name="Reviews" EntityType="ShopModel.Reviews" />
+          <EntitySet Name="ProductPhoto" EntityType="ShopModel.Photo" />
+          <EntitySet Name="DeliverySet" EntityType="ShopModel.Delivery" />
+          <AssociationSet Name="ProductCategory" Association="ShopModel.ProductCategory">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="PhotoProduct" Association="ShopModel.PhotoProduct">
+            <End Role="Photo" EntitySet="ProductPhoto" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="OrdersProduct" Association="ShopModel.OrdersProduct">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="StatusOrders" Association="ShopModel.StatusOrders">
+            <End Role="Status" EntitySet="OrdersHistory" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="DeliveryOrders" Association="ShopModel.DeliveryOrders">
+            <End Role="Delivery" EntitySet="DeliverySet" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" MaxLength="Max" />
+          <Property Name="SpecOffer" Type="String" Nullable="true" MaxLength="Max" />
+          <Property Name="Price" Type="Decimal" Nullable="false" />
+          <Property Name="DateCreate" Type="DateTime" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="true" />
+          <Property Name="Existence" Type="Boolean" Nullable="true" />
+          <NavigationProperty Name="Category" Relationship="ShopModel.ProductCategory" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="Photo" Relationship="ShopModel.PhotoProduct" FromRole="Product" ToRole="Photo" />
+          <NavigationProperty Name="Orders" Relationship="ShopModel.OrdersProduct" FromRole="Product" ToRole="Orders" />
+          <Property Name="OrdersProductId" Type="Int32" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="NameCategory" Type="String" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="ShopModel.ProductCategory" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusName" Type="String" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="ShopModel.StatusOrders" FromRole="Status" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sum" Type="Decimal" Nullable="false" />
+          <Property Name="ClientName" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Phone" Type="String" Nullable="false" />
+          <Property Name="Sity" Type="String" Nullable="true" />
+          <Property Name="Comments" Type="String" Nullable="true" />
+          <Property Name="DateOrder" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="ShopModel.OrdersProduct" FromRole="Orders" ToRole="Product" />
+          <NavigationProperty Name="Status" Relationship="ShopModel.StatusOrders" FromRole="Orders" ToRole="Status" />
+          <NavigationProperty Name="Delivery" Relationship="ShopModel.DeliveryOrders" FromRole="Orders" ToRole="Delivery" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+          </Key>
+          <Property Name="ReviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientName" Type="String" Nullable="false" />
+          <Property Name="ClientFeedback" Type="String" Nullable="false" />
+          <Property Name="Rating" Type="Int32" Nullable="true" />
+          <Property Name="DateFeedback" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="PhotoId" />
+          </Key>
+          <Property Name="PhotoId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Priority" Type="Boolean" Nullable="true" />
+          <Property Name="PhotoUrl" Type="String" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="ShopModel.PhotoProduct" FromRole="Photo" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Delivery">
+          <Key>
+            <PropertyRef Name="DeliveryId" />
+          </Key>
+          <Property Name="NameDelivery" Type="String" Nullable="false" />
+          <Property Name="DeliveryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="ShopModel.DeliveryOrders" FromRole="Delivery" ToRole="Orders" />
+        </EntityType>
+        <Association Name="ProductCategory">
+          <End Type="ShopModel.Product" Role="Product" Multiplicity="*" />
+          <End Type="ShopModel.Category" Role="Category" Multiplicity="1" />
+        </Association>
+        <Association Name="PhotoProduct">
+          <End Type="ShopModel.Photo" Role="Photo" Multiplicity="*" />
+          <End Type="ShopModel.Product" Role="Product" Multiplicity="1" />
+        </Association>
+        <Association Name="OrdersProduct">
+          <End Type="ShopModel.Orders" Role="Orders" Multiplicity="0..1" />
+          <End Type="ShopModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="OrdersProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StatusOrders">
+          <End Type="ShopModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="ShopModel.Orders" Role="Orders" Multiplicity="1" />
+        </Association>
+        <Association Name="DeliveryOrders">
+          <End Type="ShopModel.Delivery" Role="Delivery" Multiplicity="1" />
+          <End Type="ShopModel.Orders" Role="Orders" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="ShopModel" />
+        <Alias Key="Target" Value="ShopModel.Store" />
+        <EntityContainerMapping CdmEntityContainer="ShopContainer" StorageEntityContainer="ShopModelTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
