@@ -30,7 +30,7 @@ namespace Domain.Entityes
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Reviews> Reviews { get; set; }
-        public virtual DbSet<Photo> ProductPhoto { get; set; }
-        public virtual DbSet<Delivery> DeliverySet { get; set; }
+        public virtual DbSet<Photo> Photo { get; set; }
+        public virtual DbSet<Delivery> Delivery { get; set; }
     }
 }

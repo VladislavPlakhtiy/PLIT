@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Domain.Entityes
 {
     using System;
@@ -21,6 +23,7 @@ namespace Domain.Entityes
         }
     
         public string NameCategory { get; set; }
+        [Key]
         public int CategoryId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

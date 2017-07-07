@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Domain.Entityes
 {
     using System;
@@ -15,6 +17,7 @@ namespace Domain.Entityes
     public partial class Status
     {
         public string StatusName { get; set; }
+        [Key]
         public int StatusId { get; set; }
     
         public virtual Orders Orders { get; set; }

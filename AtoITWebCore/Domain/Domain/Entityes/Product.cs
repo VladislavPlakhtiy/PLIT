@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Domain.Entityes
 {
     using System;
@@ -20,15 +22,16 @@ namespace Domain.Entityes
             this.Photo = new HashSet<Photo>();
         }
     
+        [Key]
         public int ProductId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string SpecOffer { get; set; }
         public decimal Price { get; set; }
-        public DateTime DateCreate { get; set; }
-        public int? Quantity { get; set; }
-        public bool? Existence { get; set; }
-        public int? OrdersProductId { get; set; }
+        public System.DateTime DateCreate { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<bool> Existence { get; set; }
+        public Nullable<int> OrdersProductId { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -3,17 +3,17 @@
   <EntityContainer Name="ShopContainer" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Product" EntityType="ShopModel.Product" />
     <EntitySet Name="Category" EntityType="ShopModel.Category" />
-    <EntitySet Name="OrdersHistory" EntityType="ShopModel.Status" />
+    <EntitySet Name="Status" EntityType="ShopModel.Status" />
     <EntitySet Name="Orders" EntityType="ShopModel.Orders" />
     <EntitySet Name="Reviews" EntityType="ShopModel.Reviews" />
-    <EntitySet Name="ProductPhoto" EntityType="ShopModel.Photo" />
-    <EntitySet Name="DeliverySet" EntityType="ShopModel.Delivery" />
+    <EntitySet Name="Photo" EntityType="ShopModel.Photo" />
+    <EntitySet Name="Delivery" EntityType="ShopModel.Delivery" />
     <AssociationSet Name="ProductCategory" Association="ShopModel.ProductCategory">
       <End Role="Product" EntitySet="Product" />
       <End Role="Category" EntitySet="Category" />
     </AssociationSet>
     <AssociationSet Name="PhotoProduct" Association="ShopModel.PhotoProduct">
-      <End Role="Photo" EntitySet="ProductPhoto" />
+      <End Role="Photo" EntitySet="Photo" />
       <End Role="Product" EntitySet="Product" />
     </AssociationSet>
     <AssociationSet Name="OrdersProduct" Association="ShopModel.OrdersProduct">
@@ -21,11 +21,11 @@
       <End Role="Product" EntitySet="Product" />
     </AssociationSet>
     <AssociationSet Name="StatusOrders" Association="ShopModel.StatusOrders">
-      <End Role="Status" EntitySet="OrdersHistory" />
+      <End Role="Status" EntitySet="Status" />
       <End Role="Orders" EntitySet="Orders" />
     </AssociationSet>
     <AssociationSet Name="DeliveryOrders" Association="ShopModel.DeliveryOrders">
-      <End Role="Delivery" EntitySet="DeliverySet" />
+      <End Role="Delivery" EntitySet="Delivery" />
       <End Role="Orders" EntitySet="Orders" />
     </AssociationSet>
   </EntityContainer>

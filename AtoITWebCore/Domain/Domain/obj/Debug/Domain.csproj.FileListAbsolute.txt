@@ -1,5 +1,3 @@
-D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\bin\Debug\Domain.dll.config
-D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\bin\Debug\Domain.dll
 D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\bin\Debug\Domain.pdb
 D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\bin\Debug\EntityFramework.dll
 D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\bin\Debug\EntityFramework.SqlServer.dll
@@ -21,6 +19,8 @@ D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\bin\Debug\ru\System.Web.Razor.resources
 D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\bin\Debug\ru\System.Web.WebPages.resources.dll
 D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\bin\Debug\ru\System.Web.WebPages.Deployment.resources.dll
 D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\bin\Debug\ru\System.Web.WebPages.Razor.resources.dll
-D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\obj\Debug\Domain.dll
 D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\obj\Debug\Domain.pdb
 D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\bin\Debug\ru\EntityFramework.resources.dll
+D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\bin\Debug\Domain.dll.config
+D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\bin\Debug\Domain.dll
+D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\obj\Debug\Domain.dll

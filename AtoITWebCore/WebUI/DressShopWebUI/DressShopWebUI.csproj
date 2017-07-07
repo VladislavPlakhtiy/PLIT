@@ -141,7 +141,16 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Images\TestDress.jpg" />
+    <Content Include="Images\dress1.jpg" />
+    <Content Include="Images\dress10.jpg" />
+    <Content Include="Images\dress2.jpg" />
+    <Content Include="Images\dress3.jpg" />
+    <Content Include="Images\dress4.jpg" />
+    <Content Include="Images\dress5.jpg" />
+    <Content Include="Images\dress6.jpg" />
+    <Content Include="Images\dress7.jpg" />
+    <Content Include="Images\dress8.jpg" />
+    <Content Include="Images\dress9.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -172,6 +181,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DebugDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -199,8 +209,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Basket\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Domain\Domain.csproj">
+      <Project>{0ab31a9a-44c7-4b7d-8ed9-e7163f70ecc6}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
