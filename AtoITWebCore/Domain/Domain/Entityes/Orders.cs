@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Domain.Entityes
 {
     using System;
@@ -22,7 +20,6 @@ namespace Domain.Entityes
             this.Product = new HashSet<Product>();
         }
     
-        [Key]
         public int OrderId { get; set; }
         public decimal Sum { get; set; }
         public string ClientName { get; set; }

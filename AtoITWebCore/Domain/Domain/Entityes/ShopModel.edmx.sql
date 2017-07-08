@@ -2,13 +2,14 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/07/2017 12:59:01
+-- Date Created: 07/07/2017 15:07:42
 -- Generated from EDMX file: D:\ATOIT\PLIT\AtoITWebCore\Domain\Domain\Entityes\ShopModel.edmx
 -- --------------------------------------------------
+Use  ShopСontainer
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [ShopContainer];
+USE [ShopСontainer];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO

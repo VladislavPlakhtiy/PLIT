@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Domain.Entityes
 {
     using System;
@@ -16,7 +14,6 @@ namespace Domain.Entityes
     
     public partial class Photo
     {
-        [Key]
         public int PhotoId { get; set; }
         public Nullable<bool> Priority { get; set; }
         public string PhotoUrl { get; set; }

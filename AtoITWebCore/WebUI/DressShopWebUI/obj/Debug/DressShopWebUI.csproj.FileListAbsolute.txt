@@ -53,6 +53,6 @@ D:\ATOIT\PLIT\AtoITWebCore\WebUI\DressShopWebUI\bin\ru\System.Web.Mvc.resources.
 D:\ATOIT\PLIT\AtoITWebCore\WebUI\DressShopWebUI\obj\Debug\DressShopWebUI.dll
 D:\ATOIT\PLIT\AtoITWebCore\WebUI\DressShopWebUI\obj\Debug\DressShopWebUI.pdb
 D:\ATOIT\PLIT\AtoITWebCore\WebUI\DressShopWebUI\bin\ru\EntityFramework.resources.dll
-D:\ATOIT\PLIT\AtoITWebCore\WebUI\DressShopWebUI\bin\Domain.dll
 D:\ATOIT\PLIT\AtoITWebCore\WebUI\DressShopWebUI\bin\Domain.pdb
 D:\ATOIT\PLIT\AtoITWebCore\WebUI\DressShopWebUI\obj\Debug\DressShopWebUI.csprojResolveAssemblyReference.cache
+D:\ATOIT\PLIT\AtoITWebCore\WebUI\DressShopWebUI\bin\Domain.exe

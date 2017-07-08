@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Domain.Entityes
 {
     using System;
@@ -17,7 +15,6 @@ namespace Domain.Entityes
     public partial class Delivery
     {
         public string NameDelivery { get; set; }
-        [Key]
         public int DeliveryId { get; set; }
     
         public virtual Orders Orders { get; set; }

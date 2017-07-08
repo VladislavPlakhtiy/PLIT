@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Domain.Entityes
 {
     using System;
@@ -16,7 +14,6 @@ namespace Domain.Entityes
     
     public partial class Reviews
     {
-        [Key]
         public int ReviewId { get; set; }
         public string ClientName { get; set; }
         public string ClientFeedback { get; set; }

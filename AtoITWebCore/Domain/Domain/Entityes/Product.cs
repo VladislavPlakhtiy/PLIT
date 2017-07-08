@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Domain.Entityes
 {
     using System;
@@ -22,7 +20,6 @@ namespace Domain.Entityes
             this.Photo = new HashSet<Photo>();
         }
     
-        [Key]
         public int ProductId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
