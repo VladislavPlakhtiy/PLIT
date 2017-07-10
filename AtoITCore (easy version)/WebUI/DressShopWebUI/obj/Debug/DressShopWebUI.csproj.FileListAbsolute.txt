@@ -172,3 +172,8 @@ D:\ATOIT\PLIT\AtoITCore (easy version)\WebUI\DressShopWebUI\bin\ru\System.Web.Mv
 D:\ATOIT\PLIT\AtoITCore (easy version)\WebUI\DressShopWebUI\obj\Debug\DressShopWebUI.csprojResolveAssemblyReference.cache
 D:\ATOIT\PLIT\AtoITCore (easy version)\WebUI\DressShopWebUI\obj\Debug\DressShopWebUI.dll
 D:\ATOIT\PLIT\AtoITCore (easy version)\WebUI\DressShopWebUI\obj\Debug\DressShopWebUI.pdb
+D:\ATOIT\PLIT\AtoITCore (easy version)\WebUI\DressShopWebUI\bin\PagedList.dll
+D:\ATOIT\PLIT\AtoITCore (easy version)\WebUI\DressShopWebUI\bin\PagedList.Mvc.dll
+D:\ATOIT\PLIT\AtoITCore (easy version)\WebUI\DressShopWebUI\bin\PagedList.xml
+D:\ATOIT\PLIT\AtoITCore (easy version)\WebUI\DressShopWebUI\bin\PagedList.Mvc.xml
+D:\ATOIT\PLIT\AtoITCore (easy version)\WebUI\DressShopWebUI\bin\ru\EntityFramework.SqlServer.resources.dll

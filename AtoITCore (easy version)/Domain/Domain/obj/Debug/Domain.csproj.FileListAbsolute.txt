@@ -52,3 +52,4 @@ D:\ATOIT\PLIT\AtoITCore (easy version)\Domain\Domain\bin\Debug\ru\System.Web.Web
 D:\ATOIT\PLIT\AtoITCore (easy version)\Domain\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache
 D:\ATOIT\PLIT\AtoITCore (easy version)\Domain\Domain\obj\Debug\Domain.dll
 D:\ATOIT\PLIT\AtoITCore (easy version)\Domain\Domain\obj\Debug\Domain.pdb
+D:\ATOIT\PLIT\AtoITCore (easy version)\Domain\Domain\bin\Debug\ru\EntityFramework.SqlServer.resources.dll

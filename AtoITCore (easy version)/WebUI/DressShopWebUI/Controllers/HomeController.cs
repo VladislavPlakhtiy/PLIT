@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using Domain.Concrete;
 using Domain.Entityes;
 using DressShopWebUI.Models;
+using PagedList.Mvc;
+using PagedList;
 
 
 namespace DressShopWebUI.Controllers
@@ -35,10 +37,28 @@ namespace DressShopWebUI.Controllers
         {
             return View();
         }
-        // страница Отзывы
-        public ViewResult ClientFeedback()
+        // страница Отзывы (в разработке!!!!)
+        [HttpGet]
+        public ViewResult ClientFeedback(int? page)
         {
-            return View();
+            IQueryable<Reviews> reviewses = _db.Reviews;
+            if (!reviewses.Any())
+                DebugDb.AddToDb();
+            int numberOfReviews = 3;
+            int pageNumber = page ?? 1;
+            reviewses = reviewses.OrderBy(c => c.DateFeedback);
+            return View(reviewses.ToList().ToPagedList(pageNumber, numberOfReviews));
         }
+
+        [HttpPost]
+        public PartialViewResult ClientFeedback(string userName, string userFeedback, int raiting, int? page)
+        {
+            IQueryable<Reviews> reviewses = _db.Reviews;
+            reviewses = reviewses.OrderBy(c => c.DateFeedback);
+            int numberOfReviews = 3;
+            int pageNumber = page ?? 1;
+            return PartialView("ClientFeedbackList",reviewses.ToList().ToPagedList(pageNumber, numberOfReviews));
+        }
+
     }
 }
