@@ -7,18 +7,16 @@
     <br />
 
     <div style="background-color:bisque">
-        <h1 align="center">CЛАЙДЕР</h1>
+        
         @{
-            int a = 0;
             string path = "";
             foreach (var i in Model)
             {
                 if (i.Product.Category.Equals(1)) { path = "Home/Selling"; }
                 if (i.Product.Category.Equals(2)) { path = "Home/Gallery"; }
                 if (i.Product.Category.Equals(3)) { path = "Home/Partners"; }
-                a++;
                 //код выше вам не нужен. То что нужны только картинки :) айдишник картинки генирируется по такому имени ImgId1, ImgId2 и т.д. 
-                <a href="@path"><img id="@("ImgId"+a)" class="" title="@i.Product.Name" src="~/Images/@i.PhotoUrl" height="70" width="65" /></a>
+                <a href="@path"><img id="@("ImgId"+i.PhotoId)" class="" title="@i.Product.Name" src="~/Images/@i.PhotoUrl" height="100" width="95" /></a>
             }
         }
     </div>

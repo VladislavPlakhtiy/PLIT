@@ -9,12 +9,11 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-    <div style="background-color:burlywood; margin-top:0px">
+    <div style="background-color:burlywood; margin-top:0">
         <h1>ШЛЯПКА + ЛОГО + <input id="Button1" type="button" value="Фейсбук" /> + 
 <input id="Button1" type="button" value="Твиттер" /> +  @Html.ActionLink("Корзина", "Index", "Home")</h1>
     </div>
-
-        <div style="background-color:aquamarine; margin-top:0px">
+        <div style="background-color:aquamarine; margin-top:0">
 
             @Html.ActionLink("О ДИЗАЙНЕРЕ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             @Html.ActionLink("ONLINE-ГАРДЕРОБ", "Selling", "Home", new { area = "" }, new { @class = "navbar-brand" })
@@ -25,13 +24,12 @@
             <br />
             <br />
         </div>
-
     <br />
     <div class="container body-content">
         @RenderBody()
     </div>
             <footer>
-                <div style="background-color: aquamarine; margin-top:0px">
+                <div style="background-color: aquamarine; margin-top:0">
                     <br />
                     <h2 >подвал</h2>
                     <br />

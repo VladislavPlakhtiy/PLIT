@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using Domain.Concrete;
 using Domain.Entityes;
@@ -13,7 +14,7 @@ namespace DressShopWebUI.Controllers
             // Стартовая страница
         public ViewResult Index()
         {
-            var product = _db.Photo;
+            DbSet<Photo> product = _db.Photo;
             if (!product.Any())
                 DebugDb.AddToDb();
             IQueryable<Photo> photo = from s in _db.Photo where s.Priority == true select s;
@@ -24,12 +25,12 @@ namespace DressShopWebUI.Controllers
         {
             return View();
         }
-        // страница Галерея
+        // страница Галерея (Паша)
         public ViewResult Gallery()
         {
             return View();
         }
-        // страница Партнеры
+        // страница Партнеры (Паша)
         public ViewResult Partners()
         {
             return View();
