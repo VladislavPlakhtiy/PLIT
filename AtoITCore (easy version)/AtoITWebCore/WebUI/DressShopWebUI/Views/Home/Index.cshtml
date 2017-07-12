@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Domain.Entityes.Photo>
+@{
+    ViewBag.Title = "О дизайнере";
+}
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<div style="background-color:cornflowerblue">
+    <br />
+
+    <div style="background-color:bisque">
+        
+        @{
+            string path = "";
+            foreach (var i in Model)
+            {
+                if (i.Product.Category.Equals(1)) { path = "Home/Selling"; }
+                if (i.Product.Category.Equals(2)) { path = "Home/Gallery"; }
+                if (i.Product.Category.Equals(3)) { path = "Home/Partners"; }
+                //код выше вам не нужен. То что нужны только картинки :) айдишник картинки генирируется по такому имени ImgId1, ImgId2 и т.д. 
+                <a href="@path"><img id="@("ImgId"+i.PhotoId)" class="" title="@i.Product.Name" src="~/Images/@i.PhotoUrl" height="100" width="95" /></a>
+            }
+        }
+    </div>
+    <br />
+</div>
+<br />
+<br />
+<br />
+<br />
+<h2>инфо о дизайнере</h2>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
