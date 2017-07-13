@@ -23,23 +23,23 @@
     #reviewStars-input input {
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
         opacity: 0;
-        width: 43px;
-        height: 40px;
+        width: 23px;
+        height: 21px;
         position: absolute;
         top: 0;
         z-index: 0;
     }
 
     #reviewStars-input input:checked ~ label {
-        background-position: 0 -40px;
-        height: 40px;
-        width: 43px;
+        background-position: 0 -20px;
+        height: 21px;
+        width: 23px;
     }
 
     #reviewStars-input label {
         background-position: 0 0;
-        height: 40px;
-        width: 43px;
+        height:21px;
+        width: 23px;
         float: right;
         cursor: pointer;
         margin-right: 10px;
@@ -48,9 +48,9 @@
     }
 
     #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
-        background-position: 0 -40px;
-        height: 40px;
-        width: 43px;
+        background-position: 0 -20px;
+        height: 21px;
+        width: 23px;
     }
 
     #reviewStars-input #star-0 {
@@ -58,92 +58,126 @@
     }
 
     #reviewStars-input #star-1 {
-        left: 53px;
+        left: 33px;
     }
 
     #reviewStars-input #star-2 {
-        left: 106px;
+        left: 66px;
     }
 
     #reviewStars-input #star-3 {
-        left: 159px;
+        left: 99px;
     }
 
     #reviewStars-input #star-4 {
-        left: 212px;
+        left: 132px;
     }
 
     #reviewStars-input #star-5 {
-        left: 265px;
+        left: 165px;
     }
 </style>
-    @using (Ajax.BeginForm("ClientFeedback", "Home",
-                                    new AjaxOptions { UpdateTargetId = "grid-list", HttpMethod = "get", LoadingElementId = "loading", OnBegin = "beginPaging", OnSuccess = "successPaging", OnFailure = "failurePaging" },
-                                    new { id = "frm-search" }))
-    {
-        <div id="grid-list">
-            @{ Html.RenderPartial("Feedback", Model); }
+
+@using (Ajax.BeginForm("ClientFeedback", "Home",
+                                                new AjaxOptions { UpdateTargetId = "grid-list",  HttpMethod = "get", LoadingElementId = "loading", OnBegin = "beginPaging", OnSuccess = "successPaging"},
+                                                new { id = "frm-search" }))
+{
+    <div id="grid-list">
+        @{ Html.RenderPartial("Feedback", Model); }
+    </div>
+    
+        <br />
+        <h4>Оцените наш продукт</h4>
+
+
+
+        <div id="reviewStars-input">
+            <input id="star-4" type="radio" value="5" name="reviewStars" />
+            <label title="Великолепно!" for="star-4"></label>
+
+            <input id="star-3" type="radio" value="4" name="reviewStars" />
+            <label title="Хорошо" for="star-3"></label>
+
+            <input id="star-2" type="radio" value="3" name="reviewStars" />
+            <label title="Средне" for="star-2"></label>
+
+            <input id="star-1" type="radio" value="2" name="reviewStars" />
+            <label title="Так себе" for="star-1"></label>
+
+            <input id="star-0" type="radio" value="1" name="reviewStars" />
+            <label title="Плохо!" for="star-0"></label>
         </div>
+        <br />
+        <br />
+    <h5>Ваше имя</h5>
+    @Html.ViewBag.ClientFeedback
+        <textarea id="textName" type="text" name="name" placeholder="Введите ваше имя"></textarea><span id="status1"style="color: red"></span>
+        <br />
+        <h5>Отзыв</h5>
+        <textarea id="textReview" type="text" name="review" placeholder="Оставьте отзыв"></textarea><span id="status2" style="color: red"></span>
+        <br />
+        <button id="form" class="btn" name ="Sub" type="submit" onclick="validName()">Отправить отзыв</button>
+
+
+ }
+ 
+
+
+    <script>
+        function validName() {
+            var str1 = document.getElementById("textName").value;
+            var status1 = document.getElementById("status1");
+            var str2 = document.getElementById("textReview").value;
+            var status2 = document.getElementById("status2");
+            var pattern = /^[\s]+$/;
+            if (pattern.test(str1)) {
+                status1.innerHTML = "Вы ввели одни пробелы!";
+                abort();
+            }
+                
+            else 
+                if (str1 == null || str1.length === 0) {
+                    status1.innerHTML = "  пожалуйста введите Ваше имя";
+                    abort();
                 }
+                else status1.innerHTML = "";
+            if (pattern.test(str2)) {
+                status2.innerHTML = "Вы ввели одни пробелы!";
+                abort();
+            }
+            else
+                if (str2 == null || str2.length === 0) {
+                    status2.innerHTML = "  пожалуйста оставьте комментарий";
+                    abort();
+                }
+                else status2.innerHTML = "";
+        }
+
+        function abort() {
+            $(function () {
+                $('form').submit(function () {
+                    return false;
+                });
+            });
+        }
+    </script>
+
+
+
     <script type="text/javascript">
 
-    function beginPaging(args) {
+    function beginPaging() {
         // Animate
         $('#grid-list').fadeOut('normal');
     }
 
     function successPaging() {
-        // Animate
+
+        $('#textName').val($(this).data('defvalue'));
+        $('#textReview').val($(this).data('defvalue'));
         $('#grid-list').fadeIn('normal');
         $('a').tooltip();
     }
     </script>
-<br />
-<br />
-<h4>Оцените наш продукт</h4>
-<div id="reviewStars-input">
-    <input id="star-4" type="radio" name="reviewStars" />
-    <label title="gorgeous" for="star-4"></label>
-
-    <input id="star-3" type="radio" name="reviewStars" />
-    <label title="good" for="star-3"></label>
-
-    <input id="star-2" type="radio" name="reviewStars" />
-    <label title="regular" for="star-2"></label>
-
-    <input id="star-1" type="radio" name="reviewStars" />
-    <label title="poor" for="star-1"></label>
-
-    <input id="star-0" type="radio" name="reviewStars" />
-    <label title="bad" for="star-0"></label>
-</div>
-<br />
-<br />
-<br />
-<h5>Ваше имя</h5>
-<textarea id="ClientNameId"  type="text" data-title="Ваше имя" ></textarea>
-<br />
-<h5>Отзыв</h5>
-<textarea id="ClientFeedbackId"  type="text" data-title="Ваше имя" ></textarea>
-<br />
-<br />
-<input id="Submit" type="submit" value="Оставить отзыв" />
 
 
-@*<script type="text/javascript">
-    $().ready(function () {
-        $(".page-number").live("click", function () {
-
-            var page = parseInt($(".page-number").html());
-            debugger;
-            $.ajax({
-                url: '@Url.Action("ClientFeedback")',
-                type: "POST",
-                data: { "page": page },
-                success: function (data) {
-                    $("#person-list").html(data);
-                }
-            });
-        });
-    });
-</script>*@

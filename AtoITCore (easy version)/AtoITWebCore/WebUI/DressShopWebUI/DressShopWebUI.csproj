@@ -210,6 +210,7 @@
     <Content Include="Images\dress7.jpg" />
     <Content Include="Images\dress8.jpg" />
     <Content Include="Images\dress9.jpg" />
+    <Content Include="Images\star.png" />
     <Content Include="Images\stars.png" />
     <Content Include="lib\MvcPaging.dll" />
     <Content Include="lib\MvcPaging.XML" />
@@ -245,6 +246,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddReviews.cs" />
     <Compile Include="Models\DebugDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

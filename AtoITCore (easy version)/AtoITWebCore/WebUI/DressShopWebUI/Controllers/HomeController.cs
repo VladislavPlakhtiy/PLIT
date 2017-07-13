@@ -12,8 +12,8 @@ namespace DressShopWebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ShopContext _db = new ShopContext();
-        private const int DefaultPageSize = 5;
+        private readonly ShopContext _db = new ShopContext(); 
+        private const int ReviewsPageSize = 5;
         private IList<Reviews> _allReviewses = new List<Reviews>();
 
         // Стартовая страница
@@ -42,49 +42,34 @@ namespace DressShopWebUI.Controllers
         }
         //страница Отзывы(в разработке!!!!)
        
-        public ActionResult ClientFeedback( int? page)
+        public ActionResult ClientFeedback(string name, string review, int? page, string reviewStars, string sub)
         {
-            using (_db)
+            ViewBag.ClientFeedback = null;
+            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(review))
             {
+                var rating = string.IsNullOrEmpty(reviewStars) ? 0 : int.Parse(reviewStars);
+                AddReviews.Add(name,review, rating );
+            }
+            else if(sub == "1")
+            {
+                ViewBag.ClientFeedback = "вы не заполнили поля!";
+            }
+
+                using (_db)
+            {
+                
                 foreach (var i in _db.Reviews.OrderByDescending(c=>c.DateFeedback))
                 {
                     _allReviewses.Add(i);
                 }
             }
             int currentPageIndex = page ?? 1;
-            _allReviewses = _allReviewses.ToPagedList(currentPageIndex, DefaultPageSize);
+            
+                _allReviewses = _allReviewses.ToPagedList(currentPageIndex, ReviewsPageSize);
             if (Request.IsAjaxRequest())
-                return PartialView("Feedback", (IPagedList<Reviews>) _allReviewses);
-            else
+                    return PartialView("Feedback", (IPagedList<Reviews>) _allReviewses);
             return View(_allReviewses as List<Reviews>);
         }
-       
-        //public ActionResult ClientFeedback(int page)
-        //{
-        //    return PartialView("Feedback", review);
-        //}
-        
-        //[HttpGet]
-        //public ViewResult ClientFeedback(int? page)
-        //{
-        //    IQueryable<Reviews> reviewses = _db.Reviews;
-        //    if (!reviewses.Any())
-        //        DebugDb.AddToDb();
-        //    int numberOfReviews = 3;
-        //    int pageNumber = page ?? 1;
-        //    reviewses = reviewses.OrderBy(c => c.DateFeedback);
-        //    return View(reviewses.ToList().ToPagedList(pageNumber, numberOfReviews));
-        //}
-
-        //[HttpPost]
-        //public PartialViewResult ClientFeedback(string userName, string userFeedback, int raiting, int? page)
-        //{
-        //    IQueryable<Reviews> reviewses = _db.Reviews;
-        //    reviewses = reviewses.OrderBy(c => c.DateFeedback);
-        //    int numberOfReviews = 3;
-        //    int pageNumber = page ?? 1;
-        //    return PartialView("ClientFeedbackList", reviewses.ToList().ToPagedList(pageNumber, numberOfReviews));
-        //}
 
     }
 }

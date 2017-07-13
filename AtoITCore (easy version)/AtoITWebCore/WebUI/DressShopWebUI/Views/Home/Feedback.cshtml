@@ -2,13 +2,42 @@
 @model IPagedList<Domain.Entityes.Reviews>
 <h1 align="center">Отзывы Клиентов</h1>
 
-        @foreach (var item in Model)
+@foreach (var item in Model)
+{ <div>
+
+        <h4>
+            @item.ClientName 
+        @for (int a = 0; a < item.Rating; a++)
         {
-            <div>
-                <h4>@item.ClientName оценил сервис на - @item.Rating</h4> 
-                <h5>@item.ClientFeedback</h5>
-            </div>
+            string title = "";
+            if(item.Rating.Equals(5))
+            {
+                title = "Великолепно!";
+            }
+            if (item.Rating.Equals(4))
+            {
+                title = "Хорошо";
+            }
+            if (item.Rating.Equals(3))
+            {
+                title = "Средне";
+            }
+            if (item.Rating.Equals(2))
+            {
+                title = "так себе";
+            }
+            if (item.Rating.Equals(1))
+            {
+                title = "Плохо!";
+            }
+             <img title="@title" src="~/Images/star.png" />
         }
+    </h4>
+    
+      <h5>@item.ClientFeedback</h5>
+      <br />
+</div>
+}
 <div class="pager1">
     @Html.Raw(Ajax.Pager(
             new Options
@@ -16,7 +45,7 @@
                 PageSize = Model.PageSize,
                 TotalItemCount = Model.TotalItemCount,
                 CurrentPage = Model.PageNumber,
-                ItemTexts = new ItemTexts() { First = "", Next = "Назад", Previous = "Дальше", Page = "", Last = "" },
+                ItemTexts = new ItemTexts() { First = "", Next = "Вперед", Previous = "Назад", Page = "", Last = "" },
                 ItemIcon = new ItemIcon() { First = "icon-backward", Previous = "icon-chevron-left", Next = "icon-chevron-right", Last = "icon-forward" },
                 TooltipTitles = new TooltipTitles() { Last = "К последней странице", First = "К первой странице", Next = "Следующая страница", Previous = "Предидущая страница", Page = "страница - {0}." },
                 Size = Size.normal,
@@ -31,7 +60,7 @@
                 OnBegin = "beginPaging",
                 OnSuccess = "successPaging",
                 OnFailure = "failurePaging"
-            }, new { controller = "Home", action = "ClientFeedback"/*, employee_name = ViewData["employee_name"]*/ }))
+            }, new { controller = "Home", action = "ClientFeedback", name = ViewData["name"], reviews = ViewData["reviews"], reviewStars = ViewData["reviewStars"], sub = ViewData["Sub"] }))
     <div class="well">
         @*Showing <span class="badge badge-success">@Model.ItemStart</span>*@ Отзывы <span class="badge badge-success">@Model.ItemEnd</span>
         Всего <span class="badge badge-info">@Model.TotalItemCount</span>
