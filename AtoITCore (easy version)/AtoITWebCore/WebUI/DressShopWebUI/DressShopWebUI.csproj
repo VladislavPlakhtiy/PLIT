@@ -264,6 +264,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\PartialGallery.cshtml" />
     <Content Include="Views\Home\PartialSelling.cshtml" />
+    <Content Include="Views\Home\PartialPartners.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

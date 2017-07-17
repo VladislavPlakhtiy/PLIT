@@ -19,13 +19,10 @@ namespace DressShopWebUI.Controllers
         private const int ReviewsPageSize = 5; //количество отзывов на странице.
         private const int GalleryPageSize = 10; // количество фото на станице Галерея
         private const int SellingPageSize = 10; // количество продуктов на станице ONLINE-гардероб
-        //переменные
-        private IList<Reviews> _allReviewses = new List<Reviews>();
-        private IList<Photo> _allGallery = new List<Photo>();
-        private IList<Photo> _allSelling = new List<Photo>();
-
-        // Стартовая страница
-        public ViewResult Index()
+        private const int PartnersPageSize = 10; // количество продуктов на станице Партнеры
+        
+        
+        public ViewResult Index()// Стартовая страница 
         {
             DbSet<Photo> product = _db.Photo;
             if (!product.Any()) // проверка на наличие БД и записей.
@@ -35,25 +32,26 @@ namespace DressShopWebUI.Controllers
             return View(photo.ToList());
         }
 
-        // страница каталога (ONLINE-гардероб)
-        public ActionResult Selling(int? page)
+        
+        public ActionResult Selling(int? page)// страница каталога (ONLINE-гардероб) в разработке!!!!
         {
 
             int currentPageIndex = page ?? 1; //выбираем страницу
-            //выбираем категорию  - 1
-            var selling = from a in _db.Photo 
+            IList<Photo> allSelling = new List<Photo>();
+        //выбираем категорию  - 1
+        var selling = from a in _db.Photo 
                 where a.Product.Category == 1
                 orderby a.Product.DateCreate descending
                 select a;
 
             foreach (var i in selling)
             {
-                _allSelling.Add(i);
+                allSelling.Add(i);
             }
             //вибираем продукты для отображения на странице (по константе SellingPageSize)
             int count = 0;
             int countProduct = 0;
-            foreach (var i in _allSelling)
+            foreach (var i in allSelling)
             {
                 count++;
                 if (i.Priority == true)
@@ -61,19 +59,18 @@ namespace DressShopWebUI.Controllers
                 if (countProduct ==SellingPageSize)
                 break;
             }
-            _allSelling = _allSelling.ToPagedList(currentPageIndex, count);
+            allSelling = allSelling.ToPagedList(currentPageIndex, count);
             if (Request.IsAjaxRequest()) // возвращаем частичное представление, если Ajax запрос
-                return PartialView("PartialSelling", (IPagedList<Photo>)_allSelling);
-            return View(_allSelling as List<Photo>);
+                return PartialView("PartialSelling", (IPagedList<Photo>)allSelling);
+            return View(allSelling as List<Photo>);
         }
 
-
-        // страница Галерея
-        public ActionResult Gallery(int? page)
+        public ActionResult Gallery(int? page) // страница Галерея
         {
             int currentPageIndex = page ?? 1;
-            // выбираем фотографии по приоритету, и по категории 2
-                var photo = from a in _db.Photo
+            IList<Photo> allGallery = new List<Photo>();
+        // выбираем фотографии по приоритету, и по категории 2
+        var photo = from a in _db.Photo
                             where a.Priority == true
                             where a.Product.Category == 2
                             orderby a.Product.DateCreate descending
@@ -81,24 +78,34 @@ namespace DressShopWebUI.Controllers
 
                 foreach (var i in photo)
                 {
-                    _allGallery.Add(i);
+                    allGallery.Add(i);
                 }
-            _allGallery = _allGallery.ToPagedList(currentPageIndex, GalleryPageSize);
+            allGallery = allGallery.ToPagedList(currentPageIndex, GalleryPageSize);
             if (Request.IsAjaxRequest())
-                return PartialView("PartialGallery", (IPagedList<Photo>)_allGallery);
-            return View(_allGallery as List<Photo>);
+                return PartialView("PartialGallery", (IPagedList<Photo>)allGallery);
+            return View(allGallery as List<Photo>);
         }
 
-        // страница Партнеры
-        public ActionResult Partners()
+       
+        public ActionResult Partners(int? page) // страница Партнеры - в разработке!!!!
         {
-
-            return View();
+            int currentPageIndex = page ?? 1;
+            IList<Product> allPartners = new List<Product>();
+            using (_db)
+            {
+                foreach (var product in _db.Product.OrderByDescending(c=>c.DateCreate).Where(c=>c.Category==3))
+                    allPartners.Add(product);
+            }
+            allPartners = allPartners.ToPagedList(currentPageIndex, PartnersPageSize);
+            if (Request.IsAjaxRequest()) // возвращаем частичное представление, если Ajax запрос
+                return PartialView("PartialPartners", (IPagedList<Product>)allPartners);
+            return View(allPartners as List<Product>);
         }
 
-        //страница Отзывы
-        public ActionResult ClientFeedback(string name, string review, int? page, string reviewStars)
+       
+        public ActionResult ClientFeedback(string name, string review, int? page, string reviewStars) //страница Отзывы
         {
+             IList<Reviews> allReviewses = new List<Reviews>();
             using (_db) //обращаемся к БД
             {
                 //проверяем наличие Имени и Отзыва
@@ -119,15 +126,15 @@ namespace DressShopWebUI.Controllers
                 //сортируем по дате отзывы, и добавляем в переменную
                 foreach (var i in _db.Reviews.OrderByDescending(c => c.DateFeedback))
                 {
-                    _allReviewses.Add(i);
+                    allReviewses.Add(i);
                 }
             }
             int currentPageIndex = page ?? 1;
 
-            _allReviewses = _allReviewses.ToPagedList(currentPageIndex, ReviewsPageSize);
+            allReviewses = allReviewses.ToPagedList(currentPageIndex, ReviewsPageSize);
             if (Request.IsAjaxRequest())
-                return PartialView("Feedback", (IPagedList<Reviews>)_allReviewses);
-            return View(_allReviewses as List<Reviews>);
+                return PartialView("Feedback", (IPagedList<Reviews>)allReviewses);
+            return View(allReviewses as List<Reviews>);
         }
 
     }

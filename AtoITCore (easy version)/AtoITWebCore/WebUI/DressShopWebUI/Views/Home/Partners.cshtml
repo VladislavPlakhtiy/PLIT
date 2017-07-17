@@ -1,7 +1,32 @@
-﻿
+﻿@using Domain.Entityes
+@using MvcPaging
+@model List<Product>
 @{
-    ViewBag.Title = "Партнёры";
+    ViewBag.Title = "Online-Гардероб";
 }
 
-<h2>Сюда передаем списком платья партнеров</h2>
+<h2>сюда передаем платья на продажу + плавающая  @Html.ActionLink("Корзина", "Index", "Home") и кнопка купить</h2>
+
+
+@using (Ajax.BeginForm("Partners", "Home", new AjaxOptions { UpdateTargetId = "grid-list", HttpMethod = "get", LoadingElementId = "loading", OnBegin = "beginPaging", OnSuccess = "successPaging" },
+                                                                                    new { id = "frm-search" }))
+{
+    <div id="grid-list">
+        @{
+            Html.RenderPartial("PartialPartners", (IPagedList<Product>)Model);
+        }
+    </div>
+            }
+
+<script type="text/javascript">
+
+    function beginPaging() {
+        $('#grid-list').fadeOut('normal');
+    }
+
+    function successPaging() {
+        $('#grid-list').fadeIn('normal');
+        $('a').tooltip();
+    }
+</script>
 

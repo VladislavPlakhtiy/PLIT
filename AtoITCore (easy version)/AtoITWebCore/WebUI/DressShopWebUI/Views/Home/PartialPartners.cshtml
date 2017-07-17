@@ -1,0 +1,46 @@
+﻿@using MvcPaging
+@model IPagedList<Domain.Entityes.Product>
+
+
+@foreach (var i in Model)
+{
+    <div id="@("SellingDivId" + i.ProductId)" onclick="@("funk"+i.ProductId+"()")">
+        @*@if (i.Priority == true)
+        {
+            <img id="@("ImgId" + i.Photo)" class="" title="@i.Product.Name" src="~/Images/@i.PhotoUrl" height="100" width="95" />*@
+            <h5>@i.Name</h5>
+            <h5>@i.Price</h5>
+        </div>
+    <script>
+        function @("funk"+i.ProductId)() {
+        }
+    </script>
+}
+
+<div class="pager1">
+    @Html.Raw(Ajax.Pager(
+            new Options
+            {
+                PageSize = Model.PageSize,
+                TotalItemCount = Model.TotalItemCount,
+                CurrentPage = Model.PageNumber,
+                ItemTexts = new ItemTexts { First = "", Next = "Вперед", Previous = "Назад", Page = "", Last = "" },
+                ItemIcon = new ItemIcon { First = "icon-backward", Previous = "icon-chevron-left", Next = "icon-chevron-right", Last = "icon-forward" },
+                TooltipTitles = new TooltipTitles { Last = "К последней странице", First = "К первой странице", Next = "Следующая страница", Previous = "Предидущая страница", Page = "страница - {0}." },
+                Size = Size.normal,
+                Alignment = Alignment.centered,
+                IsShowControls = true,
+                IsShowFirstLast = true,
+                CssClass = ""
+            },
+            new AjaxOptions
+            {
+                UpdateTargetId = "grid-list",
+                OnBegin = "beginPaging",
+                OnSuccess = "successPaging",
+                OnFailure = "failurePaging"
+            }, new { controller = "Home", action = "Partners" }))
+
+</div>
+<script src="../../Scripts/bootstrap.min.js" type="text/javascript"></script>
+
