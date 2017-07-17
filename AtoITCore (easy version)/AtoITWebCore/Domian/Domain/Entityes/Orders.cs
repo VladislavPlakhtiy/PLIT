@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entityes
 {
+    /// <summary>
+    /// заказ - сейчас не используется, возможно будет использован в качестве шаблона формы отправки письма.
+    /// </summary>
     public sealed class Orders
     {
         public Orders()
@@ -17,7 +21,7 @@ namespace Domain.Entityes
         public string Phone { get; set; }
         public string Sity { get; set; }
         public string Comments { get; set; }
-        public System.DateTime DateOrder { get; set; }
+        public DateTime DateOrder { get; set; }
 
         
         public ICollection<Product> Product { get; set; }

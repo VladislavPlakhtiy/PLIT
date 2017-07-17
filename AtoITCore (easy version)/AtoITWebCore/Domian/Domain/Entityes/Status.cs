@@ -2,6 +2,9 @@
 
 namespace Domain.Entityes
 {
+    /// <summary>
+    /// статус товара  - сейчас не используется.
+    /// </summary>
     public class Status
     {
         [Key]

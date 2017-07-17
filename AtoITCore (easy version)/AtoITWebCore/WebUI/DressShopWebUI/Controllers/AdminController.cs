@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace DressShopWebUI.Controllers
 {
+    /// <summary>
+    /// Контроллер для админ - панели
+    /// </summary>
     public class AdminController : Controller
     {
         // Админка - вход (чуть позже запаролим)

@@ -2,6 +2,9 @@
 
 namespace Domain.Entityes
 {
+    /// <summary>
+    /// Фотографии продукта. повставлял элементы валидации, пока не знаю, нужны ли будут
+    /// </summary>
     public class Photo
     {
         [Key]

@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entityes
 {
+    /// <summary>
+    /// выбор доставки - сейчас не используется.
+    /// </summary>
     public class Delivery
     {
         [Key]

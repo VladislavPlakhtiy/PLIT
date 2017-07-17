@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entityes
 {
- 
 
+    /// <summary>
+    /// категории продуктов - сейчас не используется.
+    /// </summary>
     public sealed class Category
     {
         

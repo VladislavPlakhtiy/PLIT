@@ -5,8 +5,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entityes
 {
-    
 
+    /// <summary>
+    /// Сущьность продукта повставлял элементы валидации, пока не знаю, нужны ли будут.
+    /// </summary>
     public sealed class Product
     {
         public Product()

@@ -6,6 +6,9 @@ using static System.DateTime;
 
 namespace DressShopWebUI.Models
 {
+    /// <summary>
+    /// Добавление "фейковых" записей в БД, для работы с ними
+    /// </summary>
     public class DebugDb
     {
         public static void AddToDb()
