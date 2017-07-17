@@ -1,41 +1,31 @@
-﻿
+﻿@using MvcPaging
+@model List<Domain.Entityes.Photo>
 @{
     ViewBag.Title = "Online-Гардероб";
 }
 
 <h2>сюда передаем платья на продажу + плавающая  @Html.ActionLink("Корзина", "Index", "Home") и кнопка купить</h2>
-@*<div style="background-color:cornflowerblue">
-    <br />
 
-    <div style="background-color:bisque">
-        <h1>CЛАЙДЕР</h1>
+
+@using (Ajax.BeginForm("Selling", "Home", new AjaxOptions { UpdateTargetId = "grid-list", HttpMethod = "get", LoadingElementId = "loading", OnBegin = "beginPaging", OnSuccess = "successPaging" },
+                                                                        new { id = "frm-search" }))
+{
+    <div id="grid-list">
         @{
-            int a = 0;
-            string path = "";
-            foreach (var i in Model)
-            {
-                if (i.Product.Category.Equals(1)) { path = "Home/Selling"; }
-                if (i.Product.Category.Equals(2)) { path = "Home/Gallery"; }
-                if (i.Product.Category.Equals(3)) { path = "Home/Partners"; }
-
-                a++;
-                //код выше вам не нужен. То что нужно - див.
-                <div id="@("divId" + a)" class="" style="background-color: aquamarine">
-
-                    <a href="@path"><img id="@a" alt="@i.Product.Name" src="~/Images/@i.PhotoUrl" height="60" width="55" /></a> @i.Product.Name
-                </div>
-                <script>
-                    $(document).ready(function () {
-                        $("#@("divId" + a)")
-                            .click(function (a) {
-                                @*alert("Описание товара - @i.Product.Description, цена -   @i.Product.Price");
-                            });
-                    })
-                </script>
-            }
+            Html.RenderPartial("PartialSelling", Model);
         }
     </div>
+            }
 
+<script type="text/javascript">
 
-    <br />
-</div>*@
+    function beginPaging() {
+        $('#grid-list').fadeOut('normal');
+    }
+
+    function successPaging() {
+        $('#grid-list').fadeIn('normal');
+        $('a').tooltip();
+    }
+</script>
+

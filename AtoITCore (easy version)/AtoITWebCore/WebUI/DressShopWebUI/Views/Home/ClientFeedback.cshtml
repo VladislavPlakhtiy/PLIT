@@ -88,9 +88,6 @@
     
         <br />
         <h4>Оцените наш продукт</h4>
-
-
-
         <div id="reviewStars-input">
             <input id="star-4" type="radio" value="5" name="reviewStars" />
             <label title="Великолепно!" for="star-4"></label>
@@ -110,15 +107,12 @@
         <br />
         <br />
     <h5>Ваше имя</h5>
-    @Html.ViewBag.ClientFeedback
         <textarea id="textName" type="text" name="name" placeholder="Введите ваше имя"></textarea><span id="status1"style="color: red"></span>
         <br />
         <h5>Отзыв</h5>
         <textarea id="textReview" type="text" name="review" placeholder="Оставьте отзыв"></textarea><span id="status2" style="color: red"></span>
         <br />
-        <button id="form" class="btn" name ="Sub" type="submit" onclick="validName()">Отправить отзыв</button>
-
-
+        <button id="form" class="btn" type="submit" onclick="validName()">Отправить отзыв</button>
  }
  
 
@@ -132,34 +126,34 @@
             var pattern = /^[\s]+$/;
             if (pattern.test(str1)) {
                 status1.innerHTML = "Вы ввели одни пробелы!";
-                abort();
+               // abort();
             }
                 
             else 
                 if (str1 == null || str1.length === 0) {
                     status1.innerHTML = "  пожалуйста введите Ваше имя";
-                    abort();
+                    //abort();
                 }
                 else status1.innerHTML = "";
             if (pattern.test(str2)) {
                 status2.innerHTML = "Вы ввели одни пробелы!";
-                abort();
+               // abort();
             }
             else
                 if (str2 == null || str2.length === 0) {
                     status2.innerHTML = "  пожалуйста оставьте комментарий";
-                    abort();
+                    //abort();
                 }
                 else status2.innerHTML = "";
         }
 
-        function abort() {
-            $(function () {
-                $('form').submit(function () {
-                    return false;
-                });
-            });
-        }
+        //function abort() {
+        //    $(function () {
+        //        $('form').submit(function () {
+        //            return false;
+        //        });
+        //    });
+        //}
     </script>
 
 
@@ -175,6 +169,13 @@
 
         $('#textName').val($(this).data('defvalue'));
         $('#textReview').val($(this).data('defvalue'));
+        $("#star-0").checked = false;
+        var c = document.getElementsByName('reviewStars');
+        c[0].checked = false;
+        c[1].checked = false;
+        c[2].checked = false;
+        c[3].checked = false;
+        c[4].checked = false;
         $('#grid-list').fadeIn('normal');
         $('a').tooltip();
     }

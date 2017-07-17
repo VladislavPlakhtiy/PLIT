@@ -45,9 +45,9 @@
                 PageSize = Model.PageSize,
                 TotalItemCount = Model.TotalItemCount,
                 CurrentPage = Model.PageNumber,
-                ItemTexts = new ItemTexts() { First = "", Next = "Вперед", Previous = "Назад", Page = "", Last = "" },
-                ItemIcon = new ItemIcon() { First = "icon-backward", Previous = "icon-chevron-left", Next = "icon-chevron-right", Last = "icon-forward" },
-                TooltipTitles = new TooltipTitles() { Last = "К последней странице", First = "К первой странице", Next = "Следующая страница", Previous = "Предидущая страница", Page = "страница - {0}." },
+                ItemTexts = new ItemTexts { First = "", Next = "Вперед", Previous = "Назад", Page = "", Last = "" },
+                ItemIcon = new ItemIcon{ First = "icon-backward", Previous = "icon-chevron-left", Next = "icon-chevron-right", Last = "icon-forward" },
+                TooltipTitles = new TooltipTitles{ Last = "К последней странице", First = "К первой странице", Next = "Следующая страница", Previous = "Предидущая страница", Page = "страница - {0}." },
                 Size = Size.normal,
                 Alignment = Alignment.centered,
                 IsShowControls = true,
@@ -60,9 +60,9 @@
                 OnBegin = "beginPaging",
                 OnSuccess = "successPaging",
                 OnFailure = "failurePaging"
-            }, new { controller = "Home", action = "ClientFeedback", name = ViewData["name"], reviews = ViewData["reviews"], reviewStars = ViewData["reviewStars"], sub = ViewData["Sub"] }))
+            }, new { controller = "Home", action = "ClientFeedback", name = ViewData["name"], reviews = ViewData["reviews"], reviewStars = ViewData["reviewStars"]}))
     <div class="well">
-        @*Showing <span class="badge badge-success">@Model.ItemStart</span>*@ Отзывы <span class="badge badge-success">@Model.ItemEnd</span>
+        @*Показанно <span class="badge badge-success">@Model.ItemStart</span>*@ Отзывы <span class="badge badge-success">@Model.ItemEnd</span>
         Всего <span class="badge badge-info">@Model.TotalItemCount</span>
     </div>
 </div>

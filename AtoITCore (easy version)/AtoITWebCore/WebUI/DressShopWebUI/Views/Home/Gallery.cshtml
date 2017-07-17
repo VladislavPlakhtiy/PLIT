@@ -1,7 +1,30 @@
-﻿
+﻿@using MvcPaging
+@model List<Domain.Entityes.Photo>
 @{
     ViewBag.Title = "Галерея";
 }
 
-<h2>Сюда передаем списком купленные платья</h2>
+<h1 align="center">Галерея</h1>
+
+@using (Ajax.BeginForm("Gallery", "Home", new AjaxOptions { UpdateTargetId = "grid-list", HttpMethod = "get", LoadingElementId = "loading", OnBegin = "beginPaging", OnSuccess = "successPaging" },
+                                                            new { id = "frm-search" }))
+{
+    <div id="grid-list">
+        @{
+            Html.RenderPartial("PartialGallery", Model);
+        }
+    </div>
+}
+
+<script type="text/javascript">
+
+    function beginPaging() {
+        $('#grid-list').fadeOut('normal');
+    }
+
+    function successPaging() {
+        $('#grid-list').fadeIn('normal');
+        $('a').tooltip();
+    }
+</script>
 
