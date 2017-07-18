@@ -1,10 +1,10 @@
 ﻿@using Domain.Entityes
 @using MvcPaging
-@model List<Domain.Entityes.Reviews>
+@model List<Reviews>
 @{
     ViewBag.Title = "Отзывы";
 }
-
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <style>
 
 
@@ -159,8 +159,6 @@
         //}
     </script>
 
-
-
     <script type="text/javascript">
 
     function beginPaging() {
@@ -184,4 +182,6 @@
     }
     </script>
 
-
+<script src="~/Scripts/jquery-1.8.3.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>

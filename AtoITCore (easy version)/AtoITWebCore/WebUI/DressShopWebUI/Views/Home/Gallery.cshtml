@@ -1,10 +1,10 @@
 ﻿@using Domain.Entityes
 @using MvcPaging
-@model List<Domain.Entityes.Photo>
+@model List<Photo>
 @{
     ViewBag.Title = "Галерея";
 }
-
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <h1 align="center">Галерея</h1>
 
 @using (Ajax.BeginForm("Gallery", "Home", new AjaxOptions { UpdateTargetId = "grid-list", HttpMethod = "get", LoadingElementId = "loading", OnBegin = "beginPaging", OnSuccess = "successPaging" },
@@ -28,4 +28,6 @@
         $('a').tooltip();
     }
 </script>
-
+<script src="~/Scripts/jquery-1.8.3.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>

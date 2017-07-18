@@ -1,49 +1,154 @@
-﻿@using System.Web.Optimization
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @Styles.Render("~/Content/css")
     <title>@ViewBag.Title</title>
-    <link href="~/Content/paging.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/style.css" rel="stylesheet" />
 </head>
 <body>
-    <div style="background-color:burlywood; margin-top:0">
-        <h1>ШЛЯПКА + ЛОГО + <input id="Button" type="button" value="Фейсбук" /> + 
-<input id="Button1" type="button" value="Твиттер" /> +  @Html.ActionLink("Корзина", "Index", "Home")</h1>
-    </div>
-        <div style="background-color:aquamarine; margin-top:0">
-
-            @Html.ActionLink("О ДИЗАЙНЕРЕ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            @Html.ActionLink("ONLINE-ГАРДЕРОБ", "Selling", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            @Html.ActionLink("ГАЛЕРЕЯ", "Gallery", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            @Html.ActionLink("ПАРТНЕРЫ", "Partners", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            @Html.ActionLink("ОТЗЫВЫ", "ClientFeedback", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            @Html.ActionLink("Админка(кнопку уберем, просто пока для удобства)", "MyPanel", "Admin", new { area = "" }, new { @class = "navbar-brand" })
-            
-            <br />
-            <br />
-        </div>
-    <br />
-    <div class="container">
-        @RenderBody()
-    </div>
-            <footer>
-                <div style="background-color: aquamarine; margin-top:0">
-                    <br />
-                    <h2 >подвал</h2>
-                    <br />
+    <div class="wrapper">
+        @*--------------------------------------header-------------------------------------------------*@
+        <header class="header clearfix">
+            <div class="headerContainer center">
+                <div class="masterLogo">
+                    <a href="#" class="masterLogoLink">
+                        <img src="~/Content/images/headermasterpic.png" alt="" class="masterLogoPic">
+                    </a>
                 </div>
-            </footer>
-        
-    @Scripts.Render("~/js")
-    @Scripts.Render("~/bundles/jqueryval")
-    @RenderSection("Scripts",false)
+                <div class="logo">
+                    <a href="#" class="logoLink">
+                        <img src="~/Content/images/shoplogo.png" alt="" class="logoPic">
+                    </a>
+                </div>
+                <div class="social">
+                    <a href="#" class="basketLink">
+                        <img src="~/Content/images/basketpic.png" alt="" class="basketPic">
+                    </a>
+                    <a href="#" class="facebookLink">
+                        <img src="~/Content/images/fb.png" alt="" class="facebookPic">
+                    </a>
+                    <a href="#" class="instaLink">
+                        <img src="~/Content/images/insta.png" alt="" class="instaPic">
+                    </a>
+                </div>
+            </div>
+        </header>
+        @*--------------------------------------/header-------------------------------------------------*@
+        @*--------------------------------------navBar-------------------------------------------------*@
+        <div class="navBar">
+            <nav class="menu center">
+                <ul class="menuList">
+                    <li class="menuItem">
+                        <a href="/Home/Index" class="menuLink">
+                            <span class="menuItemText">О ДИЗАЙНЕРЕ</span>
+                        </a>
+                    </li>
+                    <li class="menuItem">
+                        <a href="/Home/Selling" class="menuLink">
+                            <span class="menuItemText">ONLINE-ГАРДЕРОБ</span>
+                        </a>
+                    </li>
+                    <li class="menuItem">
+                        <a href="/Home/Gallery" class="menuLink">
+                            <span class="menuItemText">ГАЛЕРЕЯ</span>
+                        </a>
+                    </li>
+                    <li class="menuItem">
+                        <a href="/Home/Partners" class="menuLink">
+                            <span class="menuItemText">ПАРТНЕРЫ</span>
+                        </a>
+                    </li>
+                    <li class="menuItem">
+                        <a href="/Home/ClientFeedback" class="menuLink">
+                            <span class="menuItemText">ОТЗЫВЫ</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        @*--------------------------------------/navBar-------------------------------------------------*@
+
+        <div class="content center">
+            @RenderBody()
+        </div>
+        <div class="empty"></div>
+    </div>
+<footer class="footer center">
+    <div class="footerSizes clearfix">
+        <div class="tabletName">
+            Таблица размеров
+        </div>
+        <table border="2px" class="tableSizes">
+            <tr>
+                <th bgcolor="#4e81c2" width="72px" height="15px"></th>
+                <th bgcolor="#4e81c2" width="46px" height="15px"></th>
+                <th bgcolor="#4e81c2" width="60px" height="15px">Объем груди (см)</th>
+                <th bgcolor="#4e81c2" width="60px" height="15px">Объем талии (см)</th>
+                <th bgcolor="#4e81c2" width="60px" height="15px">Объем бедра (см)</th>
+            </tr>
+            <tr>
+                <th>S</th>
+                <th>42</th>
+                <th>84</th>
+                <th>64</th>
+                <th>92</th>
+            </tr>
+            <tr>
+                <th>M</th>
+                <th>44</th>
+                <th>88</th>
+                <th>68</th>
+                <th>96</th>
+            </tr>
+            <tr>
+                <th>L</th>
+                <th>46</th>
+                <th>92</th>
+                <th>72</th>
+                <th>100</th>
+            </tr>
+            <tr>
+                <th>XL</th>
+                <th>48</th>
+                <th>96</th>
+                <th>76</th>
+                <th>104</th>
+            </tr>
+        </table>
+    </div>
+    <div class="footerShipping clearfix">
+        <div class="shippingName">
+            Оплата и доставка
+        </div>
+        <div class="shippingInfo">
+            Оплата
+            <ul>
+                <li>Наличные. Уточните информацию об оплате этим способом у мастера. </li>
+                <li>Перевод на банковскую карту Для Украины: перевод банковскую на карту</li>
+            </ul>
+            Дополнительные условия оплаты:
+            Оплата для жителей России через социальные сети "", "Однокласники". Работает мгновенно, опробовано десятками раз.
+            Самый удобный способ.
+            SWIFT - международный перевод по SWIFT реквизитам.
+            Осуществляется 1-3 рабочих дня (иногда до 5). Не самый простой в использовании.
+
+            Способы доставки
+            Доставка во все страны:
+            Почта
+            Самовывоз/Личная встреча
+        </div>
+    </div>
+    <div class="footerContacts clearfix">
+        Контакты
+        Украина, Киев, ул. Оченьдлинная 123
+        +380509879865
+    </div>
+</footer>
     <script type="text/javascript">
-        $(function () {
-            $('a').tooltip();
-        });
+            $(function () {
+                $('a').tooltip();
+            });
     </script>
 </body>
 </html>

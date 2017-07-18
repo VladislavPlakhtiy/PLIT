@@ -22,11 +22,16 @@
                 <p><strong>Цена -</strong> @i.Product.Price</p>
                 <p><strong>Описание - </strong> @i.Product.Description</p>
                 <p><strong>Специальное предложение -</strong>  @i.Product.SpecOffer</p>
+                <input id="@(i.Product.ProductId)" type="button" value="Купить" onclick="@("Buy"+i.Product.ProductId+"()")" />
             </div>
         </div>
     }
 
     <script>
+        function @("Buy"+i.Product.ProductId)() {
+            alert("Спасибо за покупку платья - @i.Product.Name !!!");
+        }
+
         function @("funk"+i.Product.ProductId)() {
             var display = document.getElementById("@("HiddenSellingDivId" + i.Product.ProductId)").style.display;
             if(display==='none'){
@@ -64,4 +69,3 @@
             }, new { controller = "Home", action = "Selling" }))
 
 </div>
-<script src="../../Scripts/bootstrap.min.js" type="text/javascript"></script>

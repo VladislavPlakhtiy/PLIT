@@ -131,19 +131,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\body.css" />
     <Content Include="Content\bootstrap-mvc-validation.css" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\icon-bootstrap.css" />
+    <Content Include="Content\images\basketpic.png" />
     <Content Include="Content\images\Error\NotFound.jpg" />
     <Content Include="Content\images\Error\ServerError.jpg" />
+    <Content Include="Content\images\fb.png" />
+    <Content Include="Content\images\galerypic.jpg" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\images\headermasterpic.png" />
+    <Content Include="Content\images\headerpattern.png" />
+    <Content Include="Content\images\insta.png" />
+    <Content Include="Content\images\shoplogo.png" />
+    <Content Include="Content\images\sliderimg.jpg" />
     <Content Include="Content\paging.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />

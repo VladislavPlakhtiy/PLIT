@@ -21,6 +21,7 @@
                 <p><strong>Цена -</strong> @i.Product.Price</p>
                 <p><strong>Описание - </strong> @i.Product.Description</p>
                 <p><strong>Специальное предложение -</strong>  @i.Product.SpecOffer</p>
+                <input id="@(i.Product.ProductId)" type="button" value="Купить" />
             </div>
         </div>
     }
@@ -63,5 +64,5 @@
             }, new { controller = "Home", action = "Partners" }))
 
 </div>
-<script src="../../Scripts/bootstrap.min.js" type="text/javascript"></script>
+
 
