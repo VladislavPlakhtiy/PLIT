@@ -1,11 +1,11 @@
 ﻿@using Domain.Entityes
 @using MvcPaging
-@model List<Product>
+@model List<Photo>
 @{
     ViewBag.Title = "Online-Гардероб";
 }
 
-<h2>сюда передаем платья на продажу + плавающая  @Html.ActionLink("Корзина", "Index", "Home") и кнопка купить</h2>
+<h2>Партнеры  </h2>
 
 
 @using (Ajax.BeginForm("Partners", "Home", new AjaxOptions { UpdateTargetId = "grid-list", HttpMethod = "get", LoadingElementId = "loading", OnBegin = "beginPaging", OnSuccess = "successPaging" },
@@ -13,10 +13,12 @@
 {
     <div id="grid-list">
         @{
-            Html.RenderPartial("PartialPartners", (IPagedList<Product>)Model);
+            Html.RenderPartial("PartialPartners", (IPagedList<Photo>)Model);
         }
     </div>
             }
+<br/>
+@Html.ActionLink("Корзина", "Index", "Home") 
 
 <script type="text/javascript">
 

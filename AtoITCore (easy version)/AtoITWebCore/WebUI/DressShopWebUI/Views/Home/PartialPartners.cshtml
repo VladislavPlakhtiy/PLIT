@@ -1,18 +1,39 @@
 ﻿@using MvcPaging
-@model IPagedList<Domain.Entityes.Product>
-
+@model IPagedList<Domain.Entityes.Photo>
 
 @foreach (var i in Model)
 {
-    <div id="@("SellingDivId" + i.ProductId)" onclick="@("funk"+i.ProductId+"()")">
-        @*@if (i.Priority == true)
-        {
-            <img id="@("ImgId" + i.Photo)" class="" title="@i.Product.Name" src="~/Images/@i.PhotoUrl" height="100" width="95" />*@
-            <h5>@i.Name</h5>
-            <h5>@i.Price</h5>
+    if (i.Priority == true)
+    {
+        <div id="@("PartnersDivId" + i.Product.ProductId)" onclick="@("funk"+i.Product.ProductId+"()")">
+            <img id="@("ImgId" + i.PhotoId)" class="" title="@i.Product.Name" src="~/Images/@i.PhotoUrl" height="100" width="95" />
+            <p><strong>Имя -</strong>  @i.Product.Name</p>
+            <p><strong>Цена -</strong> @i.Product.Price</p>
+            <div id="@("HiddenPartnersDivId" + i.Product.ProductId)"style="display: none">
+                @foreach (var a in Model)
+                {
+                    if (a.Product.ProductId == i.Product.ProductId)
+                    {
+                        <img id="@("HiddenImgId" + a.PhotoId)" class="" title="@a.Product.Name" src="~/Images/@a.PhotoUrl" height="80" width="75" />
+                    }
+                }
+                <p><strong>Имя -</strong>  @i.Product.Name</p>
+                <p><strong>Цена -</strong> @i.Product.Price</p>
+                <p><strong>Описание - </strong> @i.Product.Description</p>
+                <p><strong>Специальное предложение -</strong>  @i.Product.SpecOffer</p>
+            </div>
         </div>
+    }
+
     <script>
-        function @("funk"+i.ProductId)() {
+        function @("funk"+i.Product.ProductId)() {
+            var display = document.getElementById("@("HiddenPartnersDivId" + i.Product.ProductId)").style.display;
+            if(display==='none'){
+                document.getElementById("@("HiddenPartnersDivId" + i.Product.ProductId)").style.display='block';
+            }else{
+                document.getElementById("@("HiddenPartnersDivId" + i.Product.ProductId)").style.display='none';
+            }
+
         }
     </script>
 }
