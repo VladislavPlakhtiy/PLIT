@@ -273,6 +273,8 @@
     <Content Include="Views\Home\PartialGallery.cshtml" />
     <Content Include="Views\Home\PartialSelling.cshtml" />
     <Content Include="Views\Home\PartialPartners.cshtml" />
+    <Content Include="Views\Basket\Buy.cshtml" />
+    <Content Include="Views\Admin\AdminView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -282,7 +284,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Basket\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Domian\Domain\Domain.csproj">

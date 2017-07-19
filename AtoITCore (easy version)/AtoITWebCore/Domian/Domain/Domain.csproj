@@ -74,13 +74,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concrete\ShopContainer.cs" />
-    <Compile Include="Entityes\Category.cs" />
-    <Compile Include="Entityes\Delivery.cs" />
     <Compile Include="Entityes\Orders.cs" />
     <Compile Include="Entityes\Photo.cs" />
     <Compile Include="Entityes\Product.cs" />
     <Compile Include="Entityes\Reviews.cs" />
-    <Compile Include="Entityes\Status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

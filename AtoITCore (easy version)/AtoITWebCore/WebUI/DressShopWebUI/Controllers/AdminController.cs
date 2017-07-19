@@ -11,10 +11,23 @@ namespace DressShopWebUI.Controllers
     /// </summary>
     public class AdminController : Controller
     {
-        // Админка - вход (чуть позже запаролим)
-        public ViewResult MyPanel()
+        [HttpGet]
+        public ActionResult MyPanel()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult MyPanel(string name, string password)
+        {
+            if (name != "admin" && password != "admin")
+            {
+                ViewBag.Answer = "Вы ввели не верные данные!";
+                return View();
+            }
+            else
+            {
+                return View("AdminView");
+            }
         }
     }
 }

@@ -1,7 +1,18 @@
-﻿
-@{
-    ViewBag.Title = "_AdminLayout";
-}
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="wrapper">
 
-<h2>_AdminLayout</h2>
+        <div class="content center">
+            @RenderBody()
+        </div>
+    </div>
 
+</body>
+</html>
