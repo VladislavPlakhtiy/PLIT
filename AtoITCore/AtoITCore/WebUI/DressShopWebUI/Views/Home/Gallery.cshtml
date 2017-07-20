@@ -1,0 +1,35 @@
+﻿@using Domain.Entityes
+@model List<Photo>
+@{
+    ViewBag.Title = "Галерея";
+}
+<h1 align="center">Галерея</h1>
+
+<ul class="products">
+    @{
+        int count = 0;
+        foreach (var i in Model)
+        {
+
+            if (i.Priority == true)
+            {
+                var clas = "";
+                if (count == 3)
+                {
+                    clas = "product";
+                    count = 0;
+
+                }
+                else
+                {
+                    count++;
+                    clas = "product child";
+                }
+                    <li class="@clas">
+                        <img src="~/Images/@i.PhotoUrl" class="productPic" title="@i.Product.Name" />
+                        <h3 class="productName">"@i.Product.Name"</h3>
+                    </li>
+            }
+        }
+    }
+</ul>

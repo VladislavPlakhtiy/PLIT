@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Domain.Entityes.Photo>
+@{
+    ViewBag.Title = "О дизайнере";
+}
+<h1 align="center">Это будет слайдер :)</h1>
+<div class="slider">
+    @{
+
+        string path = "";
+        foreach (var i in Model)
+        {
+            if (i.Product.Category.Equals(1)) { path = "Home/Selling"; }
+            if (i.Product.Category.Equals(2)) { path = "Home/Gallery"; }
+            if (i.Product.Category.Equals(3)) { path = "Home/Partners"; }
+            <div class="sliderObject">
+                <a href="@path"><img id="@("ImgId"+i.PhotoId)" title="@i.Product.Name" src="~/Images/@i.PhotoUrl" height="100" width="95" /></a>
+            </div>
+        }
+        
+    }
+</div>
+<br />
+<br />
+<br />
+<br />
+<h2>инфо о дизайнере</h2>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+

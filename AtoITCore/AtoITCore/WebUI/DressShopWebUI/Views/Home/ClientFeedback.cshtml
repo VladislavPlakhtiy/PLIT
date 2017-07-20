@@ -1,0 +1,181 @@
+﻿@using Domain.Entityes
+@model List<Reviews>
+@{
+    ViewBag.Title = "Отзывы";
+}
+<style>
+
+
+    #reviewStars-input input:checked ~ label, #reviewStars-input label, #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
+        background: url('../../Images/stars.png') no-repeat;
+    }
+
+    #reviewStars-input {
+        /*fix floating problems*/
+        overflow: hidden;
+        *zoom: 1;
+        /*end of fix floating problems*/
+        position: relative;
+        float: left;
+    }
+
+    #reviewStars-input input {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+        width: 23px;
+        height: 21px;
+        position: absolute;
+        top: 0;
+        z-index: 0;
+    }
+
+    #reviewStars-input input:checked ~ label {
+        background-position: 0 -20px;
+        height: 21px;
+        width: 23px;
+    }
+
+    #reviewStars-input label {
+        background-position: 0 0;
+        height:21px;
+        width: 23px;
+        float: right;
+        cursor: pointer;
+        margin-right: 10px;
+        position: relative;
+        z-index: 1;
+    }
+
+    #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
+        background-position: 0 -20px;
+        height: 21px;
+        width: 23px;
+    }
+
+    #reviewStars-input #star-0 {
+        left: 0px;
+    }
+
+    #reviewStars-input #star-1 {
+        left: 33px;
+    }
+
+    #reviewStars-input #star-2 {
+        left: 66px;
+    }
+
+    #reviewStars-input #star-3 {
+        left: 99px;
+    }
+
+    #reviewStars-input #star-4 {
+        left: 132px;
+    }
+
+    #reviewStars-input #star-5 {
+        left: 165px;
+    }
+</style>
+@foreach (var item in Model)
+{ <div>
+
+        <h4>
+            @item.ClientName
+            @for (int a = 0; a < item.Rating; a++)
+            {
+                string title = "";
+                if (item.Rating.Equals(5))
+                {
+                    title = "Великолепно!";
+                }
+                if (item.Rating.Equals(4))
+                {
+                    title = "Хорошо";
+                }
+                if (item.Rating.Equals(3))
+                {
+                    title = "Средне";
+                }
+                if (item.Rating.Equals(2))
+                {
+                    title = "так себе";
+                }
+                if (item.Rating.Equals(1))
+                {
+                    title = "Плохо!";
+                }
+                <img title="@title" src="~/Images/star.png" />
+            }
+        </h4>
+
+        <h5>@item.ClientFeedback</h5>
+        <br />
+    </div>
+}
+
+<h4>Оцените наш продукт</h4>
+@using (Html.BeginForm())
+{
+
+    <div id="reviewStars-input">
+        <input id="star-4" type="radio" value="5" name="reviewStars" />
+        <label title="Великолепно!" for="star-4"></label>
+
+        <input id="star-3" type="radio" value="4" name="reviewStars" />
+        <label title="Хорошо" for="star-3"></label>
+
+        <input id="star-2" type="radio" value="3" name="reviewStars" />
+        <label title="Средне" for="star-2"></label>
+
+        <input id="star-1" type="radio" value="2" name="reviewStars" />
+        <label title="Так себе" for="star-1"></label>
+
+        <input id="star-0" type="radio" value="1" name="reviewStars" />
+        <label title="Плохо!" for="star-0"></label>
+    </div>
+        <br />
+        <br />
+        <h5>Ваше имя</h5>
+        <textarea id="textName" type="text" name="name" placeholder="Введите ваше имя"></textarea><span id="status1" style="color: red"></span>
+        <br />
+        <h5>Отзыв</h5>
+        <textarea id="textReview" type="text" name="review" placeholder="Оставьте отзыв"></textarea><span id="status2" style="color: red"></span>
+        <br />
+        <button id="form" class="btn" type="submit" onclick="validName()">Отправить отзыв</button>
+
+}
+ 
+
+@*Ооочень плохая валидация :)*@ 
+    <script>
+        function validName() {
+            var str1 = document.getElementById("textName").value;
+            var status1 = document.getElementById("status1");
+            var str2 = document.getElementById("textReview").value;
+            var status2 = document.getElementById("status2");
+            var pattern = /^[\s]+$/;
+            if (pattern.test(str1)) {
+                status1.innerHTML = "Вы ввели одни пробелы!";
+               // abort();
+            }
+                
+            else 
+                if (str1 == null || str1.length === 0) {
+                    status1.innerHTML = "  пожалуйста введите Ваше имя";
+                    //abort();
+                }
+                else status1.innerHTML = "";
+            if (pattern.test(str2)) {
+                status2.innerHTML = "Вы ввели одни пробелы!";
+               // abort();
+            }
+            else
+                if (str2 == null || str2.length === 0) {
+                    status2.innerHTML = "  пожалуйста оставьте комментарий";
+                    //abort();
+                }
+                else status2.innerHTML = "";
+        }
+    </script>
+
+ 
