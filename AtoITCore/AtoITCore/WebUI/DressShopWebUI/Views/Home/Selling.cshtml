@@ -1,5 +1,5 @@
-﻿@using Domain.Entityes
-@model List<Photo>
+﻿@using DressShopWebUI.Models
+@model SellingViewModel
 @{
     ViewBag.Title = "Online-Гардероб";
 }
@@ -66,7 +66,7 @@
 <ul class="products">
     @{
         int count = 0;
-        foreach (var i in Model)
+        foreach (var i in Model.Photo)
         {
 
             if (i.Priority == true)
@@ -83,7 +83,7 @@
                     count++;
                     clas = "product child";
                 }
-                <a href="#openModal">
+                <a href="@("#openModal"+i.Product.ProductId)">
                     <li class="@clas">
                         <img src="~/Images/@i.PhotoUrl" class="productPic" title="@i.Product.Name" />
                         <h3 class="productName"><p class="price">@i.Product.Price грн</p>"@i.Product.Name".</h3>
@@ -93,10 +93,10 @@
 
 
 
-                <div id="openModal" class="modalDialog">
+                <div id="@("openModal"+i.Product.ProductId)" class="modalDialog">
                     <div>
                         <a href="#close" title="Закрыть" class="close">X</a>
-                        @foreach (var a in Model)
+                        @foreach (var a in Model.Photo)
                         {
                             if (a.Product.ProductId == i.Product.ProductId)
                             {
@@ -117,5 +117,35 @@
         }
     }
 </ul>
+
+<style>
+    .pagination {
+        display: inline-block;
+    }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+            .pagination a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .pagination a:hover:not(.active) {
+                background-color: #ddd;
+            }
+</style>
+
 <br />
 <br />
+<div class="pagination">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Selling", new { page = x }))
+</div>
+
+    <br />
+    <br />

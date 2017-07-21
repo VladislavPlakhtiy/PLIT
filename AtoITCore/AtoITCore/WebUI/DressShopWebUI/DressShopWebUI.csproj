@@ -143,6 +143,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DebugDb.cs" />
+    <Compile Include="Models\PageInfo.cs" />
+    <Compile Include="Models\PagingHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
