@@ -13,12 +13,7 @@ namespace DressShopWebUI.Models
         public int TotalItems { get; set; } // всего объектов
         public int TotalPages => (int)Math.Ceiling((decimal)TotalItems / PageSize);// всего страниц
     }
-    public class SellingViewModel
-    {
-        public IEnumerable<Photo> Photo { get; set; }
-        public PageInfo PageInfo { get; set; }
-    }
-    public class PartnersViewModel
+    public class PageModel
     {
         public IEnumerable<Photo> Photo { get; set; }
         public PageInfo PageInfo { get; set; }

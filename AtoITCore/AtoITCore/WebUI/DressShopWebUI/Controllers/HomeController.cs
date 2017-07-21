@@ -16,6 +16,7 @@ namespace DressShopWebUI.Controllers
     {
         private readonly ShopContext _db = new ShopContext(); //переменная контекста, по хорошему нужно еще и закрывать соединение с базой, подумаю...
 
+
         public ViewResult Index()// Стартовая страница 
         {
             DbSet<Photo> product = _db.Photo;
@@ -36,14 +37,11 @@ namespace DressShopWebUI.Controllers
                           orderby a.Product.DateCreate descending
                           select a;
             int size = 4; // количество объектов на страницу
-            int pageSize = CountItem(selling.ToList(), size); //расчитываем исходя из продуктов а не из фото
-            IEnumerable<Photo> sell =selling.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = selling.Count() };
-            SellingViewModel ivm = new SellingViewModel { PageInfo = pageInfo, Photo = sell };
-            return View(ivm);
+            return View(GetModel(selling.ToList(), size, page));
         }
 
-        public ActionResult Gallery() // страница Галерея
+
+        public ActionResult Gallery(int page = 1) // страница Галерея
         {
             // выбираем фотографии по приоритету, и по категории 2
             var photo = from a in _db.Photo
@@ -52,23 +50,19 @@ namespace DressShopWebUI.Controllers
                         orderby a.Product.DateCreate descending
                         select a;
 
-
-            return View(photo.ToList());
+            int size = 4; // количество объектов на страницу
+            return View(GetModel(photo.ToList(), size, page));
         }
 
 
         public ActionResult Partners(int page = 1) // страница Партнеры - в разработке!!!!
         {
-            var partners = from a in _db.Photo
+            IOrderedQueryable<Photo> partners = from a in _db.Photo
                            where a.Product.Category == 3
                            orderby a.Product.DateCreate descending
                            select a;
             int size = 4; // количество объектов на страницу
-            int pageSize = CountItem(partners.ToList(), size); //расчитываем исходя из продуктов а не из фото
-            IEnumerable<Photo> sell = partners.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = partners.Count() };
-            PartnersViewModel ivm = new PartnersViewModel { PageInfo = pageInfo, Photo = sell };
-            return View(ivm);
+           return View(GetModel(partners.ToList(), size, page));
         }
 
 
@@ -95,6 +89,22 @@ namespace DressShopWebUI.Controllers
             
 
             return View(reviews.ToList());
+        }
+
+
+        /// <summary>
+        /// Вспомагательный метод, для пейджинга
+        /// </summary>
+        /// <param name="mas"> массив данных из БД</param>
+        /// <param name="size">количество обьектов на страницу</param>
+        /// <param name="page">текущая страница</param>
+        /// <returns></returns>
+        private PageModel GetModel(IList<Photo> mas, int size, int page)
+        {
+            int pageSize = CountItem(mas, size); //расчитываем исходя из продуктов а не из фото
+            IEnumerable<Photo> sell = mas.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = mas.Count() };
+            return new PageModel { PageInfo = pageInfo, Photo = sell };
         }
 
         /// <summary>

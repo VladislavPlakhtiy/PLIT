@@ -1,5 +1,5 @@
-﻿@using Domain.Entityes
-@model List<Photo>
+﻿@using DressShopWebUI.Models
+@model PageModel
 @{
     ViewBag.Title = "Галерея";
 }
@@ -8,7 +8,7 @@
 <ul class="products">
     @{
         int count = 0;
-        foreach (var i in Model)
+        foreach (var i in Model.Photo)
         {
 
             if (i.Priority == true)
@@ -25,11 +25,46 @@
                     count++;
                     clas = "product child";
                 }
-                    <li class="@clas">
-                        <img src="~/Images/@i.PhotoUrl" class="productPic" title="@i.Product.Name" />
-                        <h3 class="productName">"@i.Product.Name"</h3>
-                    </li>
+                <li class="@clas">
+                    <img src="~/Images/@i.PhotoUrl" class="productPic" title="@i.Product.Name" />
+                    <h3 class="productName">"@i.Product.Name"</h3>
+                </li>
             }
         }
     }
 </ul>
+
+
+<style>
+    .pagination {
+        display: inline-block;
+    }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+            .pagination a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .pagination a:hover:not(.active) {
+                background-color: #ddd;
+            }
+</style>
+
+<br />
+<br />
+<div class="pagination">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Gallery", new { page = x }))
+</div>
+
+<br />
+<br />
+<br />
+<br />
