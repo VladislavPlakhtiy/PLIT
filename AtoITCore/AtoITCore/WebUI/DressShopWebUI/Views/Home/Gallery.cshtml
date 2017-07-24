@@ -2,14 +2,15 @@
 @{
     ViewBag.Title = "Галерея";
 }
-<h1 align="center">Галерея</h1>
+<br />
+<br />
+<br />
 
 <ul class="products">
     @{
         int count = 0;
         foreach (var i in Model)
         {
-
             if (i.Priority == true)
             {
                 var clas = "";
@@ -32,5 +33,3 @@
         }
     }
 </ul>
-
-

@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Online-Гардероб";
 }
-<h2 align="center">ONLINE-гардероб</h2>
 <style>
     .modalDialog {
         position: fixed;
@@ -61,13 +60,14 @@
         }
 </style>
 
-
+<br />
+<br />
+<br />
 <ul class="products">
     @{
         int count = 0;
         foreach (var i in Model)
         {
-
             if (i.Priority == true)
             {
                 var clas = "";
@@ -82,19 +82,26 @@
                     count++;
                     clas = "product child";
                 }
-                <a href="@("#openModal"+i.Product.ProductId)">
+                <a href="@("#openModal" + i.Product.ProductId)">
                     <li class="@clas">
                         <img src="~/Images/@i.PhotoUrl" class="productPic" title="@i.Product.Name" />
-                        @{ if (i.Product.Discount != 0)
+                        @{
+                            if (i.Product.Discount != 0)
                             {
                                 <div class="discount">
                                     <span class="discountValue">@(i.Product.Discount + "%")</span>
                                 </div>
-                                <h3 class="productName"><p class="price"><s>@((double)i.Product.Price) </s> <font color="red">@((double)(i.Product.Price- i.Product.Price * i.Product.Discount / 100) )</font> грн</p>"@i.Product.Name"</h3>
+                                    <h3 class="productName">
+                                        <p class="price">
+                                            <s>@((double)i.Product.Price) </s> <font color="red">@((double)(i.Product.Price - i.Product.Price * i.Product.Discount / 100))</font> грн
+                                        </p>"@i.Product.Name"
+                                    </h3>
                             }
                             else
                             {
-                                <h3 class="productName"><p class="price">@((double)i.Product.Price) грн</p>"@i.Product.Name"</h3>
+                                <h3 class="productName">
+                                    <p class="price">@((double)i.Product.Price) грн</p>"@i.Product.Name"
+                                </h3>
                             }
 
                         }
@@ -104,7 +111,7 @@
 
 
 
-                <div id="@("openModal"+i.Product.ProductId)" class="modalDialog">
+                    <div id="@("openModal" + i.Product.ProductId)" class="modalDialog">
                         <div>
                             <a href="#close" title="Закрыть" class="close">X</a>
                             @foreach (var a in Model)
@@ -114,14 +121,19 @@
                                     <img id="@("HiddenImgId" + a.PhotoId)" class="" title="@a.Product.Name" src="~/Images/@a.PhotoUrl" height="80" width="75" />
                                 }
                             }
-                            <p><strong>Имя -</strong>  @i.Product.Name</p>
-                            @{ if (i.Product.Discount != 0)
+                            <p><strong>Имя -</strong> @i.Product.Name</p>
+                            @{
+                                if (i.Product.Discount != 0)
                                 {
-                                  <p><strong>Цена -</strong> @((double)(i.Product.Price - i.Product.Price * i.Product.Discount / 100 )) грн</p>
+                                    <p>
+                                        <strong>Цена -</strong> @((double)(i.Product.Price - i.Product.Price * i.Product.Discount / 100)) грн
+                                    </p>
                                 }
                                 else
                                 {
-                                    <p><strong>Цена -</strong> @((double)i.Product.Price) грн</p>
+                                    <p>
+                                        <strong>Цена -</strong> @((double)i.Product.Price) грн
+                                    </p>
                                 }
                                 if (!i.Product.Description.IsEmpty())
                                 {
@@ -129,17 +141,17 @@
                                 }
                                 if (!i.Product.SpecOffer.IsEmpty())
                                 {
-                                    <p><strong>Специальное предложение -</strong>  @i.Product.SpecOffer</p>
+                                    <p><strong>Специальное предложение -</strong> @i.Product.SpecOffer</p>
                                 }
 
                             }
                             <div class="addBasket">
-                                <span class="addBasketText" onclick="location.href='@Url.Action("Buy", "Basket", new { id = i.Product.ProductId, name = i.Product.Name })'">Добавить в корзину</span>
+                                <span class="addBasketText" onclick="location.href = '@Url.Action("Buy", "Basket", new {id = i.Product.ProductId, name = i.Product.Name})'">Добавить в корзину</span>
                             </div>
                         </div>
                     </div>
-                                }
+                                    }
 
-                            }
+                                }
     }
 </ul>
