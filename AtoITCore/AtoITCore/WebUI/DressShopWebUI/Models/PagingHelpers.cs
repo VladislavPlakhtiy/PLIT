@@ -4,8 +4,18 @@ using System.Web.Mvc;
 
 namespace DressShopWebUI.Models
 {
+    /// <summary>
+    /// Класс своих хелперов
+    /// </summary>
     public static class PagingHelpers
     {
+       /// <summary>
+       /// HTML хелпер, для пейждинга
+       /// </summary>
+       /// <param name="html"></param>
+       /// <param name="pageInfo"></param>
+       /// <param name="pageUrl"></param>
+       /// <returns></returns>
         public static MvcHtmlString PageLinks(this HtmlHelper html, PageInfo pageInfo, Func<int, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
@@ -44,5 +54,8 @@ namespace DressShopWebUI.Models
             
             return MvcHtmlString.Create(result.ToString());
         }
+        //<div class="pagination">
+        //   @Html.PageLinks(Model.PageInfo, x => Url.Action("Selling", new { page = x })) пример использования хелпера
+        //</div>
     }
 }

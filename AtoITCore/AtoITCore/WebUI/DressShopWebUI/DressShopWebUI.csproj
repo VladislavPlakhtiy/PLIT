@@ -97,8 +97,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
     <Content Include="Images\ajax-loader.gif" />
@@ -122,8 +120,6 @@
     <Content Include="Images\sliderimg.jpg" />
     <Content Include="Images\star.png" />
     <Content Include="Images\stars.png" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />

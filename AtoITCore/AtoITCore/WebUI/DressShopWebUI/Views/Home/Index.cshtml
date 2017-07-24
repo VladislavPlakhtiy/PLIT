@@ -2,11 +2,11 @@
 @{
     ViewBag.Title = "О дизайнере";
 }
-<h1 align="center">Это будет слайдер :)</h1>
+
 <div class="slider">
     @{
 
-        string path = "";
+         string path = "";
         foreach (var i in Model)
         {
             if (i.Product.Category.Equals(1)) { path = "Home/Selling"; }
@@ -16,7 +16,7 @@
                 <a href="@path"><img id="@("ImgId"+i.PhotoId)" title="@i.Product.Name" src="~/Images/@i.PhotoUrl" height="100" width="95" /></a>
             </div>
         }
-        
+
     }
 </div>
 <br />

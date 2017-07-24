@@ -26,6 +26,10 @@ namespace Domain.Entityes
         [Display(Name = "Описание")]
         public string Description { get; set; }
 
+        [Display(Name = "Скидка")]
+        [Range(typeof(int), "0", "100", ErrorMessage = "Пожалуйста, введите корректную скидку в процентах")]
+        public int Discount { get; set; }
+
         [Display(Name = "Специальное предложение")]
         public string SpecOffer { get; set; }
 
@@ -38,12 +42,6 @@ namespace Domain.Entityes
         [Required]
         public DateTime DateCreate { get; set; }
 
-        [Display(Name = "Количество товара")]
-        public int? Quantity { get; set; }
-
-        [Display(Name = "Наличие товара в магазине")]
-        public bool? Existence { get; set; }
-      
         [Display(Name = "Категория")]
         [Required(ErrorMessage = "Пожалуйста, укажите категорию")]
         [Range(typeof(int), "1", "10")]
