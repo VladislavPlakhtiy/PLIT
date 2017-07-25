@@ -20,10 +20,12 @@ namespace Domain.Entityes
         public int ProductId { get; set; }
 
         [Display(Name = "Название товара")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина названия от 3 до 50 символов")]
         [Required(ErrorMessage = "Пожалуйста, введите название товара")]
         public string Name { get; set; }
 
         [Display(Name = "Описание")]
+        [StringLength(500, MinimumLength = 3, ErrorMessage = "Длина описания от 3 до 500 символов")]
         public string Description { get; set; }
 
         [Display(Name = "Скидка")]
@@ -31,6 +33,7 @@ namespace Domain.Entityes
         public int Discount { get; set; }
 
         [Display(Name = "Специальное предложение")]
+        [StringLength(250, MinimumLength = 3, ErrorMessage = "Длина спец. предложения от 3 до 250 символов")]
         public string SpecOffer { get; set; }
 
         [Display(Name = "Цена(грн)")]
@@ -49,9 +52,6 @@ namespace Domain.Entityes
 
 
         public ICollection<Photo> Photo { get; set; }
-
-        // public Orders Orders { get; set; }
-        //public int? OrdersProductId { get; set; }
-        // public Category Category { get; set; }
+        
     }
 }

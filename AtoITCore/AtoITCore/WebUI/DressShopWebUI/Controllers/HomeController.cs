@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Web.Mvc;
 using Domain.Concrete;
 using Domain.Entityes;
@@ -19,24 +18,21 @@ namespace DressShopWebUI.Controllers
 
         //Формируем список фотографий для слайдера и передаем его в _Layout
         public static readonly IQueryable<Photo> Photo = from s in Db.Photo where s.Priority == true select s;
-        public static readonly List<Photo> SliderPhoto = Photo.ToList(); 
+        public static readonly List<Photo> SliderPhoto = Photo.ToList();
 
 
         public ViewResult Index()// Стартовая страница 
         {
-            DbSet<Photo> product = Db.Photo;
-            if (!product.Any()) // проверка на наличие БД и записей.
-                DebugDb.AddToDb();// Если БД пустая - заполнит "тестовыми значениями"
             return View();
         }
 
 
         public ActionResult Selling()// страница каталога (ONLINE-гардероб) в разработке!!!!
         {
-            
+
             //выбираем товары по категории  - 1
             var selling = from s in Db.Photo
-                          where s.Product.Category ==1
+                          where s.Product.Category == 1
                           orderby s.Product.DateCreate descending
                           select s;
             return View(selling.ToList());
@@ -64,29 +60,39 @@ namespace DressShopWebUI.Controllers
         }
 
 
-        public ActionResult ClientFeedback(string name, string review, string reviewStars) //страница Отзывы
+        public ActionResult ClientFeedback() //страница Отзывы
         {
-            //проверяем наличие Имени и Отзыва
-            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(review))
-            {
-                    //проверяем наличие рейтинга заполненого пользователем.
-                    var rating = string.IsNullOrEmpty(reviewStars) ? 0 : int.Parse(reviewStars);
-                    // добавляем запись в БД
-                    Db.Reviews.Add(new Reviews
-                    {
-                        ClientName = name,
-                        ClientFeedback = review,
-                        Rating = rating,
-                        DateFeedback = Now
-                    });
-                    Db.SaveChanges();
-                }
-            var reviews = from i in Db.Reviews
-                    orderby i.DateFeedback descending 
-                    select i;
-            
 
-            return View(reviews.ToList());
+            var reviews = from s in Db.Reviews
+                          orderby s.DateFeedback descending
+                          select s;
+
+            ViewBag.Review = reviews.ToList();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Feedback(Reviews model) //метод добавляющий запись в БД
+        {
+            //проверяем валидность согласно модели
+            if (ModelState.IsValid)
+            {
+                //проверяем наличие рейтинга заполненого пользователем.
+                var rating = string.IsNullOrEmpty(model.Rating.ToString()) ? 0 : int.Parse(model.Rating.ToString());
+                // добавляем запись в БД
+                Db.Reviews.Add(new Reviews
+                {
+                    ClientName = model.ClientName,
+                    ClientFeedback = model.ClientFeedback,
+                    Rating = rating,
+                    Email = model.Email,
+                    Advantages = model.Advantages,
+                    LackOf = model.LackOf,
+                    DateFeedback = Now
+                });
+                Db.SaveChanges();
+            }
+            return Redirect("/Home/ClientFeedback");
         }
 
     }

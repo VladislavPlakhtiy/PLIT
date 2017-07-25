@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading;
 using Domain.Concrete;
 using Domain.Entityes;
@@ -11,6 +13,14 @@ namespace DressShopWebUI.Models
     /// </summary>
     public class DebugDb
     {
+
+        public static void TestDb()
+        {
+            ShopContext db = new ShopContext();
+            DbSet<Photo> product = db.Photo;
+            if (!product.Any()) // проверка на наличие БД и записей.
+                AddToDb();// Если БД пустая - заполнит "тестовыми значениями"
+        }
         public static void AddToDb()
         {
             var db = new ShopContext();
@@ -21,6 +31,8 @@ namespace DressShopWebUI.Models
             {
                 ClientName = "Вася Пупкин",
                 ClientFeedback = "Супер платье, для рыбалки самое оно! Даже жене не отдал, сам ношу!",
+                Email = "galina@gmail.com",
+                Advantages = "Видя меня в этом платье - рыбаки место уступают!",
                 Rating = 5,
                 DateFeedback = Now
             });
@@ -30,7 +42,10 @@ namespace DressShopWebUI.Models
             {
                 ClientName = "Галя Марченко",
                 ClientFeedback = "Ваааау!!! Вот это пошив! все нитки на второй день повылазили :)",
-                Rating = 1,
+                Email = "galina@gmail.com",
+                Advantages = "Повылазившими нитками заштопала мужу носки!",
+                LackOf = "Гадкие нитки, даже из носков повылазили :( ",
+                Rating = 3,
                 DateFeedback = Now
             });
             Thread.Sleep(10);
@@ -39,6 +54,8 @@ namespace DressShopWebUI.Models
             {
                 ClientName = "Ваня Гуцал",
                 ClientFeedback = "Магазин что надо, все работает быстро и приятно, а главное не надо по базару с женой ходить!",
+                Email = "gutsal@yandex.ru",
+                Advantages = "Даже с дивана не встал!",
                 Rating = 5,
                 DateFeedback = Now
             });
@@ -48,6 +65,9 @@ namespace DressShopWebUI.Models
             {
                 ClientName = "Алена Лапкина",
                 ClientFeedback = "Ми-Ми-Ми, как же я люблю подобные платья! они прекрасно подчеркивают мою творческую натуру!",
+                Email = "alena.Lapkina@mail.ru",
+                Advantages = "Красиво на тремпеле смотриться! :)",
+                LackOf = "Только одела, и сразу натуру поплющило!!!",
                 Rating = 1,
                 DateFeedback = Now
             });
@@ -57,317 +77,13 @@ namespace DressShopWebUI.Models
             {
                 ClientName = "Дуняша Василенко",
                 ClientFeedback = "Подскажите, а размеры для маленьких есть? я вот хочу у мамы выпросить новое платье, чтобы в школе все засохли от зависти!",
+                Email = "galina@gmail.com",
+                LackOf = "я в нем тоооолстая!!! :( ",
                 Rating = 1,
                 DateFeedback = Now
             });
             Thread.Sleep(10);
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Вася Пупкин",
-                ClientFeedback = "Супер платье, для рыбалки самое оно! Даже жене не отдал, сам ношу!",
-                Rating = 5,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);//ставлю задержку для хоть небольшой разницы во времени создания отзывов, для сортировки
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Галя Марченко",
-                ClientFeedback = "Ваааау!!! Вот это пошив! все нитки на второй день повылазили :)",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Ваня Гуцал",
-                ClientFeedback = "Магазин что надо, все работает быстро и приятно, а главное не надо по базару с женой ходить!",
-                Rating = 5,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Алена Лапкина",
-                ClientFeedback = "Ми-Ми-Ми, как же я люблю подобные платья! они прекрасно подчеркивают мою творческую натуру!",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Дуняша Василенко",
-                ClientFeedback = "Подскажите, а размеры для маленьких есть? я вот хочу у мамы выпросить новое платье, чтобы в школе все засохли от зависти!",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Вася Пупкин",
-                ClientFeedback = "Супер платье, для рыбалки самое оно! Даже жене не отдал, сам ношу!",
-                Rating = 5,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);//ставлю задержку для хоть небольшой разницы во времени создания отзывов, для сортировки
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Галя Марченко",
-                ClientFeedback = "Ваааау!!! Вот это пошив! все нитки на второй день повылазили :)",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Ваня Гуцал",
-                ClientFeedback = "Магазин что надо, все работает быстро и приятно, а главное не надо по базару с женой ходить!",
-                Rating = 5,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Алена Лапкина",
-                ClientFeedback = "Ми-Ми-Ми, как же я люблю подобные платья! они прекрасно подчеркивают мою творческую натуру!",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Дуняша Василенко",
-                ClientFeedback = "Подскажите, а размеры для маленьких есть? я вот хочу у мамы выпросить новое платье, чтобы в школе все засохли от зависти!",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Вася Пупкин",
-                ClientFeedback = "Супер платье, для рыбалки самое оно! Даже жене не отдал, сам ношу!",
-                Rating = 5,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);//ставлю задержку для хоть небольшой разницы во времени создания отзывов, для сортировки
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Галя Марченко",
-                ClientFeedback = "Ваааау!!! Вот это пошив! все нитки на второй день повылазили :)",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Ваня Гуцал",
-                ClientFeedback = "Магазин что надо, все работает быстро и приятно, а главное не надо по базару с женой ходить!",
-                Rating = 5,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Алена Лапкина",
-                ClientFeedback = "Ми-Ми-Ми, как же я люблю подобные платья! они прекрасно подчеркивают мою творческую натуру!",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Дуняша Василенко",
-                ClientFeedback = "Подскажите, а размеры для маленьких есть? я вот хочу у мамы выпросить новое платье, чтобы в школе все засохли от зависти!",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Вася Пупкин",
-                ClientFeedback = "Супер платье, для рыбалки самое оно! Даже жене не отдал, сам ношу!",
-                Rating = 5,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);//ставлю задержку для хоть небольшой разницы во времени создания отзывов, для сортировки
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Галя Марченко",
-                ClientFeedback = "Ваааау!!! Вот это пошив! все нитки на второй день повылазили :)",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Ваня Гуцал",
-                ClientFeedback = "Магазин что надо, все работает быстро и приятно, а главное не надо по базару с женой ходить!",
-                Rating = 5,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Алена Лапкина",
-                ClientFeedback = "Ми-Ми-Ми, как же я люблю подобные платья! они прекрасно подчеркивают мою творческую натуру!",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Дуняша Василенко",
-                ClientFeedback = "Подскажите, а размеры для маленьких есть? я вот хочу у мамы выпросить новое платье, чтобы в школе все засохли от зависти!",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Вася Пупкин",
-                ClientFeedback = "Супер платье, для рыбалки самое оно! Даже жене не отдал, сам ношу!",
-                Rating = 5,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);//ставлю задержку для хоть небольшой разницы во времени создания отзывов, для сортировки
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Галя Марченко",
-                ClientFeedback = "Ваааау!!! Вот это пошив! все нитки на второй день повылазили :)",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Ваня Гуцал",
-                ClientFeedback = "Магазин что надо, все работает быстро и приятно, а главное не надо по базару с женой ходить!",
-                Rating = 5,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Алена Лапкина",
-                ClientFeedback = "Ми-Ми-Ми, как же я люблю подобные платья! они прекрасно подчеркивают мою творческую натуру!",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Дуняша Василенко",
-                ClientFeedback = "Подскажите, а размеры для маленьких есть? я вот хочу у мамы выпросить новое платье, чтобы в школе все засохли от зависти!",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Вася Пупкин",
-                ClientFeedback = "Супер платье, для рыбалки самое оно! Даже жене не отдал, сам ношу!",
-                Rating = 5,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);//ставлю задержку для хоть небольшой разницы во времени создания отзывов, для сортировки
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Галя Марченко",
-                ClientFeedback = "Ваааау!!! Вот это пошив! все нитки на второй день повылазили :)",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Ваня Гуцал",
-                ClientFeedback = "Магазин что надо, все работает быстро и приятно, а главное не надо по базару с женой ходить!",
-                Rating = 5,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Алена Лапкина",
-                ClientFeedback = "Ми-Ми-Ми, как же я люблю подобные платья! они прекрасно подчеркивают мою творческую натуру!",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Дуняша Василенко",
-                ClientFeedback = "Подскажите, а размеры для маленьких есть? я вот хочу у мамы выпросить новое платье, чтобы в школе все засохли от зависти!",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Вася Пупкин",
-                ClientFeedback = "Супер платье, для рыбалки самое оно! Даже жене не отдал, сам ношу!",
-                Rating = 5,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);//ставлю задержку для хоть небольшой разницы во времени создания отзывов, для сортировки
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Галя Марченко",
-                ClientFeedback = "Ваааау!!! Вот это пошив! все нитки на второй день повылазили :)",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Ваня Гуцал",
-                ClientFeedback = "Магазин что надо, все работает быстро и приятно, а главное не надо по базару с женой ходить!",
-                Rating = 5,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Алена Лапкина",
-                ClientFeedback = "Ми-Ми-Ми, как же я люблю подобные платья! они прекрасно подчеркивают мою творческую натуру!",
-                Rating = 1,
-                DateFeedback = Now
-            });
-            Thread.Sleep(10);
-
-            db.Reviews.Add(new Reviews
-            {
-                ClientName = "Дуняша Василенко",
-                ClientFeedback = "Подскажите, а размеры для маленьких есть? я вот хочу у мамы выпросить новое платье, чтобы в школе все засохли от зависти!",
-                Rating = 1,
-                DateFeedback = Now
-            });
+            
 
 
             #endregion
