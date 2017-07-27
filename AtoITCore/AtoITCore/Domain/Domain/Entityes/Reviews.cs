@@ -13,7 +13,7 @@ namespace Domain.Entityes
         public int ReviewId { get; set; }
 
         [Display(Name = "Имя коментатора")]
-        [StringLength(20, MinimumLength = 3, ErrorMessage = "Длина имени от 3 до 20 символов")]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "Длина имени от 3 до 20 символов")]
         [Required(ErrorMessage = "Пожалуйста, введите Ваше имя")]
         public string ClientName { get; set; }
 

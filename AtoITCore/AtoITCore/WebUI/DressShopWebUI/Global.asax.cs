@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using DressShopWebUI.Binders;
 using DressShopWebUI.Models;
 
 namespace DressShopWebUI
@@ -12,6 +13,8 @@ namespace DressShopWebUI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             //проверка наличия записей в БД, для дебага
             DebugDb.TestDb();
+            // запускаем связыватель модели, для опредиления сессий
+            ModelBinders.Binders.Add(typeof(Basket), new BasketModelBinder());
         }
     }
 }

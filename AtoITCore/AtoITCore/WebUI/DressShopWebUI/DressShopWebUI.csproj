@@ -136,13 +136,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Binders\BasketModelBinder.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BasketController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Basket.cs" />
+    <Compile Include="Models\BasketViewModel.cs" />
     <Compile Include="Models\DebugDb.cs" />
+    <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Models\PagingHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -152,7 +156,6 @@
     <Content Include="packages.config" />
     <Content Include="Views\Admin\AdminView.cshtml" />
     <Content Include="Views\Admin\MyPanel.cshtml" />
-    <Content Include="Views\Basket\Buy.cshtml" />
     <Content Include="Views\Home\ClientFeedback.cshtml" />
     <Content Include="Views\Home\Gallery.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -162,6 +165,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Basket\Summary.cshtml" />
+    <Content Include="Views\Basket\Index.cshtml" />
+    <Content Include="Views\Home\PartialSelling.cshtml" />
+    <Content Include="Views\Basket\Thanks.cshtml" />
+    <Content Include="Views\Basket\BasketOnView.cshtml" />
+    <Content Include="Views\Home\PartialPartners.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

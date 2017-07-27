@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concrete\ShopContainer.cs" />
-    <Compile Include="Entityes\Orders.cs" />
     <Compile Include="Entityes\Photo.cs" />
     <Compile Include="Entityes\Product.cs" />
     <Compile Include="Entityes\Reviews.cs" />

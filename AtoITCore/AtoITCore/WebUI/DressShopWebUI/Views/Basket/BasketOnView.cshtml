@@ -1,0 +1,12 @@
+﻿@model DressShopWebUI.Models.Basket
+<div align="right" >
+<a href="@Url.Action("Index", new {returnUrl = Request.Url?.PathAndQuery})" class="basketLink">
+    @{
+        if (Model.CountItem != 0)
+        {
+            <p align="right" style="padding: 12px;">@Model.CountItem</p>
+        }
+    }
+    <img src="~/Images/basketpic.png" alt="" class="">
+</a>
+</div>

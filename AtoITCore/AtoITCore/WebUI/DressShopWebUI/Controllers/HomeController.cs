@@ -27,7 +27,7 @@ namespace DressShopWebUI.Controllers
         }
 
 
-        public ActionResult Selling()// страница каталога (ONLINE-гардероб) в разработке!!!!
+        public ActionResult Selling()// страница каталога (ONLINE-гардероб)
         {
 
             //выбираем товары по категории  - 1
@@ -50,7 +50,7 @@ namespace DressShopWebUI.Controllers
         }
 
 
-        public ActionResult Partners() // страница Партнеры - в разработке!!!!
+        public ActionResult Partners() // страница Партнеры 
         {
             var partners = from s in Db.Photo
                            where s.Product.Category == 3

@@ -13,6 +13,8 @@ namespace DressShopWebUI.Models
         /// </summary>
         private readonly List<Photo> _myCollection = new List<Photo>();
 
+        public IEnumerable<Photo> Lines => _myCollection;
+
         /// <summary>
         /// количество товаров в корзине
         /// </summary>
@@ -25,7 +27,7 @@ namespace DressShopWebUI.Models
         public void AddProduct(Photo product)
         {
             //проверка на наличии в корзине идентичных тваров
-            if (!_myCollection.Exists(x=>x.Product.ProductId == product.Product.ProductId))
+            if (!_myCollection.Exists(x=>x.PhotoId == product.PhotoId))
             _myCollection.Add(product); // если такого продукта нет в корзине - добавляем
         }
 
@@ -44,7 +46,21 @@ namespace DressShopWebUI.Models
         /// <returns></returns>
         public decimal ComputeTotalValue()
         {
-            return _myCollection.Sum(x =>x.Product.Price);
+            decimal totalVelue = 0;
+            foreach (var i in _myCollection)
+            {
+                if (i.Product.Discount != 0)
+                {
+
+                    totalVelue += i.Product.Price - i.Product.Price * i.Product.Discount/100;
+
+                }
+                else
+                {
+                    totalVelue += i.Product.Price;
+                }
+            }
+            return totalVelue;
         }
 
         /// <summary>
