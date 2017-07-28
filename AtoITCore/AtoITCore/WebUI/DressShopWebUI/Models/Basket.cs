@@ -8,11 +8,18 @@ namespace DressShopWebUI.Models
 {
     public class Basket
     {
+       public Basket()
+        {
+            AnswerList = new List<string>();
+        }
         /// <summary>
         /// коллекция товаров в корзине
         /// </summary>
         private readonly List<Photo> _myCollection = new List<Photo>();
 
+
+        //ответ пользователю
+        public List<string> AnswerList { get; set; }
         public IEnumerable<Photo> Lines => _myCollection;
 
         /// <summary>

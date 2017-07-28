@@ -51,6 +51,7 @@
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Build.Tasks.v4.0" />
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -146,6 +147,7 @@
     <Compile Include="Models\Basket.cs" />
     <Compile Include="Models\BasketViewModel.cs" />
     <Compile Include="Models\DebugDb.cs" />
+    <Compile Include="Models\EmailSending.cs" />
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Models\PagingHelpers.cs" />

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Domain.Concrete;
 using Domain.Entityes;
@@ -10,8 +11,8 @@ namespace DressShopWebUI.Controllers
     public class BasketController : Controller
     {
         private static readonly ShopContext Db = new ShopContext();
-
-       //отображение корзины
+        
+        //отображение корзины
         public ViewResult Index(Basket basket, string returnUrl)
         {
             var userBasket = new BasketViewModel
@@ -35,16 +36,19 @@ namespace DressShopWebUI.Controllers
             if (ModelState.IsValid && basket.CountItem!=0)
             {
                 //todo
-                basket.Clear();
-                return Redirect("/Basket/Thanks");
+                EmailSending.SendMailToAdministrator(basketViewModel, basket);
+                EmailSending.SendMail(basketViewModel, basket); // пока не работает
+                return RedirectToAction("Thanks","Basket");
             }
            
             return Index(basket,returnUrl);
         }
 
         //Благодарности за покупку
-        public ViewResult Thanks()
+        public ViewResult Thanks(Basket basket)
         {
+            ViewBag.Answer = basket.AnswerList.ToList();
+            basket.Clear();
             return View();
         }
 

@@ -1,13 +1,12 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Thanks";
 }
 <br/>
 <br />
-<h1 align="center" style="color: red">Спасибо за покупку, отдел-товар-цена :)</h1>
+<h1 align="center" style="color: red">Спасибо за покупку!</h1>
 <br />
-
-<h2 align="center">Уважаемый Вы наш! </h2>
-<h2> На Ваш E-mail высланы все детали заказа, скоро мы с Вами свяжемся!</h2>
+@foreach (var i in ViewBag.Answer)
+{
+    <h2  align="center">@i</h2>
+}
 <br />
-<h2 align="center" style="color: red">Носите на здоровье!</h2>

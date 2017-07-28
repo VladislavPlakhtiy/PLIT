@@ -1,4 +1,5 @@
-﻿@model DressShopWebUI.Models.BasketViewModel
+﻿@using System.Data
+@model DressShopWebUI.Models.BasketViewModel
 
 @{
     ViewBag.Title = "Ваша корзина";
@@ -92,7 +93,7 @@
     @Html.ValidationMessageFor(x => x.Orders.Delivery)
     <br />
     <br />
-    @Html.EditorFor(x => x.Orders.Address, new { htmlAttributes = new { style = "margin: 0px; width: 500px; height: 80px;", placeholder = "Адресс" } })
+    @Html.EditorFor(x => x.Orders.Address, new { htmlAttributes = new { style = "margin: 0px; width: 500px; height: 80px;", placeholder = "Адрес" } })
     @Html.ValidationMessageFor(x => x.Orders.Address)
     <br />
     <br />

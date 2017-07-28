@@ -47,6 +47,6 @@ namespace DressShopWebUI.Models
 
         [Display(Name = "Дата заказа")]
         [Required]
-        public DateTime DateOrder { get; set; }
+        public DateTime DateOrder => DateTime.Now;
     }
 }
