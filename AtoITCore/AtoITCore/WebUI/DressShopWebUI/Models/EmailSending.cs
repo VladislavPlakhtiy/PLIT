@@ -10,7 +10,7 @@ namespace DressShopWebUI.Models
 {
     /// <summary>
     /// Класс для отправки писем на почту
-    /// SendMail("smtp.gmail.com","sergeyderko@gmail.com","DSA11071986","skrebecaleksandra1@gmail.com", "alauerta@gmail.com","Тестовое письмо на 2 почты","Привет, это тестовое письмо, отправленное на 2 почтовых адресса, улыбнись ;)!");
+   
     /// </summary>
     public class EmailSending
     {
@@ -83,8 +83,8 @@ namespace DressShopWebUI.Models
             try
             {
                 //c какой почты отправляем письмо 
-                MailMessage mail = new MailMessage {From = new MailAddress("Test-samarskaya@email.com") };
-                mail.To.Add(new MailAddress("Test-samarskayaAdmin@email.com")); // E-mail Администратора
+                MailMessage mail = new MailMessage {From = new MailAddress("test-samarskaya@test.com") };
+                mail.To.Add(new MailAddress("test-samarskaya-admin@test.com")); // E-mail Администратора
                 mail.Subject = "Новый заказ";
                 mail.Body = EmailMessageToAdministrator(basketViewModel, basket);
                 if (!string.IsNullOrEmpty(attachFile))
@@ -95,7 +95,7 @@ namespace DressShopWebUI.Models
                     Port = 587,
                     EnableSsl = true,
                     //c какой почты отправляем письмо + пароль от этой почты
-                    Credentials = new NetworkCredential("Test-samarskaya@email.com".Split('@')[0], "password"),
+                    Credentials = new NetworkCredential("test-samarskaya@test.com".Split('@')[0], "123456789"),
                     DeliveryMethod = SmtpDeliveryMethod.Network
                 };
                 client.Send(mail);
@@ -162,7 +162,7 @@ namespace DressShopWebUI.Models
             try
             {
                 //c какой почты отправляем письмо
-                MailMessage mail = new MailMessage {From = new MailAddress("Test-samarskaya@email.com") };
+                MailMessage mail = new MailMessage {From = new MailAddress("test-samarskaya@test.com") };
                 mail.To.Add(new MailAddress(basketViewModel.Orders.Email)); //получаем E-mail который ввел пользователь
                 mail.Subject = "samarskaya.com"; // тема письма
                 mail.Body = EmailMessage(basketViewModel, basket);
@@ -174,7 +174,7 @@ namespace DressShopWebUI.Models
                     Port = 587,//Порт
                     EnableSsl = true,
                     //c какой почты отправляем письмо + пароль от этой почты
-                    Credentials = new NetworkCredential("Test-samarskaya@email.com".Split('@')[0], "password"),
+                    Credentials = new NetworkCredential("test-samarskaya@test.com".Split('@')[0], "123456789"),
                     DeliveryMethod = SmtpDeliveryMethod.Network
                 };
                 client.Send(mail);
