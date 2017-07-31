@@ -31,7 +31,7 @@ ul li {
 
 .header {
     width: 100%;
-    background-image: url('img/headerpattern.png');
+    background-image: url('../Images/headerpattern.png');
     background-color: #a7e2a9;
 }
 

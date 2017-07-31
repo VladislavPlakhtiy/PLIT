@@ -12,8 +12,29 @@ namespace DressShopWebUI.Controllers
     [Authorize]
     public class AdminController : Controller
     {
-        [HttpGet]
+        /// <summary>
+        /// Стартовая страница Админ-панели
+        /// </summary>
+        /// <returns></returns>
         public ActionResult MyPanel()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// добавления товара
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AddProduct()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Список отзывов
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult EditingReviews()
         {
             return View();
         }
