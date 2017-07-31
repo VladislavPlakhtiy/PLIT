@@ -1,28 +1,7 @@
-﻿
-@{
-    Layout = null;
+﻿@{
+    ViewBag.Title = "MyPanel";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AdminView</title>
-</head>
-<body>
-<div align="center">
-    @using (Html.BeginForm())
-    {
-        <p>Введите логин</p>
-        <input id="name" type="text" name="name" />
-        <p>Введите пароль</p>
-        <input id="password" type="text" name="password" />
-        <br/>
-        <br />
-        <input id="Sub" type="submit" value="Вход" />
-    }
-    <h3 style="color: red" align="center">@ViewBag.Answer</h3>
-</div>
-</body>
-</html>
+<h1>А вот это уже админка!</h1>
 
