@@ -3,7 +3,7 @@
 {
     <a href="@("#openModal" + Model.Product.ProductId)">
         <li class="product child">
-            <img src="~/Images/@Model.PhotoUrl" class="productPic" title="@Model.Product.Name" />
+            <img src="~/PhotoForDB/@Model.PhotoUrl" class="productPic" title="@Model.Product.Name" />
             @{
                 if (Model.Product.Discount != 0)
                 {

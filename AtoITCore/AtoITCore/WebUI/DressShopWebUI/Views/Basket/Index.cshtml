@@ -33,7 +33,7 @@
 
 @foreach (var line in Model.Basket.Lines)
 {
-    <img title="@line.Product.Name" src="~/Images/@line.PhotoUrl" height="80" width="75" />
+    <img title="@line.Product.Name" src="~/PhotoForDB/@line.PhotoUrl" height="80" width="75" />
     if (line.Product.Discount != 0)
     {
         <p>
