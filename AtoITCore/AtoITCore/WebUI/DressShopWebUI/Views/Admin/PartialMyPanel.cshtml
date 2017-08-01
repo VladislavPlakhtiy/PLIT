@@ -1,0 +1,95 @@
+﻿@using DressShopWebUI.Controllers
+@model IEnumerable<Domain.Entityes.Photo>
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success" align="center">@TempData["message"]</div>
+}
+<table class="table" style="background-color: lightgrey">
+    <tr>
+        <th class="text-center">
+            Фото
+        </th>
+        <th class="text-center">
+            Категория
+        </th>
+        <th class="text-center">
+            Имя
+        </th>
+        <th class="text-center">
+            Цена
+        </th>
+        <th class="text-center">
+            Скидка
+        </th>
+        <th class="text-center">
+            Описание
+        </th>
+        <th class="text-center">
+            Специальное предложение
+        </th>
+        <th class="text-center">
+            Действия над товаром
+        </th>
+    </tr>
+
+    @foreach (var i in Model)
+    {
+        <tr>
+            <td>
+                <img src="~/PhotoForDB/@i.PhotoUrl" width="60" height="70" />
+            </td>
+            <td>
+                @if (i.Product.Category.Equals(1))
+                {
+                   
+                    <i>ONLINE-гардероб</i>
+                }
+
+                @if (i.Product.Category.Equals(2))
+                {
+                    <i>Галерея</i>
+                }
+
+                @if (i.Product.Category.Equals(3))
+                {
+                    <i>Партнерское</i>
+                }
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => i.Product.Name)
+            </td>
+            <td>
+                @((double)i.Product.Price) грн.
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => i.Product.Discount) %
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => i.Product.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => i.Product.SpecOffer)
+            </td>
+            <td class="text-center">
+                @using (Html.BeginForm("EditProduct", "Admin"))
+                {
+                    @Html.Hidden("ProductId", i.Product.ProductId)
+                    <input type="submit"
+                           class="btn btn-default btn-xs"
+                           value="Редактировать" />
+                }
+            </td>
+            <td class="text-center">
+                @using (Html.BeginForm("DeleteProduct", "Admin"))
+                {
+                    @Html.Hidden("ProductId", i.Product.ProductId)
+                    <input type="submit"
+                           class="btn btn-default btn-xs"
+                           value="Удалить" />
+                }
+            </td>
+        </tr>
+    }
+
+</table>

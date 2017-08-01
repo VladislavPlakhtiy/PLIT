@@ -24,6 +24,7 @@ namespace Domain.Entityes
         public string ClientFeedback { get; set; }
 
         [Display(Name = "Рейтинг")]
+        [Range(typeof(int), "0", "5", ErrorMessage = "Рейтинг вычисляется от 0 до 5")]
         public int? Rating { get; set; }
 
         [Display(Name = "Email")]

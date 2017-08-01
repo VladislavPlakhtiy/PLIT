@@ -1,8 +1,12 @@
 ﻿@model IEnumerable<Domain.Entityes.Reviews>
 @using DressShopWebUI.Controllers
 @{
-    ViewBag.Title = "EditingReviews";
+    ViewBag.Title = "Каталог отзывов";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success" align="center">@TempData["message"]</div>
 }
 <br/>
 <label for="dateSelect">Отсортировать по дате добавления отзыва</label>
