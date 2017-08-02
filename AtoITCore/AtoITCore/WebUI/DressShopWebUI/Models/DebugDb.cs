@@ -101,7 +101,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress1.jpg",Priority = false}
                     },
                 Discount = 50,
-                Category = 1,
+                Category = "Selling",
                 Price = 1200,
                 SpecOffer = "Купи и леденец в подарок!",
                 DateCreate = Now
@@ -118,7 +118,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress2.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress2.jpg",Priority = false}
                     },
-                Category = 1,
+                Category = "Selling",
                 Discount = 10,
                 Price = 500,
                 SpecOffer = "Обучим пьяному стилю",
@@ -137,7 +137,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress3.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress3.jpg",Priority = false}
                     },
-                Category = 1,
+                Category = "Selling",
                 Price = 4200,
                 DateCreate = Now
             }
@@ -155,7 +155,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress4.jpg",Priority = false}
                     },
                 Discount = 30,
-                Category = 1,
+                Category = "Selling",
                 Price = 200,
                 DateCreate = Now
             }
@@ -172,7 +172,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress6.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress6.jpg",Priority = false}
                     },
-                Category = 1,
+                Category = "Selling",
                 Price = 1200,
                 DateCreate = Now
             }
@@ -190,7 +190,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress7.jpg",Priority = false}
                     },
                 Discount = 20,
-                Category = 1,
+                Category = "Selling",
                 Price = 8200,
                 SpecOffer = "+ поход к окулисту!",
                 DateCreate = Now
@@ -208,7 +208,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress8.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress8.jpg",Priority = false}
                     },
-                Category = 2,
+                Category = "Gallery",
                 Price = 1200,
                 DateCreate = Now
             }
@@ -225,7 +225,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress5.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress5.jpg",Priority = false}
                     },
-                Category = 2,
+                Category = "Gallery",
                 Price = 1200,
                 DateCreate = Now
             }
@@ -243,7 +243,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress9.jpg",Priority = false}
                     },
                 Discount = 5,
-                Category = 3,
+                Category = "Partners",
                 Price = 3300,
                 SpecOffer = "Купи - обрадуй соседку!",
                 DateCreate = Now
@@ -261,7 +261,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress10.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress10.jpg",Priority = false}
                     },
-                Category = 3,
+                Category = "Partners",
                 Price = 100,
                 DateCreate = Now
             }
@@ -277,8 +277,8 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress1.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress1.jpg",Priority = false}
                     },
-                Discount = 40,
-                Category = 1,
+                Discount = 50,
+                Category = "Selling",
                 Price = 1200,
                 SpecOffer = "Купи и леденец в подарок!",
                 DateCreate = Now
@@ -295,7 +295,8 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress2.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress2.jpg",Priority = false}
                     },
-                Category = 1,
+                Category = "Selling",
+                Discount = 10,
                 Price = 500,
                 SpecOffer = "Обучим пьяному стилю",
                 DateCreate = Now
@@ -313,7 +314,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress3.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress3.jpg",Priority = false}
                     },
-                Category = 1,
+                Category = "Selling",
                 Price = 4200,
                 DateCreate = Now
             }
@@ -330,7 +331,8 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress4.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress4.jpg",Priority = false}
                     },
-                Category = 1,
+                Discount = 30,
+                Category = "Selling",
                 Price = 200,
                 DateCreate = Now
             }
@@ -347,7 +349,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress6.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress6.jpg",Priority = false}
                     },
-                Category = 1,
+                Category = "Selling",
                 Price = 1200,
                 DateCreate = Now
             }
@@ -364,8 +366,8 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress7.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress7.jpg",Priority = false}
                     },
-                Discount = 6,
-                Category = 1,
+                Discount = 20,
+                Category = "Selling",
                 Price = 8200,
                 SpecOffer = "+ поход к окулисту!",
                 DateCreate = Now
@@ -383,7 +385,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress8.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress8.jpg",Priority = false}
                     },
-                Category = 2,
+                Category = "Gallery",
                 Price = 1200,
                 DateCreate = Now
             }
@@ -400,1116 +402,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress5.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress5.jpg",Priority = false}
                     },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Мольба конкурента",
-                Description = "произведенно соседкой по койке",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false}
-                    },
-                Discount = 43,
-                Category = 3,
-                Price = 3300,
-                SpecOffer = "Купи - обрадуй соседку!",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Вокруг китай",
-                Description = "Маде ин чина",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false}
-                    },
-                Category = 3,
-                Price = 100,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-            db.Product.Add(new Product
-            {
-                Name = "Офигеть не встать!",
-                Description = "Сшито капроновыми нитками в подполье",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress1.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress1.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress1.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 1200,
-                SpecOffer = "Купи и леденец в подарок!",
-                DateCreate = Now
-            });
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "С будуна",
-                Description = "Косо криво - абы живо!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress2.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress2.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress2.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 500,
-                SpecOffer = "Обучим пьяному стилю",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "На глаз",
-                Description = "а и правда - зачем выкройка?",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress3.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress3.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress3.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 4200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Очумелые ручки",
-                Description = "Настолько очумели - что вот такое пошили!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress4.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress4.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress4.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Веселая леди",
-                Description = "Оцените всю веселость этой леди!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress6.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress6.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress6.jpg",Priority = false}
-                    },
-                Discount = 2,
-                Category = 1,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Вырви глаз",
-                Description = "Специальная психо-физичесская методика пошива, позволяет быстро улучшить ваше зрение!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress7.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress7.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress7.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 8200,
-                SpecOffer = "+ поход к окулисту!",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Показуха",
-                Description = "Это платье давно уже купили - но вот, посмотрите какая красотааа!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Выставочно платьеце",
-                Description = "Просто похвастаться",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Мольба конкурента",
-                Description = "произведенно соседкой по койке",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false}
-                    },
-                Discount = 45,
-                Category = 3,
-                Price = 3300,
-                SpecOffer = "Купи - обрадуй соседку!",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Вокруг китай",
-                Description = "Маде ин чина",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false}
-                    },
-                Category = 3,
-                Price = 100,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-            db.Product.Add(new Product
-            {
-                Name = "Офигеть не встать!",
-                Description = "Сшито капроновыми нитками в подполье",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress1.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress1.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress1.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 1200,
-                SpecOffer = "Купи и леденец в подарок!",
-                DateCreate = Now
-            });
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "С будуна",
-                Description = "Косо криво - абы живо!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress2.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress2.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress2.jpg",Priority = false}
-                    },
-                Discount = 22,
-                Category = 1,
-                Price = 500,
-                SpecOffer = "Обучим пьяному стилю",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "На глаз",
-                Description = "а и правда - зачем выкройка?",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress3.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress3.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress3.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 4200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Очумелые ручки",
-                Description = "Настолько очумели - что вот такое пошили!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress4.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress4.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress4.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Веселая леди",
-                Description = "Оцените всю веселость этой леди!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress6.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress6.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress6.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Вырви глаз",
-                Description = "Специальная психо-физичесская методика пошива, позволяет быстро улучшить ваше зрение!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress7.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress7.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress7.jpg",Priority = false}
-                    },
-                Discount = 31,
-                Category = 1,
-                Price = 8200,
-                SpecOffer = "+ поход к окулисту!",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Показуха",
-                Description = "Это платье давно уже купили - но вот, посмотрите какая красотааа!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Выставочно платьеце",
-                Description = "Просто похвастаться",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Мольба конкурента",
-                Description = "произведенно соседкой по койке",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false}
-                    },
-                Category = 3,
-                Price = 3300,
-                SpecOffer = "Купи - обрадуй соседку!",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Вокруг китай",
-                Description = "Маде ин чина",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false}
-                    },
-                Category = 3,
-                Price = 100,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-            db.Product.Add(new Product
-            {
-                Name = "Офигеть не встать!",
-                Description = "Сшито капроновыми нитками в подполье",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress1.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress1.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress1.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 1200,
-                SpecOffer = "Купи и леденец в подарок!",
-                DateCreate = Now
-            });
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "С будуна",
-                Description = "Косо криво - абы живо!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress2.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress2.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress2.jpg",Priority = false}
-                    },
-                Discount = 81,
-                Category = 1,
-                Price = 500,
-                SpecOffer = "Обучим пьяному стилю",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "На глаз",
-                Description = "а и правда - зачем выкройка?",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress3.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress3.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress3.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 4200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Очумелые ручки",
-                Description = "Настолько очумели - что вот такое пошили!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress4.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress4.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress4.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Веселая леди",
-                Description = "Оцените всю веселость этой леди!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress6.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress6.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress6.jpg",Priority = false}
-                    },
-                Discount = 42,
-                Category = 1,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Вырви глаз",
-                Description = "Специальная психо-физичесская методика пошива, позволяет быстро улучшить ваше зрение!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress7.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress7.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress7.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 8200,
-                SpecOffer = "+ поход к окулисту!",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Показуха",
-                Description = "Это платье давно уже купили - но вот, посмотрите какая красотааа!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Выставочно платьеце",
-                Description = "Просто похвастаться",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Мольба конкурента",
-                Description = "произведенно соседкой по койке",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false}
-                    },
-                Category = 3,
-                Price = 3300,
-                SpecOffer = "Купи - обрадуй соседку!",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Вокруг китай",
-                Description = "Маде ин чина",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false}
-                    },
-                Category = 3,
-                Price = 100,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-            db.Product.Add(new Product
-            {
-                Name = "Офигеть не встать!",
-                Description = "Сшито капроновыми нитками в подполье",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress1.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress1.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress1.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 1200,
-                SpecOffer = "Купи и леденец в подарок!",
-                DateCreate = Now
-            });
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "С будуна",
-                Description = "Косо криво - абы живо!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress2.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress2.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress2.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 500,
-                SpecOffer = "Обучим пьяному стилю",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "На глаз",
-                Description = "а и правда - зачем выкройка?",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress3.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress3.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress3.jpg",Priority = false}
-                    },
-                Discount = 88,
-                Category = 1,
-                Price = 4200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Очумелые ручки",
-                Description = "Настолько очумели - что вот такое пошили!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress4.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress4.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress4.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Веселая леди",
-                Description = "Оцените всю веселость этой леди!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress6.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress6.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress6.jpg",Priority = false}
-                    },
-                Category = 1,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Вырви глаз",
-                Description = "Специальная психо-физичесская методика пошива, позволяет быстро улучшить ваше зрение!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress7.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress7.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress7.jpg",Priority = false}
-                    },
-                Discount = 5,
-                Category = 1,
-                Price = 8200,
-                SpecOffer = "+ поход к окулисту!",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Показуха",
-                Description = "Это платье давно уже купили - но вот, посмотрите какая красотааа!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Выставочно платьеце",
-                Description = "Просто похвастаться",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Мольба конкурента",
-                Description = "произведенно соседкой по койке",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false}
-                    },
-                Category = 3,
-                Price = 3300,
-                SpecOffer = "Купи - обрадуй соседку!",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Вокруг китай",
-                Description = "Маде ин чина",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false}
-                    },
-                Category = 3,
-                Price = 100,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-            db.Product.Add(new Product
-            {
-                Name = "Показуха",
-                Description = "Это платье давно уже купили - но вот, посмотрите какая красотааа!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Выставочно платьеце",
-                Description = "Просто похвастаться",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Мольба конкурента",
-                Description = "произведенно соседкой по койке",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false}
-                    },
-                Discount = 1,
-                Category = 3,
-                Price = 3300,
-                SpecOffer = "Купи - обрадуй соседку!",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Вокруг китай",
-                Description = "Маде ин чина",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false}
-                    },
-                Category = 3,
-                Price = 100,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-            db.Product.Add(new Product
-            {
-                Name = "Показуха",
-                Description = "Это платье давно уже купили - но вот, посмотрите какая красотааа!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Выставочно платьеце",
-                Description = "Просто похвастаться",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Мольба конкурента",
-                Description = "произведенно соседкой по койке",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false}
-                    },
-                Category = 3,
-                Price = 3300,
-                SpecOffer = "Купи - обрадуй соседку!",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Вокруг китай",
-                Description = "Маде ин чина",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false}
-                    },
-                Category = 3,
-                Price = 100,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-            db.Product.Add(new Product
-            {
-                Name = "Показуха",
-                Description = "Это платье давно уже купили - но вот, посмотрите какая красотааа!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Выставочно платьеце",
-                Description = "Просто похвастаться",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Мольба конкурента",
-                Description = "произведенно соседкой по койке",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false}
-                    },
-                Category = 3,
-                Price = 3300,
-                SpecOffer = "Купи - обрадуй соседку!",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Вокруг китай",
-                Description = "Маде ин чина",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false}
-                    },
-                Discount = 99,
-                Category = 3,
-                Price = 100,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-            db.Product.Add(new Product
-            {
-                Name = "Показуха",
-                Description = "Это платье давно уже купили - но вот, посмотрите какая красотааа!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Выставочно платьеце",
-                Description = "Просто похвастаться",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Мольба конкурента",
-                Description = "произведенно соседкой по койке",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false}
-                    },
-                Discount = 33,
-                Category = 3,
-                Price = 3300,
-                SpecOffer = "Купи - обрадуй соседку!",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Вокруг китай",
-                Description = "Маде ин чина",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false}
-                    },
-                Category = 3,
-                Price = 100,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-            db.Product.Add(new Product
-            {
-                Name = "Показуха",
-                Description = "Это платье давно уже купили - но вот, посмотрите какая красотааа!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Выставочно платьеце",
-                Description = "Просто похвастаться",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Мольба конкурента",
-                Description = "произведенно соседкой по койке",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress9.jpg",Priority = false}
-                    },
-                Discount = 15,
-                Category = 3,
-                Price = 3300,
-                SpecOffer = "Купи - обрадуй соседку!",
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Вокруг китай",
-                Description = "Маде ин чина",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress10.jpg",Priority = false}
-                    },
-                Category = 3,
-                Price = 100,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-            db.Product.Add(new Product
-            {
-                Name = "Показуха",
-                Description = "Это платье давно уже купили - но вот, посмотрите какая красотааа!",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress8.jpg",Priority = false}
-                    },
-                Category = 2,
-                Price = 1200,
-                DateCreate = Now
-            }
-           );
-            Thread.Sleep(10);
-
-            db.Product.Add(new Product
-            {
-                Name = "Выставочно платьеце",
-                Description = "Просто похвастаться",
-                Photo = new List<Photo>
-                    {
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = true},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false},
-                        new Photo {PhotoUrl = "dress5.jpg",Priority = false}
-                    },
-                Category = 2,
+                Category = "Gallery",
                 Price = 1200,
                 DateCreate = Now
             }
@@ -1527,7 +420,7 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress9.jpg",Priority = false}
                     },
                 Discount = 5,
-                Category = 3,
+                Category = "Partners",
                 Price = 3300,
                 SpecOffer = "Купи - обрадуй соседку!",
                 DateCreate = Now
@@ -1545,12 +438,190 @@ namespace DressShopWebUI.Models
                         new Photo {PhotoUrl = "dress10.jpg",Priority = false},
                         new Photo {PhotoUrl = "dress10.jpg",Priority = false}
                     },
-                Category = 3,
+                Category = "Partners",
                 Price = 100,
                 DateCreate = Now
             }
            );
             Thread.Sleep(10);
+            db.Product.Add(new Product
+            {
+                Name = "Офигеть не встать!",
+                Description = "Сшито капроновыми нитками в подполье",
+                Photo = new List<Photo>
+                    {
+                        new Photo {PhotoUrl = "dress1.jpg",Priority = true},
+                        new Photo {PhotoUrl = "dress1.jpg",Priority = false},
+                        new Photo {PhotoUrl = "dress1.jpg",Priority = false}
+                    },
+                Discount = 50,
+                Category = "Selling",
+                Price = 1200,
+                SpecOffer = "Купи и леденец в подарок!",
+                DateCreate = Now
+            });
+            Thread.Sleep(10);
+
+            db.Product.Add(new Product
+            {
+                Name = "С будуна",
+                Description = "Косо криво - абы живо!",
+                Photo = new List<Photo>
+                    {
+                        new Photo {PhotoUrl = "dress2.jpg",Priority = true},
+                        new Photo {PhotoUrl = "dress2.jpg",Priority = false},
+                        new Photo {PhotoUrl = "dress2.jpg",Priority = false}
+                    },
+                Category = "Selling",
+                Discount = 10,
+                Price = 500,
+                SpecOffer = "Обучим пьяному стилю",
+                DateCreate = Now
+            }
+           );
+            Thread.Sleep(10);
+
+            db.Product.Add(new Product
+            {
+                Name = "На глаз",
+                Description = "а и правда - зачем выкройка?",
+                Photo = new List<Photo>
+                    {
+                        new Photo {PhotoUrl = "dress3.jpg",Priority = true},
+                        new Photo {PhotoUrl = "dress3.jpg",Priority = false},
+                        new Photo {PhotoUrl = "dress3.jpg",Priority = false}
+                    },
+                Category = "Selling",
+                Price = 4200,
+                DateCreate = Now
+            }
+           );
+            Thread.Sleep(10);
+
+            db.Product.Add(new Product
+            {
+                Name = "Очумелые ручки",
+                Description = "Настолько очумели - что вот такое пошили!",
+                Photo = new List<Photo>
+                    {
+                        new Photo {PhotoUrl = "dress4.jpg",Priority = true},
+                        new Photo {PhotoUrl = "dress4.jpg",Priority = false},
+                        new Photo {PhotoUrl = "dress4.jpg",Priority = false}
+                    },
+                Discount = 30,
+                Category = "Selling",
+                Price = 200,
+                DateCreate = Now
+            }
+           );
+            Thread.Sleep(10);
+
+            db.Product.Add(new Product
+            {
+                Name = "Веселая леди",
+                Description = "Оцените всю веселость этой леди!",
+                Photo = new List<Photo>
+                    {
+                        new Photo {PhotoUrl = "dress6.jpg",Priority = true},
+                        new Photo {PhotoUrl = "dress6.jpg",Priority = false},
+                        new Photo {PhotoUrl = "dress6.jpg",Priority = false}
+                    },
+                Category = "Selling",
+                Price = 1200,
+                DateCreate = Now
+            }
+           );
+            Thread.Sleep(10);
+
+            db.Product.Add(new Product
+            {
+                Name = "Вырви глаз",
+                Description = "Специальная психо-физичесская методика пошива, позволяет быстро улучшить ваше зрение!",
+                Photo = new List<Photo>
+                    {
+                        new Photo {PhotoUrl = "dress7.jpg",Priority = true},
+                        new Photo {PhotoUrl = "dress7.jpg",Priority = false},
+                        new Photo {PhotoUrl = "dress7.jpg",Priority = false}
+                    },
+                Discount = 20,
+                Category = "Selling",
+                Price = 8200,
+                SpecOffer = "+ поход к окулисту!",
+                DateCreate = Now
+            }
+           );
+            Thread.Sleep(10);
+
+            db.Product.Add(new Product
+            {
+                Name = "Показуха",
+                Description = "Это платье давно уже купили - но вот, посмотрите какая красотааа!",
+                Photo = new List<Photo>
+                    {
+                        new Photo {PhotoUrl = "dress8.jpg",Priority = true},
+                        new Photo {PhotoUrl = "dress8.jpg",Priority = false},
+                        new Photo {PhotoUrl = "dress8.jpg",Priority = false}
+                    },
+                Category = "Gallery",
+                Price = 1200,
+                DateCreate = Now
+            }
+           );
+            Thread.Sleep(10);
+
+            db.Product.Add(new Product
+            {
+                Name = "Выставочно платьеце",
+                Description = "Просто похвастаться",
+                Photo = new List<Photo>
+                    {
+                        new Photo {PhotoUrl = "dress5.jpg",Priority = true},
+                        new Photo {PhotoUrl = "dress5.jpg",Priority = false},
+                        new Photo {PhotoUrl = "dress5.jpg",Priority = false}
+                    },
+                Category = "Gallery",
+                Price = 1200,
+                DateCreate = Now
+            }
+           );
+            Thread.Sleep(10);
+
+            db.Product.Add(new Product
+            {
+                Name = "Мольба конкурента",
+                Description = "произведенно соседкой по койке",
+                Photo = new List<Photo>
+                    {
+                        new Photo {PhotoUrl = "dress9.jpg",Priority = true},
+                        new Photo {PhotoUrl = "dress9.jpg",Priority = false},
+                        new Photo {PhotoUrl = "dress9.jpg",Priority = false}
+                    },
+                Discount = 30,
+                Category = "Partners",
+                Price = 3300,
+                SpecOffer = "Купи - обрадуй соседку!",
+                DateCreate = Now
+            }
+           );
+            Thread.Sleep(10);
+
+            db.Product.Add(new Product
+            {
+                Name = "Вокруг китай",
+                Description = "Маде ин чина",
+                Photo = new List<Photo>
+                    {
+                        new Photo {PhotoUrl = "dress10.jpg",Priority = true},
+                        new Photo {PhotoUrl = "dress10.jpg",Priority = false},
+                        new Photo {PhotoUrl = "dress10.jpg",Priority = false}
+                    },
+                Category = "Partners",
+                Price = 100,
+                DateCreate = Now
+            }
+           );
+            Thread.Sleep(10);
+
 
             #endregion
 

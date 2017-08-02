@@ -4,8 +4,9 @@
     ViewBag.Title = "Каталог товаров";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
 <br />
+
+<a href="/Admin/AddProduct" class="btn btn-primary btn-lg">Добавить товар</a>
 <label for="categorySelect">Отсортировать по категории:</label>
 <select id="categorySelect">
     <option value="@((int)CategoryProduct.None)"></option>

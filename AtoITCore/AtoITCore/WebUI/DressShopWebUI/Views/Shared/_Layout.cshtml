@@ -79,15 +79,15 @@
                     string path = "";
                     foreach (var i in HomeController.SliderPhoto)
                     {
-                        if (i.Product.Category.Equals(1))
+                        if (i.Product.Category.Equals("Selling"))
                         {
                             path = "/Home/Selling";
                         }
-                        if (i.Product.Category.Equals(2))
+                        if (i.Product.Category.Equals("Gallery"))
                         {
                             path = "/Home/Gallery";
                         }
-                        if (i.Product.Category.Equals(3))
+                        if (i.Product.Category.Equals("Partners"))
                         {
                             path = "/Home/Partners";
                         }

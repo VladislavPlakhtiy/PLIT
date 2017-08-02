@@ -53,7 +53,7 @@ namespace DressShopWebUI.Models
             decimal totalVelue = 0;
             foreach (var i in _myCollection)
             {
-                if (i.Product.Discount != 0)
+                if (i.Product.Discount != null)
                 {
 
                     totalVelue += i.Product.Price - i.Product.Price * i.Product.Discount/100;

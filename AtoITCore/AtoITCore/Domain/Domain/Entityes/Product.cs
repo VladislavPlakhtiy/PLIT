@@ -25,14 +25,17 @@ namespace Domain.Entityes
         public string Name { get; set; }
 
         [Display(Name = "Описание")]
+        [DataType(DataType.MultilineText)]
         [StringLength(500, MinimumLength = 3, ErrorMessage = "Длина описания от 3 до 500 символов")]
         public string Description { get; set; }
 
         [Display(Name = "Скидка")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "Пожалуйста, введите корректную скидку в процентах")]
+        [Required(ErrorMessage = "Если товар не содержит скидок введите - 0")]
+        [Range(typeof(int), "0", "99", ErrorMessage = "Пожалуйста, введите корректную скидку в процентах (0-99)")]
         public int Discount { get; set; }
 
         [Display(Name = "Специальное предложение")]
+        [DataType(DataType.MultilineText)]
         [StringLength(250, MinimumLength = 3, ErrorMessage = "Длина спец. предложения от 3 до 250 символов")]
         public string SpecOffer { get; set; }
 
@@ -47,8 +50,7 @@ namespace Domain.Entityes
 
         [Display(Name = "Категория")]
         [Required(ErrorMessage = "Пожалуйста, укажите категорию")]
-        [Range(typeof(int), "1", "10")]
-        public int Category { get; set; }
+        public string Category { get; set; }
 
 
         public ICollection<Photo> Photo { get; set; }

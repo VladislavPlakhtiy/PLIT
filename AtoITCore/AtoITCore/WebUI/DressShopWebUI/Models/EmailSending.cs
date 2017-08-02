@@ -27,7 +27,7 @@ namespace DressShopWebUI.Models
             str.AppendLine("");
             foreach (var i in basket.Lines)
             {
-                string category = i.Product.Category==1 ? "ONLINE-гардероб": "Партнерское";
+                string category = i.Product.Category== "Selling" ? "ONLINE-гардероб": "Партнерское";
                 
                 string prise;
                 if (i.Product.Discount != 0)

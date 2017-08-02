@@ -39,18 +39,18 @@
                 <img src="~/PhotoForDB/@i.PhotoUrl" width="60" height="70" />
             </td>
             <td>
-                @if (i.Product.Category.Equals(1))
+                @if (i.Product.Category.Equals("Selling"))
                 {
                    
                     <i>ONLINE-гардероб</i>
                 }
 
-                @if (i.Product.Category.Equals(2))
+                @if (i.Product.Category.Equals("Gallery"))
                 {
                     <i>Галерея</i>
                 }
 
-                @if (i.Product.Category.Equals(3))
+                @if (i.Product.Category.Equals("Partners"))
                 {
                     <i>Партнерское</i>
                 }

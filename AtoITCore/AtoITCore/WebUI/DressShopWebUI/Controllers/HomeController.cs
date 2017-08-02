@@ -32,7 +32,7 @@ namespace DressShopWebUI.Controllers
 
             //выбираем товары по категории  - 1
             var selling = from s in Db.Photo
-                          where s.Product.Category == 1
+                          where s.Product.Category == "Selling"
                           orderby s.Product.DateCreate descending
                           select s;
             return View(selling.ToList());
@@ -43,7 +43,7 @@ namespace DressShopWebUI.Controllers
         {
             // выбираем фотографии по приоритету, и по категории 2
             var photo = from s in Db.Photo
-                        where s.Product.Category == 2
+                        where s.Product.Category == "Gallery"
                         orderby s.Product.DateCreate descending
                         select s;
             return View(photo.ToList());
@@ -53,7 +53,7 @@ namespace DressShopWebUI.Controllers
         public ActionResult Partners() // страница Партнеры 
         {
             var partners = from s in Db.Photo
-                           where s.Product.Category == 3
+                           where s.Product.Category == "Partners"
                            orderby s.Product.DateCreate descending
                            select s;
             return View(partners.ToList());

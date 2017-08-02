@@ -166,8 +166,7 @@
 }
 
 <h4>Оцените наш продукт</h4>
-@using (Html.BeginForm("Feedback", "Home",
-    FormMethod.Post, new {@class = "reviews-form", id = "review"})) /* добавил класс в форму и id, может будет нужен */
+@using (Html.BeginForm("Feedback", "Home", FormMethod.Post)) 
 {
     <h3>Оставить отзыв</h3>
     <br/>

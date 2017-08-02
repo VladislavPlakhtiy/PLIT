@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Domain.Concrete;
 using Domain.Entityes;
@@ -45,8 +48,8 @@ namespace DressShopWebUI.Controllers
                 }
 
                 product = from s in Db.Photo
-                    where s.Priority == true
-                    select s;
+                          where s.Priority == true
+                          select s;
                 TempData["message"] = $"Товара с именем - \"{searchName}\" не существует!";
                 return PartialView("PartialMyPanel", product.ToList());
             }
@@ -54,18 +57,89 @@ namespace DressShopWebUI.Controllers
             {
 
                 case CategoryProduct.Selling:
-                    product = product.Where(x => x.Product.Category == 1);
+                    product = product.Where(x => x.Product.Category == "Selling");
                     break;
                 case CategoryProduct.Gallery:
-                    product = product.Where(x => x.Product.Category == 2);
+                    product = product.Where(x => x.Product.Category == "Gallery");
                     break;
                 case CategoryProduct.Partners:
-                    product = product.Where(x => x.Product.Category == 3);
+                    product = product.Where(x => x.Product.Category == "Partners");
                     break;
             }
             return PartialView("PartialMyPanel", product.ToList());
         }
 
+        //------------------------------------------------------------------------------------------------------------------------------------
+
+        //------------------------------------------------Добавление товара-------------------------------------------------------------------
+        [HttpGet]
+        public ActionResult AddProduct()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddProduct(Product product, HttpPostedFileBase upload, IEnumerable<HttpPostedFileBase> uploads)
+        {
+            if (ModelState.IsValid && upload != null)
+            {
+                List<Photo> list = new List<Photo>();
+                var photoName = Guid.NewGuid().ToString();
+                var extension = Path.GetExtension(upload.FileName);
+                photoName += extension;
+                List<string> extensions = new List<string> { ".jpg", ".png" };
+                // сохраняем файл
+                if (extensions.Contains(extension))
+                {
+                    upload.SaveAs(Server.MapPath("~/PhotoForDB/" + photoName));
+                    list.Add(new Photo { PhotoUrl = photoName, Priority = true });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Ошибка! Не верное расширение фотографии!");
+                    return View();
+                }
+                foreach (var file in uploads)
+                {
+
+                    if (file != null)
+                    {
+                        photoName = Guid.NewGuid().ToString();
+                        extension = Path.GetExtension(file.FileName);
+                        photoName += extension;
+                        // сохраняем файл в папку Files в проекте
+                        if (extensions.Contains(extension))
+                        {
+                            file.SaveAs(Server.MapPath("~/PhotoForDB/" + photoName));
+                            list.Add(new Photo { PhotoUrl = photoName, Priority = false });
+                        }
+                        else
+                        {
+                           ModelState.AddModelError("","Ошибка! Не верное расширение фотографии!");
+                            return View();
+                        }
+                    }
+                }
+
+                Db.Product.Add(new Product
+                {
+                    Name = product.Name,
+                    Description = product.Description,
+                    Discount = product.Discount,
+                    Category = product.Category,
+                    Price = product.Price,
+                    SpecOffer = product.SpecOffer,
+                    DateCreate = Now,
+                    Photo = list
+                });
+                Db.SaveChanges();
+                TempData["message"] = "Товар успешно добавлен!";
+                return RedirectToAction("MyPanel");
+            }
+            ModelState.AddModelError("", "Ошибка! Товар не был добавлен! проверьте пожалуйста правильность заполнения формы!"); 
+            return View();
+        }
         //------------------------------------------------------------------------------------------------------------------------------------
 
         //------------------------------------------------Редактировние товара----------------------------------------------------------------
@@ -88,13 +162,6 @@ namespace DressShopWebUI.Controllers
 
         //------------------------------------------------------------------------------------------------------------------------------------
 
-        //------------------------------------------------Добавление товара-------------------------------------------------------------------
-        [HttpGet]
-        public ActionResult AddProduct()
-        {
-            return View();
-        }
-        //------------------------------------------------------------------------------------------------------------------------------------
 
 
         #endregion
