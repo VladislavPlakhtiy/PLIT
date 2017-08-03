@@ -1,5 +1,4 @@
-﻿@using DressShopWebUI.Controllers
-@model IEnumerable<Domain.Entityes.Photo>
+﻿@model IEnumerable<Domain.Entityes.Product>
 @if (TempData["message"] != null)
 {
     <div class="alert alert-success" align="center">@TempData["message"]</div>
@@ -36,54 +35,58 @@
     {
         <tr>
             <td>
-                <img src="~/PhotoForDB/@i.PhotoUrl" width="60" height="70" />
+                @foreach (var a in i.Photo)
+                {
+                        <img src="~/PhotoForDB/@a.PhotoUrl" width="60" height="70" />
+                }
+                
             </td>
             <td>
-                @if (i.Product.Category.Equals("Selling"))
+                @if (i.Category.Equals("Selling"))
                 {
                    
                     <i>ONLINE-гардероб</i>
                 }
 
-                @if (i.Product.Category.Equals("Gallery"))
+                @if (i.Category.Equals("Gallery"))
                 {
                     <i>Галерея</i>
                 }
 
-                @if (i.Product.Category.Equals("Partners"))
+                @if (i.Category.Equals("Partners"))
                 {
                     <i>Партнерское</i>
                 }
 
             </td>
             <td>
-                @Html.DisplayFor(modelItem => i.Product.Name)
+                @Html.DisplayFor(modelItem => i.Name)
             </td>
             <td>
-                @((double)i.Product.Price) грн.
+                @((double)i.Price) грн.
             </td>
             <td>
-                @Html.DisplayFor(modelItem => i.Product.Discount) %
+                @Html.DisplayFor(modelItem => i.Discount) %
             </td>
             <td>
-                @Html.DisplayFor(modelItem => i.Product.Description)
+                @Html.DisplayFor(modelItem => i.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => i.Product.SpecOffer)
+                @Html.DisplayFor(modelItem => i.SpecOffer)
             </td>
             <td class="text-center">
-                @using (Html.BeginForm("EditProduct", "Admin"))
+                @using (Html.BeginForm("EditProduct", "Admin",FormMethod.Get))
                 {
-                    @Html.Hidden("ProductId", i.Product.ProductId)
+                    @Html.Hidden("ProductId", i.ProductId)
                     <input type="submit"
                            class="btn btn-default btn-xs"
                            value="Редактировать" />
                 }
             </td>
             <td class="text-center">
-                @using (Html.BeginForm("DeleteProduct", "Admin"))
+                @using (Html.BeginForm("DeleteProduct", "Admin", FormMethod.Get))
                 {
-                    @Html.Hidden("ProductId", i.Product.ProductId)
+                    @Html.Hidden("ProductId", i.ProductId)
                     <input type="submit"
                            class="btn btn-default btn-xs"
                            value="Удалить" />

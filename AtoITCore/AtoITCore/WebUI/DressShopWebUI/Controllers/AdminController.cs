@@ -8,6 +8,10 @@ using Domain.Concrete;
 using Domain.Entityes;
 using static System.DateTime;
 
+//DirectoryInfo info = new DirectoryInfo(Server.MapPath("~/PhotoForDB/"));
+//DirectoryInfo[] dirs = info.GetDirectories();
+//FileInfo[] files = info.GetFiles();
+
 namespace DressShopWebUI.Controllers
 {
     /// <summary>
@@ -23,22 +27,38 @@ namespace DressShopWebUI.Controllers
         //------------------------------------------------Стартовая страница------------------------------------------------------------------
         [HttpGet]
         public ActionResult MyPanel()
-        {
-            var product = from s in Db.Photo
-                          where s.Priority == true
-                          select s;
-            return View(product.ToList());
+        {    // Костылииииииии!!!! :)))
+            var selectProduct = from s in Db.Product
+                                select s;
+            var selectPhoto = from s in Db.Photo
+                              where s.Priority == true
+                              select s;
+            List<Product> product = new List<Product>();
+            foreach (var p in selectProduct)
+            {
+                product.Add(p);
+            }
+            foreach (var p in product)
+            {
+                foreach (var s in selectPhoto)
+                {
+                    if (p.ProductId ==s.Product.ProductId)
+                    {
+                        p.Photo = new List<Photo> {s};
+                    }
+                }
+            }
+            return View(product);
         }
 
         [HttpPost]
         public ActionResult MyPanel(string searchName, CategoryProduct category)
         {
-            var product = from s in Db.Photo
-                          where s.Priority == true
+            var product = from s in Db.Product
                           select s;
             if (!string.IsNullOrEmpty(searchName))
             {
-                product = product.Where(s => s.Product.Name.Equals(searchName));
+                product = product.Where(s => s.Name.Equals(searchName));
 
 
                 if (product.Count() != 0)
@@ -47,8 +67,7 @@ namespace DressShopWebUI.Controllers
                     return PartialView("PartialMyPanel", product.ToList());
                 }
 
-                product = from s in Db.Photo
-                          where s.Priority == true
+                product = from s in Db.Product
                           select s;
                 TempData["message"] = $"Товара с именем - \"{searchName}\" не существует!";
                 return PartialView("PartialMyPanel", product.ToList());
@@ -57,13 +76,13 @@ namespace DressShopWebUI.Controllers
             {
 
                 case CategoryProduct.Selling:
-                    product = product.Where(x => x.Product.Category == "Selling");
+                    product = product.Where(x => x.Category == "Selling");
                     break;
                 case CategoryProduct.Gallery:
-                    product = product.Where(x => x.Product.Category == "Gallery");
+                    product = product.Where(x => x.Category == "Gallery");
                     break;
                 case CategoryProduct.Partners:
-                    product = product.Where(x => x.Product.Category == "Partners");
+                    product = product.Where(x => x.Category == "Partners");
                     break;
             }
             return PartialView("PartialMyPanel", product.ToList());
@@ -75,7 +94,6 @@ namespace DressShopWebUI.Controllers
         [HttpGet]
         public ActionResult AddProduct()
         {
-
             return View();
         }
 
@@ -88,7 +106,7 @@ namespace DressShopWebUI.Controllers
                 var photoName = Guid.NewGuid().ToString();
                 var extension = Path.GetExtension(upload.FileName);
                 photoName += extension;
-                List<string> extensions = new List<string> { ".jpg", ".png" };
+                List<string> extensions = new List<string> { ".jpg", ".png", ".gif"};
                 // сохраняем файл
                 if (extensions.Contains(extension))
                 {
@@ -116,7 +134,7 @@ namespace DressShopWebUI.Controllers
                         }
                         else
                         {
-                           ModelState.AddModelError("","Ошибка! Не верное расширение фотографии!");
+                            ModelState.AddModelError("", "Ошибка! Не верное расширение фотографии!");
                             return View();
                         }
                     }
@@ -137,7 +155,7 @@ namespace DressShopWebUI.Controllers
                 TempData["message"] = "Товар успешно добавлен!";
                 return RedirectToAction("MyPanel");
             }
-            ModelState.AddModelError("", "Ошибка! Товар не был добавлен! проверьте пожалуйста правильность заполнения формы!"); 
+            ModelState.AddModelError("", "Ошибка! Товар не был добавлен! проверьте пожалуйста правильность заполнения формы!");
             return View();
         }
         //------------------------------------------------------------------------------------------------------------------------------------
@@ -147,9 +165,43 @@ namespace DressShopWebUI.Controllers
         public ActionResult EditProduct(int productId)
         {
             var product = Db.Product.FirstOrDefault(x => x.ProductId == productId);
+           
             return View(product);
         }
 
+        [HttpPost]
+        public ActionResult EditProduct(Product product)
+        {
+            var photo = from i in Db.Photo
+                where i.Product.ProductId == product.ProductId
+                select i;
+            if (ModelState.IsValid)
+            {
+                var pro = Db.Product.Find(product.ProductId);
+                if (pro != null)
+                {
+                    pro.Discount = product.Discount;
+                    pro.Category = product.Category;
+                    pro.Description = product.Description;
+                    pro.Name = product.Name;
+                    pro.Price = product.Price;
+                    pro.SpecOffer = product.SpecOffer;
+                    Db.SaveChanges();
+                }
+                TempData["message"] = "Изменения в товаре были сохранены";
+                return RedirectToAction("MyPanel");
+            }
+            return View("EditProduct");
+
+        }
+        [HttpGet]
+        public ActionResult EditPhoto(int id)
+        {
+            var photo = from i in Db.Photo
+                where i.Product.ProductId == id
+                select i;
+            return PartialView(photo.ToList());
+        }
         //------------------------------------------------------------------------------------------------------------------------------------
 
         //------------------------------------------------Удаление товара---------------------------------------------------------------------

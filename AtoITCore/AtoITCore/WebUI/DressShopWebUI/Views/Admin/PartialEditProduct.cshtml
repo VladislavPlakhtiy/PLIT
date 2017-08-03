@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Domain.Entityes.Photo>
+
+@foreach (var i in Model)
+{
+    @Html.Action("EditPhoto", "Admin", new { id = i.Product.ProductId })
+    break;
+}
+
+        
