@@ -17,7 +17,7 @@
     {
         <tr>
             <td>
-                    <img src="~/PhotoForDB/@i.PhotoUrl" width="60" height="70" />
+                <img src="~/PhotoForDB/@i.PhotoUrl" width="60" height="70" />
             </td>
             <td>
                 @if (i.Priority.
@@ -34,25 +34,58 @@
                 }
             </td>
             <td class="text-center">
-                @using (Html.BeginForm("EditPhoto", "Admin", FormMethod.Get))
-                {
-                    @Html.Hidden("PhotoId", i.PhotoId)
-                    <input type="submit"
-                           class="btn btn-default btn-xs"
-                           value="Редактировать" />
-                }
+                <input type="button" id="@(i.PhotoId+"ButtonEdit")"
+                       class="btn btn-default btn-xs"
+                       value="Установить как основное фото" />
+                <script>
+                    $(document)
+                       .ready(function () {
+                           $("#@(i.PhotoId+"ButtonEdit")")
+                               .click(function () {
+                                   //debugger;
+                                   var data = {
+                                       idProduct: ('@i.Product.ProductId'),
+                                       id: ('@i.PhotoId')
+                                   };
+                                   //debugger;
+                                   $.ajax({
+                                       url: "/Admin/EditPhoto",
+                                       type: "GET",
+                                       data: data,
+                                       success: function (data) {
+                                           $("#photoId").html(data);
+                                       }
+                                   });
+                               });
+                       });
+                </script>
             </td>
-            <td class="text-center">
-                @using (Html.BeginForm("DeleteProduct", "Admin", FormMethod.Get))
-                {
-                    @Html.Hidden("PhotoId", i.PhotoId)
-                    <input type="submit"
-                           class="btn btn-default btn-xs"
-                           value="Удалить" />
-                }
-            </td>
+            @*<td class="text-center">
+                <input type="button" id="@(i.PhotoId+"ButtonEdit")"
+                       class="btn btn-default btn-xs"
+                       value="Удалить фото" />
+                <script>
+                    $(document)
+                       .ready(function () {
+                           $("#@(i.PhotoId+"ButtonEdit")")
+                               .click(function () {
+                                   var data = {
+                                       idProduct: ('@i.Product.ProductId'),
+                                       id: ('@i.PhotoId')
+                                   };
+                                   $.ajax({
+                                       url: "/Admin/EditPhoto",
+                                       type: "GET",
+                                       data: data,
+                                       success: function (data) {
+                                           $("#photoId").html(data);
+                                       }
+                                   });
+                               });
+                       });
+                </script>
+            </td>*@
         </tr>
     }
 
 </table>
-

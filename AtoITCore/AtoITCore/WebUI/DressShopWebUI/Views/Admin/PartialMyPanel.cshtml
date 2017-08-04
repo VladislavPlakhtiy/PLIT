@@ -37,14 +37,17 @@
             <td>
                 @foreach (var a in i.Photo)
                 {
+                    if (a.Priority == true)
+                    {
                         <img src="~/PhotoForDB/@a.PhotoUrl" width="60" height="70" />
+                    }
                 }
-                
+
             </td>
             <td>
                 @if (i.Category.Equals("Selling"))
                 {
-                   
+
                     <i>ONLINE-гардероб</i>
                 }
 
@@ -75,7 +78,7 @@
                 @Html.DisplayFor(modelItem => i.SpecOffer)
             </td>
             <td class="text-center">
-                @using (Html.BeginForm("EditProduct", "Admin",FormMethod.Get))
+                @using (Html.BeginForm("EditProduct", "Admin", FormMethod.Get))
                 {
                     @Html.Hidden("ProductId", i.ProductId)
                     <input type="submit"

@@ -5,7 +5,10 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success" align="center"><h3>@TempData["message"]</h3></div>
+}
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -70,8 +73,9 @@
                         </div>
                     </div>
                 </td>
-                <td>
-                        @Html.Partial("PartialEditProduct", Model.Photo)
+                <td Id="photoId">
+                    @Html.Partial("EditPhoto",Model.Photo )
+                    @*@Html.Action("EditPhoto", "Admin", new {idProduct = Model.ProductId})*@
                 </td>
             </tr>
         </table>

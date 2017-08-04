@@ -28,12 +28,13 @@ namespace DressShopWebUI.Controllers
         [HttpGet]
         public ActionResult MyPanel()
         {    // Костылииииииии!!!! :)))
+            List<Product> product = new List<Product>();
+
             var selectProduct = from s in Db.Product
                                 select s;
             var selectPhoto = from s in Db.Photo
-                              where s.Priority == true
                               select s;
-            List<Product> product = new List<Product>();
+
             foreach (var p in selectProduct)
             {
                 product.Add(p);
@@ -42,16 +43,18 @@ namespace DressShopWebUI.Controllers
             {
                 foreach (var s in selectPhoto)
                 {
-                    if (p.ProductId ==s.Product.ProductId)
+                    if (p.ProductId == s.Product.ProductId)
                     {
-                        p.Photo = new List<Photo> {s};
+                        p.Photo.Add(s);
                     }
                 }
             }
+
             return View(product);
         }
 
         [HttpPost]
+        //Сортировка и поиск по имени продукта
         public ActionResult MyPanel(string searchName, CategoryProduct category)
         {
             var product = from s in Db.Product
@@ -106,7 +109,7 @@ namespace DressShopWebUI.Controllers
                 var photoName = Guid.NewGuid().ToString();
                 var extension = Path.GetExtension(upload.FileName);
                 photoName += extension;
-                List<string> extensions = new List<string> { ".jpg", ".png", ".gif"};
+                List<string> extensions = new List<string> { ".jpg", ".png", ".gif" };
                 // сохраняем файл
                 if (extensions.Contains(extension))
                 {
@@ -165,16 +168,13 @@ namespace DressShopWebUI.Controllers
         public ActionResult EditProduct(int productId)
         {
             var product = Db.Product.FirstOrDefault(x => x.ProductId == productId);
-           
+
             return View(product);
         }
 
         [HttpPost]
-        public ActionResult EditProduct(Product product)
+        public ActionResult EditProduct(Product product) 
         {
-            var photo = from i in Db.Photo
-                where i.Product.ProductId == product.ProductId
-                select i;
             if (ModelState.IsValid)
             {
                 var pro = Db.Product.Find(product.ProductId);
@@ -187,21 +187,91 @@ namespace DressShopWebUI.Controllers
                     pro.Price = product.Price;
                     pro.SpecOffer = product.SpecOffer;
                     Db.SaveChanges();
+
                 }
                 TempData["message"] = "Изменения в товаре были сохранены";
-                return RedirectToAction("MyPanel");
             }
-            return View("EditProduct");
+            var productSelect = Db.Product.FirstOrDefault(x => x.ProductId == product.ProductId);
+            return View("EditProduct", productSelect);
 
         }
+
+        //------------------------------------------------------------------------------------------------------------------------------------
+
+        //------------------------------------------------Редактот фото товара----------------------------------------------------------------
         [HttpGet]
-        public ActionResult EditPhoto(int id)
+        public ActionResult EditPhoto(int idProduct, int id = 0) // Изменение приоритета фото
         {
-            var photo = from i in Db.Photo
-                where i.Product.ProductId == id
-                select i;
-            return PartialView(photo.ToList());
+            var myPhoto = from i in Db.Photo
+                          where i.PhotoId == id
+                          select i;
+            var photoFromSelect = myPhoto.FirstOrDefault();
+            var qvery = from i in Db.Photo
+                        where i.Product.ProductId == idProduct
+                        select i;
+            foreach (var i in qvery)
+            {
+                if (i != null)
+                {
+                    i.Priority = false;
+                }
+            }
+            if (photoFromSelect != null)
+            {
+                photoFromSelect.Priority = true;
+                Db.SaveChanges();
+            }
+
+            return PartialView(qvery.ToList());
+
         }
+
+        //[HttpGet]
+        //public ActionResult PriorityСhangesPhoto(int id)
+        //{
+        //    var myPhoto = from i in Db.Photo
+        //                  where i.PhotoId == id
+        //                  select i;
+
+        //    var photoFromSelect = myPhoto.FirstOrDefault();
+        //    var qvery = from i in Db.Photo
+        //                where i.Product.ProductId == photoFromSelect.Product.ProductId
+        //                select i;
+        //    foreach (var i in qvery)
+        //    {
+        //        if (i != null)
+        //        {
+        //            i.Priority = false;
+        //        }
+        //    }
+        //    if (photoFromSelect != null)
+        //    {
+
+        //        photoFromSelect.Priority = true;
+        //        Db.SaveChanges();
+        //    }
+
+
+        //    return PartialView("EditPhoto", qvery.ToList());
+
+
+        //}
+        //[HttpGet]
+        //public ActionResult EditOnePhoto(int id)
+        //{
+
+        //    Photo onePhoto = new Photo();
+        //    var one = from i in Db.Photo
+        //              where i.PhotoId == id
+        //              select i;
+        //    foreach (var i in one)
+        //    {
+        //        onePhoto = i;
+        //    }
+        //    int idProduct = id;
+        //    return RedirectToAction("EditPhoto", idProduct);
+        //}
+
         //------------------------------------------------------------------------------------------------------------------------------------
 
         //------------------------------------------------Удаление товара---------------------------------------------------------------------
