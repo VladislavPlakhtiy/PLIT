@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,7 @@ using Domain.Concrete;
 using Domain.Entityes;
 using static System.DateTime;
 
-//DirectoryInfo info = new DirectoryInfo(Server.MapPath("~/PhotoForDB/"));
-//DirectoryInfo[] dirs = info.GetDirectories();
-//FileInfo[] files = info.GetFiles();
+
 
 namespace DressShopWebUI.Controllers
 {
@@ -173,7 +172,7 @@ namespace DressShopWebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditProduct(Product product) 
+        public ActionResult EditProduct(Product product)
         {
             if (ModelState.IsValid)
             {
@@ -196,25 +195,72 @@ namespace DressShopWebUI.Controllers
 
         }
 
+        //------------------------------------------------Удаление товара---------------------------------------------------------------------
+        [HttpPost]
+        public ActionResult DeleteProduct(int productId, string category)
+        {
+            DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/PhotoForDB/"));
+            var product = Db.Product.FirstOrDefault(x => x.ProductId == productId);
+            if (product != null)
+            {
+                var removePhotos = from i in Db.Photo
+                    where i.Product.ProductId == productId
+                    select i;
+                foreach (var i in removePhotos)
+                {
+                //    foreach (FileInfo file in directory.GetFiles())  //Удаление фото из директории пока закоментирую
+                //    {
+                //        if (file.ToString() == i.PhotoUrl)
+                //        file.Delete();
+                //    }
+                    Db.Photo.Remove(i);
+                }
+               
+                Db.Product.Remove(product);
+                Db.SaveChanges();
+            }
+            List<Product> model = new List<Product>();
+         
+            var selectProduct = from s in Db.Product
+                                where s.Category == category
+                                select s;
+            var selectPhoto = from s in Db.Photo
+                              select s;
+
+            foreach (var p in selectProduct)
+            {
+                model.Add(p);
+            }
+            foreach (var p in model)
+            {
+                foreach (var s in selectPhoto)
+                {
+                    if (p.ProductId == s.Product.ProductId)
+                    {
+                        p.Photo.Add(s);
+                    }
+                }
+            }
+
+            return PartialView("PartialMyPanel", model);
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------
+
         //------------------------------------------------------------------------------------------------------------------------------------
 
         //------------------------------------------------Редактот фото товара----------------------------------------------------------------
-        [HttpGet]
-        public ActionResult EditPhoto(int idProduct, int id = 0) // Изменение приоритета фото
+        [HttpPost]
+        public ActionResult PriorityСhangesPhoto(int idProduct, int id) // Изменение приоритета фото
         {
-            var myPhoto = from i in Db.Photo
-                          where i.PhotoId == id
-                          select i;
-            var photoFromSelect = myPhoto.FirstOrDefault();
-            var qvery = from i in Db.Photo
-                        where i.Product.ProductId == idProduct
-                        select i;
-            foreach (var i in qvery)
+            var photoFromSelect = Db.Photo.FirstOrDefault(x => x.PhotoId == id);
+            var response = from i in Db.Photo
+                           where i.Product.ProductId == idProduct
+                           select i;
+            foreach (var i in response)
             {
                 if (i != null)
-                {
                     i.Priority = false;
-                }
             }
             if (photoFromSelect != null)
             {
@@ -222,67 +268,55 @@ namespace DressShopWebUI.Controllers
                 Db.SaveChanges();
             }
 
-            return PartialView(qvery.ToList());
+            return PartialView("EditPhoto", response.ToList());
 
         }
 
-        //[HttpGet]
-        //public ActionResult PriorityСhangesPhoto(int id)
-        //{
-        //    var myPhoto = from i in Db.Photo
-        //                  where i.PhotoId == id
-        //                  select i;
-
-        //    var photoFromSelect = myPhoto.FirstOrDefault();
-        //    var qvery = from i in Db.Photo
-        //                where i.Product.ProductId == photoFromSelect.Product.ProductId
-        //                select i;
-        //    foreach (var i in qvery)
-        //    {
-        //        if (i != null)
-        //        {
-        //            i.Priority = false;
-        //        }
-        //    }
-        //    if (photoFromSelect != null)
-        //    {
-
-        //        photoFromSelect.Priority = true;
-        //        Db.SaveChanges();
-        //    }
-
-
-        //    return PartialView("EditPhoto", qvery.ToList());
-
-
-        //}
-        //[HttpGet]
-        //public ActionResult EditOnePhoto(int id)
-        //{
-
-        //    Photo onePhoto = new Photo();
-        //    var one = from i in Db.Photo
-        //              where i.PhotoId == id
-        //              select i;
-        //    foreach (var i in one)
-        //    {
-        //        onePhoto = i;
-        //    }
-        //    int idProduct = id;
-        //    return RedirectToAction("EditPhoto", idProduct);
-        //}
-
-        //------------------------------------------------------------------------------------------------------------------------------------
-
-        //------------------------------------------------Удаление товара---------------------------------------------------------------------
-        [HttpGet]
-        public ActionResult DeleteProduct(int productId)
+        [HttpPost]
+        public ActionResult DeletePhoto(int idProduct, int id = 0) // Удаление фото
         {
-            var product = Db.Product.FirstOrDefault(x => x.ProductId == productId);
-            return View(product);
-        }
+            DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/PhotoForDB/"));
+            List<Photo> response = new List<Photo>();
+            var photoFromSelect = Db.Photo.FirstOrDefault(x => x.PhotoId == id); //выбираем фото по id
+            if (photoFromSelect != null) //если оно есь - удаляем из базы и из дериктории
+            {
+                //foreach (FileInfo file in directory.GetFiles())      //Пока закоментирую, для удобства
+                //{
+                //    if (file.ToString() == photoFromSelect.PhotoUrl)
+                //        file.Delete();
+                //}
+                Db.Photo.Remove(photoFromSelect);
+                Db.SaveChanges();
 
+            }
+            var qvery = from i in Db.Photo
+                        where i.Product.ProductId == idProduct
+                        select i;
+
+            if (qvery.Any()) //Проверяем, остались ли фото в базе по ID продукта
+            {
+                if (qvery.FirstOrDefault(x => x.Priority) != null) //Если есть фото с высоким приоритетом - отправляем ответ
+                {
+                    response = qvery.ToList();
+                }
+                else
+                {
+                    var priorityСhangesPhoto = qvery.FirstOrDefault();//Если нет фото с высоким приоритетом - задаем
+                    if (priorityСhangesPhoto != null)
+                    {
+                        priorityСhangesPhoto.Priority = true;
+                        Db.SaveChanges();
+                        response = qvery.ToList();
+                    }
+                }
+
+            }
+            return PartialView("EditPhoto", response);
+
+        }
         //------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 

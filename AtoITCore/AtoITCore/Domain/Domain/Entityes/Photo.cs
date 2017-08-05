@@ -13,7 +13,7 @@ namespace Domain.Entityes
 
         [Display(Name = "Приоритет фото")]
         [Required(ErrorMessage = "Установите приоритет фотографии")]
-        public bool? Priority { get; set; }
+        public bool Priority { get; set; }
 
         [Display(Name = "URL фото")]
         [Required]

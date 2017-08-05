@@ -4,6 +4,10 @@
     ViewBag.Title = "Каталог товаров";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success" align="center">@TempData["message"]</div>
+}
 <br />
 
 <a href="/Admin/AddProduct" class="btn btn-primary btn-lg">Добавить товар</a>
@@ -18,7 +22,7 @@
 <input id="nameSearch" type="text" /><input id="ButtonSearch" type="button" value="Найти" class="btn btn-default btn-xs"/>
 <br /><br />
 
-<div id="divProduct">
+<div id="divProductInAdmin">
     @Html.Partial("PartialMyPanel", Model)
 </div>
 
@@ -35,7 +39,7 @@
                         type: "POST",
                         data: data,
                         success: function(data) {
-                            $("#divProduct").html(data);
+                            $("#divProductInAdmin").html(data);
                         }
                     });
                 });
@@ -53,7 +57,7 @@
                         type: "POST",
                         data: data,
                         success: function(data) {
-                            $("#divProduct").html(data);
+                            $("#divProductInAdmin").html(data);
                         }
                     });
                 });

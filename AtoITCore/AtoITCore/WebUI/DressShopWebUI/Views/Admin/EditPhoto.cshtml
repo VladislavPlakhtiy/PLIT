@@ -9,7 +9,10 @@
             Приоритет
         </th>
         <th class="text-center">
-            Действия
+            Выбор приоритета
+        </th>
+        <th class="text-center">
+            Удаление
         </th>
     </tr>
 
@@ -42,15 +45,43 @@
                        .ready(function () {
                            $("#@(i.PhotoId+"ButtonEdit")")
                                .click(function () {
-                                   //debugger;
+                                   var prior = "@i.Priority";
+                                   if (prior === "True")
+                                       return false;
                                    var data = {
                                        idProduct: ('@i.Product.ProductId'),
                                        id: ('@i.PhotoId')
                                    };
-                                   //debugger;
                                    $.ajax({
-                                       url: "/Admin/EditPhoto",
-                                       type: "GET",
+                                       url: "/Admin/PriorityСhangesPhoto",
+                                       type: "POST",
+                                       data: data,
+                                       success: function (data) {
+                                           $("#photoId").html(data);
+                                       }
+                                   });
+                                   return true;
+                               });
+                       });
+                </script>
+            </td>
+            <td class="text-center">
+                <input type="button" id="@(i.PhotoId+"ButtonDelete")"
+                       class="btn btn-default btn-xs"
+                       value="Удалить фото" />
+                <script>
+                    $(document)
+                       .ready(function () {
+
+                           $("#@(i.PhotoId+ "ButtonDelete")")
+                               .click(function () {
+                                   var data = {
+                                       idProduct: ('@i.Product.ProductId'),
+                                       id: ('@i.PhotoId')
+                                   };
+                                   $.ajax({
+                                       url: "/Admin/DeletePhoto",
+                                       type: "POST",
                                        data: data,
                                        success: function (data) {
                                            $("#photoId").html(data);
@@ -60,31 +91,6 @@
                        });
                 </script>
             </td>
-            @*<td class="text-center">
-                <input type="button" id="@(i.PhotoId+"ButtonEdit")"
-                       class="btn btn-default btn-xs"
-                       value="Удалить фото" />
-                <script>
-                    $(document)
-                       .ready(function () {
-                           $("#@(i.PhotoId+"ButtonEdit")")
-                               .click(function () {
-                                   var data = {
-                                       idProduct: ('@i.Product.ProductId'),
-                                       id: ('@i.PhotoId')
-                                   };
-                                   $.ajax({
-                                       url: "/Admin/EditPhoto",
-                                       type: "GET",
-                                       data: data,
-                                       success: function (data) {
-                                           $("#photoId").html(data);
-                                       }
-                                   });
-                               });
-                       });
-                </script>
-            </td>*@
         </tr>
     }
 

@@ -1,8 +1,4 @@
 ﻿@model IEnumerable<Domain.Entityes.Product>
-@if (TempData["message"] != null)
-{
-    <div class="alert alert-success" align="center">@TempData["message"]</div>
-}
 <table class="table" style="background-color: lightgrey">
     <tr>
         <th class="text-center">
@@ -87,13 +83,31 @@
                 }
             </td>
             <td class="text-center">
-                @using (Html.BeginForm("DeleteProduct", "Admin", FormMethod.Get))
-                {
-                    @Html.Hidden("ProductId", i.ProductId)
-                    <input type="submit"
-                           class="btn btn-default btn-xs"
-                           value="Удалить" />
-                }
+                <input type="button" id="@(i.ProductId+"ButtonDelete")"
+                       class="btn btn-default btn-xs"
+                       value="Удалить" />
+                <script>
+                    $(document)
+                       .ready(function () {
+
+                           $("#@(i.ProductId+ "ButtonDelete")")
+                               .click(function () {
+
+                                   var data = {
+                                       productId: ('@i.ProductId'),
+                                       category: ('@i.Category')
+                                   };
+                                   $.ajax({
+                                       url: "/Admin/DeleteProduct",
+                                       type: "POST",
+                                       data: data,
+                                       success: function (data) {
+                                           $("#divProductInAdmin").html(data);
+                                       }
+                                   });
+                               });
+                       });
+                </script>
             </td>
         </tr>
     }
