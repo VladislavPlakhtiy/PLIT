@@ -77,18 +77,23 @@
     @Html.ValidationMessageFor(x => x.Orders.Email)
     <br />
     <br />
-    <h4>Способ оплаты</h4>
+    @Html.EditorFor(x => x.Orders.Phone, new { htmlAttributes = new { style = "margin: 0px; width: 500px; height: 20px;", placeholder = "Номер телефона" } })
+    @Html.ValidationMessageFor(x => x.Orders.Phone)
     <br />
-    <input id="Radio1" type="radio" value="наличными" name="Orders.Payment" data-val-required="Вы не выбрали способ оплаты" data-val="true" /><p>наличными</p>
-    <input id="Radio2" type="radio" value="перевод на карту" name="Orders.Payment" data-val-required="Вы не выбрали способ оплаты" data-val="true" /><p>перевод на карту</p>
-    <input id="Radio3" type="radio" value="SWIFT" name="Orders.Payment" data-val-required="Вы не выбрали способ оплаты" data-val="true" /><p>SWIFT</p>
+    <br />
+    <h4>Способ оплаты</h4>
+    <input id="Radio1" type="radio" value="наличными" name="Orders.Payment" data-val-required="Вы не выбрали способ оплаты" data-val="true" /><label style="margin: 5px">Наличными</label>
+    <br />
+     <input id="Radio2" type="radio" value="перевод на карту" name="Orders.Payment" data-val-required="Вы не выбрали способ оплаты" data-val="true" /><label style="margin: 5px">Перевод на карту</label>
+    <br />
+      <input id="Radio3" type="radio" value="SWIFT" name="Orders.Payment" data-val-required="Вы не выбрали способ оплаты" data-val="true" /><label style="margin: 5px">SWIFT</label>
     @Html.ValidationMessageFor(x => x.Orders.Payment)
     <br />
     <br />
     <h4>Способ достаки</h4>
+    <input id="Radio4" type="radio" value="cамовывоз" name="Orders.Delivery" data-val-required="Вы не выбрали способ доставки" data-val="true" /><label style="margin: 5px">Самовывоз</label>
     <br />
-    <input id="Radio4" type="radio" value="cамовывоз" name="Orders.Delivery" data-val-required="Вы не выбрали способ доставки" data-val="true" /><p>cамовывоз</p>
-    <input id="Radio5" type="radio" value="почта" name="Orders.Delivery" data-val-required="Вы не выбрали способ доставки" data-val="true" /><p>почта</p>
+     <input id="Radio5" type="radio" value="почта" name="Orders.Delivery" data-val-required="Вы не выбрали способ доставки" data-val="true" /><label style="margin: 5px">Почта</label>
     @Html.ValidationMessageFor(x => x.Orders.Delivery)
     <br />
     <br />

@@ -38,6 +38,10 @@ namespace DressShopWebUI.Models
         [StringLength(500, MinimumLength = 3, ErrorMessage = "Длина текста от 3 до 500 символов")]
         public string Address { get; set; }
 
+        [Display(Name = "Телефон")]
+        [StringLength(20, MinimumLength = 10, ErrorMessage = "Номер телефона не корректен!")]
+        public string Phone { get; set; }
+
         [Display(Name = "Комментарий")]
         [DataType(DataType.MultilineText)]
         [StringLength(500, MinimumLength = 3, ErrorMessage = "Длина текста от 3 до 500 символов")]

@@ -7,14 +7,12 @@ namespace DressShopWebUI.Models
 {
     /// <summary>
     /// Класс для отправки писем на почту
-   
     /// </summary>
     public class EmailSending
     {
         /// <summary>
         /// метод для формирования тела письма Администратору
         /// </summary>
-        /// <returns></returns>
         public static string EmailMessageToAdministrator(BasketViewModel basketViewModel, Basket basket)
         {
             StringBuilder str = new StringBuilder();
@@ -28,16 +26,8 @@ namespace DressShopWebUI.Models
             foreach (var i in basket.Lines)
             {
                 string category = i.Product.Category== "Selling" ? "ONLINE-гардероб": "Партнерское";
-                
-                string prise;
-                if (i.Product.Discount != 0)
-                {
-                    prise = $" (с учетом скидки) {(double)(i.Product.Price - i.Product.Price * i.Product.Discount / 100)}";
-                }
-                else
-                {
-                    prise =$"{(double)i.Product.Price}";
-                }
+
+                var prise = i.Product.Discount != 0 ? $" (с учетом скидки) {i.Product.Price - i.Product.Price * i.Product.Discount / 100}" : $"{i.Product.Price}";
                 str.AppendFormat($" Платье -  \"{i.Product.Name}\"  стоимостью - {prise} грн. (из категории - \"{category})\" ");
                 str.AppendLine("");
             }
@@ -47,6 +37,8 @@ namespace DressShopWebUI.Models
             str.AppendFormat($"Имя покупателя - {basketViewModel.Orders.ClientName}");
             str.AppendLine("");
             str.AppendFormat($"E-mail покупателя - {basketViewModel.Orders.Email}");
+            str.AppendLine("");
+            str.AppendFormat($"Телефон покупателя - {basketViewModel.Orders.Phone}");
             str.AppendLine("");
             str.AppendFormat($"Доставка - {basketViewModel.Orders.Delivery}");
             str.AppendLine("");
@@ -71,10 +63,6 @@ namespace DressShopWebUI.Models
         /// <summary>
         /// Отправка письма администратору
         /// </summary>
-        /// <param name="basketViewModel"></param>
-        /// <param name="basket"></param>
-        /// <param name="attachFile"></param>
-        /// <returns></returns>
         public static void SendMailToAdministrator(BasketViewModel basketViewModel, Basket basket, string attachFile = null)
         {
             try
@@ -120,12 +108,12 @@ namespace DressShopWebUI.Models
             str.AppendLine("");
             foreach (var i in basket.Lines)
             {
-                var prise = i.Product.Discount != 0 ? $" (с учетом скидки) {(double)(i.Product.Price - i.Product.Price * i.Product.Discount / 100)}" : $"{(double)i.Product.Price}";
+                var prise = i.Product.Discount != 0 ? $" (с учетом скидки) {i.Product.Price - i.Product.Price * i.Product.Discount / 100}" : $"{i.Product.Price}";
                 str.AppendFormat($" Заказанное платье -  \"{i.Product.Name}\"  стоимостью - {prise} грн.");
                 str.AppendLine("");
             }
             str.AppendLine("");
-            str.AppendFormat($"Общая сумма заказа - {(double)basket.ComputeTotalValue()} грн.");
+            str.AppendFormat($"Общая сумма заказа - {basket.ComputeTotalValue()} грн.");
             str.AppendLine("");
             str.AppendLine("");
             
