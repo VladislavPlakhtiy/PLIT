@@ -9,7 +9,7 @@ namespace DressShopWebUI.Controllers
     // Действия с корзиной, пока кидаю один метод, потом расширю
     public class BasketController : Controller
     {
-        private static readonly ShopContext Db = new ShopContext();
+        private readonly ShopContext _db = ContextForOllControllers.Db;
         
         //отображение корзины
         public ViewResult Index(Basket basket, string returnUrl)
@@ -54,7 +54,7 @@ namespace DressShopWebUI.Controllers
         //Метод добавления товаров в корзину
         public RedirectToRouteResult AddToBasket(Basket basket, int photoId, string returnUrl)
         {
-             Photo photo = Db.Photo
+             Photo photo = _db.Photo
                 .FirstOrDefault(b => b.PhotoId == photoId);
 
             if (photo != null)
@@ -68,7 +68,7 @@ namespace DressShopWebUI.Controllers
         //Метод удаления товаров из корзины
         public RedirectToRouteResult RemoveFromBasket(Basket basket, int photoId, string returnUrl)
         {
-            Photo photo = Db.Photo
+            Photo photo = _db.Photo
                .FirstOrDefault(b => b.PhotoId == photoId);
 
             if (photo != null)

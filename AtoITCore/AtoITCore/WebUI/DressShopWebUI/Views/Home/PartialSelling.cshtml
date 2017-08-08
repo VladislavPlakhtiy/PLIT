@@ -1,5 +1,5 @@
 ﻿@model Domain.Entityes.Photo
-@if (Model.Priority == true)
+@if (Model.Priority)
 {
     <a href="@("#openModal" + Model.Product.ProductId)">
         <li class="product child">
@@ -19,7 +19,7 @@
                 else
                 {
                     <h3 class="productName">
-                        <p class="price">@((double)Model.Product.Price) грн</p>"@Model.Product.Name"
+                        <p class="price">@(Model.Product.Price) грн</p>"@Model.Product.Name"
                     </h3>
                 }
             }

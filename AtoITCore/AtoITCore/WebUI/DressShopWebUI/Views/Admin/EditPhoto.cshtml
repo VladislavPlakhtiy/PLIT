@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<Domain.Entityes.Photo>
 
-<table class="table" style="background-color: lightgrey">
+@if (!Model.Count().Equals(0))
+{
+<table class="table">
     <tr>
         <th class="text-center">
             Фото
@@ -42,27 +44,27 @@
                        value="Установить как основное фото" />
                 <script>
                     $(document)
-                       .ready(function () {
-                           $("#@(i.PhotoId+"ButtonEdit")")
-                               .click(function () {
-                                   var prior = "@i.Priority";
-                                   if (prior === "True")
-                                       return false;
-                                   var data = {
-                                       idProduct: ('@i.Product.ProductId'),
-                                       id: ('@i.PhotoId')
-                                   };
-                                   $.ajax({
-                                       url: "/Admin/PriorityСhangesPhoto",
-                                       type: "POST",
-                                       data: data,
-                                       success: function (data) {
-                                           $("#photoId").html(data);
-                                       }
-                                   });
-                                   return true;
-                               });
-                       });
+                        .ready(function () {
+                            $("#@(i.PhotoId+"ButtonEdit")")
+                                .click(function () {
+                                    var prior = "@i.Priority";
+                                    if (prior === "True")
+                                        return false;
+                                    var data = {
+                                        idProduct: ('@i.Product.ProductId'),
+                                        id: ('@i.PhotoId')
+                                    };
+                                    $.ajax({
+                                        url: "/Admin/PriorityСhangesPhoto",
+                                        type: "POST",
+                                        data: data,
+                                        success: function (data) {
+                                            $("#photoId").html(data);
+                                        }
+                                    });
+                                    return true;
+                                });
+                        });
                 </script>
             </td>
             <td class="text-center">
@@ -71,27 +73,29 @@
                        value="Удалить фото" />
                 <script>
                     $(document)
-                       .ready(function () {
+                        .ready(function () {
 
-                           $("#@(i.PhotoId+ "ButtonDelete")")
-                               .click(function () {
-                                   var data = {
-                                       idProduct: ('@i.Product.ProductId'),
-                                       id: ('@i.PhotoId')
-                                   };
-                                   $.ajax({
-                                       url: "/Admin/DeletePhoto",
-                                       type: "POST",
-                                       data: data,
-                                       success: function (data) {
-                                           $("#photoId").html(data);
-                                       }
-                                   });
-                               });
-                       });
+                            $("#@(i.PhotoId+ "ButtonDelete")")
+                                .click(function () {
+                                    var data = {
+                                        idProduct: ('@i.Product.ProductId'),
+                                        id: ('@i.PhotoId')
+                                    };
+                                    $.ajax({
+                                        url: "/Admin/DeletePhoto",
+                                        type: "POST",
+                                        data: data,
+                                        success: function (data) {
+                                            $("#photoId").html(data);
+                                        }
+                                    });
+                                });
+                        });
                 </script>
             </td>
         </tr>
     }
-
 </table>
+
+}
+

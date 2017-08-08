@@ -42,7 +42,7 @@ namespace Domain.Entityes
         [Display(Name = "Цена(грн)")]
         [Required(ErrorMessage = "Пожалуйста, введите цену товара")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Пожалуйста, введите корректную цену")]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
         [Display(Name = "Дата добавления товара")]
         [Required]

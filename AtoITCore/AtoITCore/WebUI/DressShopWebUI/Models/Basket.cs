@@ -48,12 +48,12 @@ namespace DressShopWebUI.Models
         /// получаем сумму товаров
         /// </summary>
         /// <returns></returns>
-        public decimal ComputeTotalValue()
+        public double ComputeTotalValue()
         {
-            decimal totalVelue = 0;
+            double totalVelue = 0;
             foreach (var i in _myCollection)
             {
-                if (i.Product.Discount != null)
+                if (i.Product.Discount != 0)
                 {
 
                     totalVelue += i.Product.Price - i.Product.Price * i.Product.Discount/100;

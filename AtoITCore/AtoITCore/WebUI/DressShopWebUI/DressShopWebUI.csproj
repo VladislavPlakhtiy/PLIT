@@ -155,6 +155,7 @@
     </Compile>
     <Compile Include="Models\Basket.cs" />
     <Compile Include="Models\BasketViewModel.cs" />
+    <Compile Include="Models\ContextForOllControllers.cs" />
     <Compile Include="Models\DebugDb.cs" />
     <Compile Include="Models\EmailSending.cs" />
     <Compile Include="Models\Orders.cs" />
