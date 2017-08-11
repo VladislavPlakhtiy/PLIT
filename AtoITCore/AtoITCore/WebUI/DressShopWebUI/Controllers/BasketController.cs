@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using Domain.Concrete;
+using Domain.Abstrac;
 using Domain.Entityes;
 using DressShopWebUI.Models;
 
@@ -9,7 +9,13 @@ namespace DressShopWebUI.Controllers
     // Действия с корзиной, пока кидаю один метод, потом расширю
     public class BasketController : Controller
     {
-        private readonly ShopContext _db = ContextForOllControllers.Db;
+        private readonly IProductRepository _productRepository;
+        private readonly IEmailSending _emailSending;
+        public BasketController(IProductRepository productRepository, IEmailSending emailSending)
+        {
+            _productRepository = productRepository;
+            _emailSending = emailSending;
+        }
         
         //отображение корзины
         public ViewResult Index(Basket basket, string returnUrl)
@@ -29,62 +35,65 @@ namespace DressShopWebUI.Controllers
 
         // POST метод, оформления заказа
         [HttpPost]
-        public ActionResult Index( BasketViewModel basketViewModel, Basket basket, string returnUrl)
+        public ActionResult Index( BasketViewModel basketViewModel, Basket basket)
         {
-            //проверяем валидность модели, и наличие товаров в корзине
+            //Добавляем в связыватель товары из корзины
+            //Проверяем валидность модели, и наличие товаров в корзине
             if (ModelState.IsValid && basket.CountItem!=0)
             {
-                //todo
-                EmailSending.SendMailToAdministrator(basketViewModel, basket);
-                EmailSending.SendMail(basketViewModel, basket); // пока не работает
+                //Отсылаем письма
+                _emailSending.SendMailToAdministrator(basket,basketViewModel.Orders,null);
+                _emailSending.SendMail(basket, basketViewModel.Orders, null);
                 return RedirectToAction("Thanks","Basket");
             }
            
-            return Index(basket,returnUrl);
+            return Index(basket, basketViewModel.ReturnUrl);
         }
 
         //Благодарности за покупку
         public ViewResult Thanks(Basket basket)
         {
+            //формируем ответ для пользователя
             ViewBag.Answer = basket.AnswerList.ToList();
+            //очищаем корзину
             basket.Clear();
             return View();
         }
 
         //Метод добавления товаров в корзину
-        public RedirectToRouteResult AddToBasket(Basket basket, int photoId, string returnUrl)
+        public RedirectToRouteResult AddToBasket(Basket basket, int productId, string returnUrl)
         {
-             Photo photo = _db.Photo
-                .FirstOrDefault(b => b.PhotoId == photoId);
+             Product product = _productRepository.Products
+                .FirstOrDefault(b => b.ProductId == productId);
 
-            if (photo != null)
+            if (product != null)
             {
-                basket.AddProduct(photo);
+                basket.AddProduct(product);
             }
 
             return RedirectToAction("Index", new { returnUrl });
         }
 
         //Метод удаления товаров из корзины
-        public RedirectToRouteResult RemoveFromBasket(Basket basket, int photoId, string returnUrl)
+        public RedirectToRouteResult RemoveFromBasket(Basket basket, int productId, string returnUrl)
         {
-            Photo photo = _db.Photo
-               .FirstOrDefault(b => b.PhotoId == photoId);
+            Product product = _productRepository.Products
+                .FirstOrDefault(b => b.ProductId == productId);
 
-            if (photo != null)
+            if (product != null)
             {
-                basket.RemoveProduct(photo);
+                basket.RemoveProduct(product);
             }
 
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        //Частичное представления для _Layout
+        //Частичное представление корзины для _Layout
         public PartialViewResult Summary(Basket basket)
         {
             return PartialView(basket);
         }
-        //Частичное представления для Selling и Partners (плавающая корзина)
+        //Частичное представление корзины для Selling и Partners (плавающая корзина)
         public PartialViewResult BasketOnView(Basket basket)
         {
             return PartialView(basket);

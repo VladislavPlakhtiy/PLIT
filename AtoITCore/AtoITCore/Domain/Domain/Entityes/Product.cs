@@ -7,13 +7,13 @@ namespace Domain.Entityes
 {
 
     /// <summary>
-    /// Сущьность продукта повставлял элементы валидации, пока не знаю, нужны ли будут.
+    /// Сущьность продукта
     /// </summary>
-    public sealed class Product
+    public class Product
     {
         public Product()
         {
-            Photo = new HashSet<Photo>();
+            //Photo = new HashSet<Photo>();
         }
         [Key]
         [ScaffoldColumn(false)]
@@ -53,7 +53,7 @@ namespace Domain.Entityes
         public string Category { get; set; }
 
 
-        public ICollection<Photo> Photo { get; set; }
+        public virtual ICollection<Photo> Photo { get; set; }
         
     }
 }

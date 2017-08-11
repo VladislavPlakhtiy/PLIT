@@ -96,6 +96,8 @@
                                         formData.append("productId", '@Model.ProductId');
                                         //  debugger;
                                         var file = document.getElementById("fileInput").files[0];
+                                        if (file == null)
+                                            return false;
                                         formData.append("fileInput", file);
                                         //  debugger;
                                         $.ajax({
@@ -108,6 +110,7 @@
                                                 $("#photoId").html(data);
                                             }
                                         });
+                                        return true;
                                     });
                             })
 

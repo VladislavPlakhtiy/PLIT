@@ -4,6 +4,6 @@ namespace DressShopWebUI.Models
 {
     public class ContextForOllControllers
     {
-        public static ShopContext Db = new ShopContext();
+        public static ShopContext Db= new ShopContext();
     }
 }

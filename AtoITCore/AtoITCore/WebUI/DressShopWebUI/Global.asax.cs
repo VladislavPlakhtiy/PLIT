@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using DressShopWebUI.Binders;
+using Domain.Entityes;
+using DressShopWebUI.Infrastructure.Binders;
 using DressShopWebUI.Models;
 
 namespace DressShopWebUI

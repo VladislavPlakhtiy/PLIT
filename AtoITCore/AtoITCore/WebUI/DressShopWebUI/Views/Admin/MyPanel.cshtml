@@ -5,6 +5,12 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <br />
+@if (TempData["messageBad"] != null)
+{
+    <div align="center"><h3 style="color: red">@TempData["message"]</h3></div>
+    <br />
+    <br />
+}
 
 <a href="/Admin/AddProduct" class="btn btn-primary btn-lg">Добавить товар</a>
 <label for="categorySelect">Отсортировать по категории:</label>
@@ -48,6 +54,7 @@
                         category: $("#categorySelect option:selected").val(),
                         searchName: $("#nameSearch").val()
                     };
+                    debugger;
                     $.ajax({
                         url: "/Admin/MyPanel",
                         type: "POST",
@@ -56,6 +63,8 @@
                             $("#divProductInAdmin").html(data);
                         }
                     });
+                    debugger;
                 });
+            debugger;
         });
 </script>

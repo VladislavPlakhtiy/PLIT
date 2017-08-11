@@ -1,4 +1,4 @@
-﻿@using DressShopWebUI.Controllers
+﻿
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +26,7 @@
                     </a>
                 </div>
                 <div class="social">
+                    @*метод генирирующий разметку для корзины. Разметка (Summary) находиться в папке Basket*@ 
                     @Html.Action("Summary", "Basket")
                     <a href="#" class="facebookLink">
                         <img src="~/Images/fb.png" alt="" class="facebookPic">
@@ -73,32 +74,8 @@
         <div class="content center">
             <h2 align="center">---------------------------------------------слайдер-----------------------------------------------</h2>
             <div class="slider">
-
-                @{
-
-                    string path = "";
-                    foreach (var i in HomeController.SliderPhoto)
-                    {
-                        if (i.Product.Category.Equals("Selling"))
-                        {
-                            path = "/Home/Selling";
-                        }
-                        if (i.Product.Category.Equals("Gallery"))
-                        {
-                            path = "/Home/Gallery";
-                        }
-                        if (i.Product.Category.Equals("Partners"))
-                        {
-                            path = "/Home/Partners";
-                        }
-                        <div class="sliderObject">
-                            <a href="@path"><img id="@("ImgId" + i.PhotoId)" title="@i.Product.Name" src="~/PhotoForDB/@i.PhotoUrl" height="100" width="95" /></a>
-                        </div>
-                    }
-
-                }
-                }
-
+                @*метод генирирующий слайдер - разметка (Slider) находиться в папке Houme*@
+                @Html.Action("Slider", "Home")
             </div>
             <h2 align="center">---------------------------------------------слайдер-----------------------------------------------</h2>
             @RenderBody()

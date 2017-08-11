@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Domain.Concrete;
+using Domain.Abstrac;
 using Domain.Entityes;
-using DressShopWebUI.Models;
-using static System.DateTime;
 
 
 namespace DressShopWebUI.Controllers
@@ -14,60 +10,59 @@ namespace DressShopWebUI.Controllers
     // контролер, для работы с основными страницами сайта, кроме админ - панели
     public class HomeController : Controller
     {
-        private readonly ShopContext _db = ContextForOllControllers.Db;
-        //Формируем список фотографий для слайдера и передаем его в _Layout
-        public static readonly IQueryable<Photo> Photo = from s in ContextForOllControllers.Db.Photo where s.Priority select s;
-        public static readonly List<Photo> SliderPhoto = Photo.ToList();
+        private readonly IReviewsRepository _reviewsRepository;
+        private readonly IProductRepository _productRepository;
+        //Объявляем зависимость контроллера от хранилища сущностей
+        public HomeController(IProductRepository productRepository,  IReviewsRepository reviewsRepo)
+        {
+            _productRepository = productRepository;
+            _reviewsRepository = reviewsRepo;
+        }
 
-
-        public ViewResult Index()// Стартовая страница 
+        // Стартовая страница "о дизайнере"
+        public ViewResult Index()
         {
             return View();
         }
 
-
-        public ActionResult Selling()// страница каталога (ONLINE-гардероб)
+        //генирация слайдера
+        public ActionResult Slider()  
         {
-
-            //выбираем товары по категории  - 1
-            var selling = from s in _db.Photo
-                          where s.Product.Category == "Selling"
-                          orderby s.Product.DateCreate descending
-                          select s;
-            return View(selling.ToList());
+            return PartialView(_productRepository.Products.ToList());
         }
 
-
-        public ActionResult Gallery() // страница Галерея
+        // страница каталога (ONLINE-гардероб)
+        public ActionResult Selling()
         {
-            // выбираем фотографии по приоритету, и по категории 2
-            var photo = from s in _db.Photo
-                        where s.Product.Category == "Gallery"
-                        orderby s.Product.DateCreate descending
-                        select s;
-            return View(photo.ToList());
+            //выбираем товары по категории  "Selling"
+            return View(_productRepository.Products.
+                Where(x => x.Category == "Selling").
+                OrderByDescending(x => x.DateCreate));
         }
 
-
-        public ActionResult Partners() // страница Партнеры 
+        // страница Галерея
+        public ActionResult Gallery() 
         {
-            var partners = from s in _db.Photo
-                           where s.Product.Category == "Partners"
-                           orderby s.Product.DateCreate descending
-                           select s;
-            return View(partners.ToList());
+            // выбираем фотографии по приоритету, и по категории "Gallery"
+            return View(_productRepository.Products.
+                Where(x => x.Category == "Gallery").
+                OrderByDescending(x => x.DateCreate));
         }
 
-
-        public ActionResult ClientFeedback() //страница Отзывы
+        // страница Партнеры 
+        public ActionResult Partners() 
         {
+            //выбираем товары по категории  "Partners"
+            return View(_productRepository.Products.
+                Where(x => x.Category == "Partners").
+                OrderByDescending(x => x.DateCreate));
+        }
 
-            var reviews = from s in _db.Reviews
-                          orderby s.DateFeedback descending
-                          select s;
+        #region Отзывы
 
-            ViewBag.Review = reviews.ToList();
-            return View();
+        public ViewResult ClientFeedback() //стартовая страница Отзывы
+        {
+            return View(_reviewsRepository.Reviewses.OrderByDescending(x => x.DateFeedback));
         }
 
         [HttpPost]
@@ -76,23 +71,14 @@ namespace DressShopWebUI.Controllers
             //проверяем валидность согласно модели
             if (ModelState.IsValid)
             {
-                //проверяем наличие рейтинга заполненого пользователем.
-                var rating = string.IsNullOrEmpty(model.Rating.ToString()) ? 0 : int.Parse(model.Rating.ToString());
-                // добавляем запись в БД
-                _db.Reviews.Add(new Reviews
-                {
-                    ClientName = model.ClientName,
-                    ClientFeedback = model.ClientFeedback,
-                    Rating = rating,
-                    Email = model.Email,
-                    Advantages = model.Advantages,
-                    LackOf = model.LackOf,
-                    DateFeedback = Now
-                });
-                _db.SaveChanges();
+                _reviewsRepository.SaveReview(model);
+                TempData["messageOk"] = "Благодарим Вас за отзыв!";
+                return Redirect("/Home/ClientFeedback");
             }
+            TempData["message"] = "Отзыв не был добавлен - проверьте правильность заполнения формы отзыва!";
             return Redirect("/Home/ClientFeedback");
         }
+        #endregion
 
     }
 }

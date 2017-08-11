@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Domain.Entityes
 {
     /// <summary>
-    /// Сущьность для формирование таблицы Отзывы. повставлял элементы валидации, пока не знаю, нужны ли будут
+    /// Сущьность для формирование таблицы Отзывы.
     /// </summary>
     public class Reviews
     {

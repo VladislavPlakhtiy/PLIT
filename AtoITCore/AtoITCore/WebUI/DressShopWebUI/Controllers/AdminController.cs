@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Domain.Concrete;
+using Domain.Abstrac;
 using Domain.Entityes;
-using DressShopWebUI.Models;
-using static System.DateTime;
 
 
 
@@ -20,71 +17,73 @@ namespace DressShopWebUI.Controllers
     [Authorize]
     public class AdminController : Controller
     {
-        private readonly ShopContext _db = ContextForOllControllers.Db;
+        private readonly IReviewsRepository _reviewsRepository;
+        private readonly IProductRepository _productRepository;
+
+        public AdminController(IProductRepository productRepository, IReviewsRepository reviewsRepo)
+        {
+            _productRepository = productRepository;
+            _reviewsRepository = reviewsRepo;
+        }
 
         #region Работа с товарами
 
         //------------------------------------------------Стартовая страница------------------------------------------------------------------
         public ActionResult MyPanel()
         {
-            var product = from i in _db.Product.Include("Photo")
-                orderby i.DateCreate descending
-                select i;
-            return View(product.ToList());
+            return View(_productRepository.Products.
+                OrderByDescending(x => x.DateCreate));
         }
 
         [HttpPost]
         //Сортировка и поиск по имени продукта
         public ActionResult MyPanel(string searchName, CategoryProduct category)
         {
-            var product = from s in _db.Product
-                          select s;
+            var product = _productRepository.Products;
             if (!string.IsNullOrEmpty(searchName))
             {
-                product = product.Where(s => s.Name.Equals(searchName));
-
-
-                if (product.Count() != 0)
+                //поиск в коллекции продуктов продукта по имени
+                var enumerable = product as IList<Product> ?? product.ToList();
+                var qvery = enumerable.Where(s => s.Name.Equals(searchName)).ToList();
+                if (qvery.Count != 0)
                 {
                     TempData["message"] = $"Выбран товар по имени - \"{searchName}\"";
-                    return PartialView("PartialMyPanel", product.ToList());
+                    return PartialView("PartialMyPanel", qvery);
                 }
-
-                product = from s in _db.Product
-                          select s;
+                //если ничего не найденно 
                 TempData["message"] = $"Товара с именем - \"{searchName}\" не существует!";
-                return PartialView("PartialMyPanel", product.ToList());
+                return PartialView("PartialMyPanel", enumerable);
             }
             switch (category)
             {
 
                 case CategoryProduct.Selling:
-                    product = product.Where(x => x.Category == "Selling");
-                    product = product.OrderByDescending(x => x.DateCreate);
+                    product = product.Where(x => x.Category == "Selling").
+                        OrderByDescending(x => x.DateCreate);
                     break;
                 case CategoryProduct.Gallery:
-                    product = product.Where(x => x.Category == "Gallery");
-                    product = product.OrderByDescending(x => x.DateCreate);
+                    product = product.Where(x => x.Category == "Gallery").
+                        OrderByDescending(x => x.DateCreate);
                     break;
                 case CategoryProduct.Partners:
-                    product = product.Where(x => x.Category == "Partners");
-                    product = product.OrderByDescending(x => x.DateCreate);
+                    product = product.Where(x => x.Category == "Partners").
+                        OrderByDescending(x => x.DateCreate);
                     break;
             }
-            return PartialView("PartialMyPanel", product.ToList());
+            return PartialView("PartialMyPanel", product);
         }
 
         //------------------------------------------------------------------------------------------------------------------------------------
 
         //------------------------------------------------Добавление товара-------------------------------------------------------------------
-        [HttpGet]
         public ActionResult AddProduct()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult AddProduct(Product product, HttpPostedFileBase upload, IEnumerable<HttpPostedFileBase> uploads)
+        public ActionResult AddProduct(Product product, HttpPostedFileBase upload,
+            IEnumerable<HttpPostedFileBase> uploads)
         {
             if (ModelState.IsValid && upload != null)
             {
@@ -92,12 +91,12 @@ namespace DressShopWebUI.Controllers
                 var photoName = Guid.NewGuid().ToString();
                 var extension = Path.GetExtension(upload.FileName);
                 photoName += extension;
-                List<string> extensions = new List<string> { ".jpg", ".png", ".gif" };
+                List<string> extensions = new List<string> {".jpg", ".png", ".gif"};
                 // сохраняем файл
                 if (extensions.Contains(extension))
                 {
                     upload.SaveAs(Server.MapPath("~/PhotoForDB/" + photoName));
-                    list.Add(new Photo { PhotoUrl = photoName, Priority = true });
+                    list.Add(new Photo {PhotoUrl = photoName, Priority = true});
                 }
                 else
                 {
@@ -116,7 +115,7 @@ namespace DressShopWebUI.Controllers
                         if (extensions.Contains(extension))
                         {
                             file.SaveAs(Server.MapPath("~/PhotoForDB/" + photoName));
-                            list.Add(new Photo { PhotoUrl = photoName, Priority = false });
+                            list.Add(new Photo {PhotoUrl = photoName, Priority = false});
                         }
                         else
                         {
@@ -125,32 +124,40 @@ namespace DressShopWebUI.Controllers
                         }
                     }
                 }
-
-                _db.Product.Add(new Product
+                try
                 {
-                    Name = product.Name,
-                    Description = product.Description,
-                    Discount = product.Discount,
-                    Category = product.Category,
-                    Price = product.Price,
-                    SpecOffer = product.SpecOffer,
-                    DateCreate = Now,
-                    Photo = list
-                });
-                _db.SaveChanges();
-                TempData["message"] = "Товар успешно добавлен!";
+                    //сохраняем новый товар
+                    _productRepository.SaveProduct(product, list);
+                    TempData["message"] = "Товар успешно добавлен!";
+                }
+                catch (Exception)
+                {
+                    //при ошибке, удаляем файлы из директории
+                    DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/PhotoForDB/"));
+                    foreach (FileInfo file in directory.GetFiles())
+                    {
+                        foreach (var i in list)
+                        {
+                            if (i.PhotoUrl.Contains(file.ToString()))
+                                file.Delete();
+                        }
+                    }
+                    TempData["message"] = "что то пошло не так :( Товар не был добавлен!";
+                }
                 return RedirectToAction("MyPanel");
             }
-            ModelState.AddModelError("", "Ошибка! Товар не был добавлен! проверьте пожалуйста правильность заполнения формы и наличие фото!");
+            ModelState.AddModelError("",
+                "Ошибка! Товар не был добавлен! проверьте пожалуйста правильность заполнения формы и наличие фото!");
             return View();
         }
+
         //------------------------------------------------------------------------------------------------------------------------------------
 
         //------------------------------------------------Редактировние товара----------------------------------------------------------------
         [HttpGet]
         public ActionResult EditProduct(int productId)
         {
-            var product = _db.Product.FirstOrDefault(x => x.ProductId == productId);
+            var product = _productRepository.Products.FirstOrDefault(x => x.ProductId == productId);
 
             return View(product);
         }
@@ -158,27 +165,24 @@ namespace DressShopWebUI.Controllers
         [HttpPost]
         public ActionResult EditProduct(Product product)
         {
-            var qvery = from i in _db.Photo
-                where i.Product.ProductId == product.ProductId
-                select i;
-            if (ModelState.IsValid && !qvery.Count().Equals(0))
+            var qvery = _productRepository.Products.FirstOrDefault(x => x.ProductId == product.ProductId);
+
+            if (qvery != null && ModelState.IsValid && !qvery.Photo.Count.Equals(0))
             {
-                var pro = _db.Product.Find(product.ProductId);
-                if (pro != null)
+                try
                 {
-                    pro.Discount = product.Discount;
-                    pro.Category = product.Category;
-                    pro.Description = product.Description;
-                    pro.Name = product.Name;
-                    pro.Price = product.Price;
-                    pro.SpecOffer = product.SpecOffer;
-                    _db.SaveChanges();
+                    _productRepository.SaveProduct(product, null);
+                    TempData["message"] = "Изменения в товаре были сохранены";
                 }
-                TempData["message"] = "Изменения в товаре были сохранены";
+                catch (Exception)
+                {
+                    TempData["messageBad"] = "что то пошло не так :( Товар не был изменен!";
+                }
                 return RedirectToAction("MyPanel");
             }
-            ModelState.AddModelError("", "Ошибка! Товар не был изменен! проверьте пожалуйста правильность заполнения формы и наличие фото!");
-            var productSelect = _db.Product.FirstOrDefault(x => x.ProductId == product.ProductId);
+            ModelState.AddModelError("",
+                "Ошибка! Товар не был изменен! проверьте пожалуйста правильность заполнения формы и наличие фото!");
+            var productSelect = _productRepository.Products.FirstOrDefault(x => x.ProductId == product.ProductId);
             return View("EditProduct", productSelect);
 
         }
@@ -187,27 +191,16 @@ namespace DressShopWebUI.Controllers
         [HttpPost]
         public ActionResult DeleteProduct(int productId)
         {
-            //DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/PhotoForDB/"));
-            var product = _db.Product.FirstOrDefault(x => x.ProductId == productId);
-            if (product != null)
-            {
-                var removePhotos = from i in _db.Photo
-                    where i.Product.ProductId == productId
-                    select i;
-                foreach (var i in removePhotos)
+            DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/PhotoForDB/"));
+                try
                 {
-                //    foreach (FileInfo file in directory.GetFiles())  //Удаление фото из директории пока закоментирую
-                //    {
-                //        if (file.ToString() == i.PhotoUrl)
-                //        file.Delete();
-                //    }
-                    _db.Photo.Remove(i);
+                    _productRepository.RemoveProduct(productId, directory);
+                    TempData["message"] = "Товар был успешно удален!";
                 }
-               
-                _db.Product.Remove(product);
-                _db.SaveChanges();
-                TempData["message"] = "Товар был успешно удален!";
-            }
+                catch (Exception)
+                {
+                    TempData["message"] = "что то пошло не так :( Товар не был удален!";
+                }
             return RedirectToAction("MyPanel");
         }
 
@@ -219,66 +212,37 @@ namespace DressShopWebUI.Controllers
         [HttpPost]
         public ActionResult PriorityСhangesPhoto(int idProduct, int id) // Изменение приоритета фото
         {
-            var photoFromSelect = _db.Photo.FirstOrDefault(x => x.PhotoId == id);
-            var response = from i in _db.Photo
-                           where i.Product.ProductId == idProduct
-                           select i;
-            foreach (var i in response)
+            try
             {
-                if (i != null)
-                    i.Priority = false;
+                _productRepository.PriorityСhangesPhoto(idProduct,id);
             }
-            if (photoFromSelect != null)
+            catch (Exception)
             {
-                photoFromSelect.Priority = true;
-                _db.SaveChanges();
+                ViewBag.Error = "Ошибка! Что то пошло не так :( Приоритет фото не был изменен!";
             }
-
-            return PartialView("EditPhoto", response.ToList());
-
+            var product = _productRepository.Products.FirstOrDefault(x => x.ProductId == idProduct);
+            if (product != null)
+                return PartialView("EditPhoto", product.Photo.ToList());
+            return PartialView("EditPhoto", new List<Photo>());
         }
+
 
         [HttpPost]
         public ActionResult DeletePhoto(int idProduct, int id = 0) // Удаление фото
         {
-            //DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/PhotoForDB/"));
-            List<Photo> response = new List<Photo>();
-            var photoFromSelect = _db.Photo.FirstOrDefault(x => x.PhotoId == id); //выбираем фото по id
-            if (photoFromSelect != null) //если оно есь - удаляем из базы и из дериктории
+            DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/PhotoForDB/"));
+            try
             {
-                //foreach (FileInfo file in directory.GetFiles())      //Пока закоментирую, для удобства
-                //{
-                //    if (file.ToString() == photoFromSelect.PhotoUrl)
-                //        file.Delete();
-                //}
-                _db.Photo.Remove(photoFromSelect);
-                _db.SaveChanges();
-
+                _productRepository.RemovePhoto(idProduct, id, directory);
             }
-            var qvery = from i in _db.Photo
-                        where i.Product.ProductId == idProduct
-                        select i;
-
-            if (qvery.Any()) //Проверяем, остались ли фото в базе по ID продукта
+            catch (Exception)
             {
-                if (qvery.FirstOrDefault(x => x.Priority) != null) //Если есть фото с высоким приоритетом - отправляем ответ
-                {
-                    response = qvery.ToList();
-                }
-                else
-                {
-                    var priorityСhangesPhoto = qvery.FirstOrDefault();//Если нет фото с высоким приоритетом - задаем
-                    if (priorityСhangesPhoto != null)
-                    {
-                        priorityСhangesPhoto.Priority = true;
-                        _db.SaveChanges();
-                        response = qvery.ToList();
-                    }
-                }
-
+                ViewBag.Error = "Ошибка! Что то пошло не так :( Мы не смогли удалить фото! ";
             }
-            return PartialView("EditPhoto", response);
-
+            var product = _productRepository.Products.FirstOrDefault(x => x.ProductId == idProduct);
+            if (product != null)
+                return  PartialView("EditPhoto", product.Photo.ToList());
+            return PartialView("EditPhoto", new List<Photo>());
         }
         //------------------------------------------------------------------------------------------------------------------------------------
         //------------------------------------------------Добавление фото на сервер-----------------------------------------------------------
@@ -286,10 +250,7 @@ namespace DressShopWebUI.Controllers
         [HttpPost]
         public ActionResult UploadPhoto(int productId, HttpPostedFileBase fileInput)
         {
-            var product = _db.Product.FirstOrDefault(x => x.ProductId == productId);
-            var photos = from i in _db.Photo
-                where i.Product.ProductId == productId
-                select i;
+            var product = _productRepository.Products.FirstOrDefault(x => x.ProductId == productId);
             var photoName = Guid.NewGuid().ToString();
             var extension = Path.GetExtension(fileInput.FileName);
             photoName += extension;
@@ -298,35 +259,20 @@ namespace DressShopWebUI.Controllers
             if (extensions.Contains(extension))
             {
                 fileInput.SaveAs(Server.MapPath("~/PhotoForDB/" + photoName));
-                if (photos.Any())
-                {
-                    _db.Photo.Add(new Photo
-                    {
-                        PhotoUrl = photoName,
-                        Priority = false,
-                        Product = product
-                    });
-                    _db.SaveChanges();
-                }
-                else
-                {
-                    _db.Photo.Add(new Photo
-                    {
-                        PhotoUrl = photoName,
-                        Priority = true,
-                        Product = product
-                    });
-                    _db.SaveChanges();
-                }
+                _productRepository.SavePhoto(productId, photoName);
             }
             else
             {
                 ModelState.AddModelError("", "Ошибка! Не верное расширение фотографии!");
-                PartialView("EditPhoto", photos.ToList());
+                if (product != null)
+                    PartialView("EditPhoto", product.Photo.ToList());
+                return PartialView("EditPhoto", new List<Photo>());
             }
-            return PartialView("EditPhoto",photos.ToList());
+            if (product != null)
+                return PartialView("EditPhoto", product.Photo.ToList());
+            return PartialView("EditPhoto", new List<Photo>() );
         }
-            
+
         //------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -337,28 +283,28 @@ namespace DressShopWebUI.Controllers
         [HttpGet]
         public ActionResult EditingReviews()
         {
-            var reviews = from s in _db.Reviews
-                          orderby s.DateFeedback descending
-                          select s;
-            return View(reviews.ToList());
+            //выбираем все отзывы
+            return View(_reviewsRepository.Reviewses.
+                        OrderByDescending(x => x.DateFeedback));
         }
 
         [HttpPost]
         public ActionResult EditingReviews(SortType sortType)
         {
-            var reviews = from a in _db.Reviews select a;
+            //сортируем отзывы
+            var reviews = _reviewsRepository.Reviewses;
             switch (sortType)
             {
-
                 case SortType.Before:
-                    reviews = reviews.OrderByDescending(x => x.DateFeedback);
+                    reviews = _reviewsRepository.Reviewses.
+                        OrderByDescending(x => x.DateFeedback);
                     break;
                 case SortType.Later:
-                    reviews = reviews.OrderBy(x => x.DateFeedback);
+                    reviews = _reviewsRepository.Reviewses.
+                        OrderBy(x => x.DateFeedback);
                     break;
             }
-
-            return PartialView("PartialEditingReviews", reviews.ToList());
+            return PartialView("PartialEditingReviews", reviews);
         }
 
 
@@ -368,7 +314,8 @@ namespace DressShopWebUI.Controllers
         [HttpGet]
         public ActionResult EditReview(int reviewId)
         {
-            var review = _db.Reviews.FirstOrDefault(x => x.ReviewId == reviewId);
+            //выбираем отзыв для редактирования
+            var review = _reviewsRepository.Reviewses.FirstOrDefault(x => x.ReviewId == reviewId);
             return View(review);
         }
 
@@ -379,18 +326,8 @@ namespace DressShopWebUI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var rev = _db.Reviews.Find(review.ReviewId);
-                    if (rev != null)
-                    {
-                        rev.ClientName = review.ClientName;
-                        rev.Rating = review.Rating;
-                        rev.ClientFeedback = review.ClientFeedback;
-                        rev.Advantages = review.Advantages;
-                        rev.LackOf = review.LackOf;
-                        rev.Email = review.Email;
-                        _db.SaveChanges();
-                    }
-
+                    //пробуем отредактировать отзыв
+                    _reviewsRepository.SaveReview(review);
                     TempData["message"] = "Изменения в отзыве были сохранены";
                     return RedirectToAction("EditingReviews");
                 }
@@ -410,7 +347,8 @@ namespace DressShopWebUI.Controllers
         [HttpGet]
         public ActionResult DeleteReviews(int reviewId)
         {
-            var review = _db.Reviews.FirstOrDefault(x => x.ReviewId == reviewId);
+            //выбираем отзыв для удаления
+            var review = _reviewsRepository.Reviewses.FirstOrDefault(x => x.ReviewId == reviewId);
             return View(review);
         }
 
@@ -419,13 +357,8 @@ namespace DressShopWebUI.Controllers
         {
             try
             {
-                var rev = _db.Reviews.Find(review.ReviewId);
-                if (rev != null)
-                {
-                    _db.Reviews.Remove(rev);
-                    _db.SaveChanges();
-                }
-
+                //пробуем удалить отзыв
+                _reviewsRepository.RemoveReview(review);
                 TempData["message"] = "Отзыв был успешно удален!";
                 return RedirectToAction("EditingReviews");
             }
@@ -435,7 +368,6 @@ namespace DressShopWebUI.Controllers
                 TempData["message"] = "Ошибка! Мы не смогли удалить отзыв :( ";
                 return RedirectToAction("DeleteReviews", review.ReviewId);
             }
-
         }
         //------------------------------------------------------------------------------------------------------------------------------------
         #endregion

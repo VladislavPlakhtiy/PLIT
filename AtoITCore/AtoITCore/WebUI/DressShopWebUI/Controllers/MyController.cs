@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
-using DressShopWebUI.Authentication;
+using DressShopWebUI.Infrastructure.Abstract;
+using DressShopWebUI.Models;
 
 namespace DressShopWebUI.Controllers
 {
@@ -8,7 +9,11 @@ namespace DressShopWebUI.Controllers
     /// </summary>
     public class MyController : Controller
     {
-        
+        private readonly IAuthProvider _authProvider;
+        public MyController(IAuthProvider authProvider)
+        {
+            _authProvider = authProvider;
+        }
         public ViewResult Login()
         {
             return View();
@@ -17,23 +22,16 @@ namespace DressShopWebUI.Controllers
         [HttpPost]
         public ActionResult Login(AuthenticationModel model, string returnUrl)
         {
-
             if (ModelState.IsValid)
             {
-                if (FormAuthProvider.Authenticate(model.Name, model.Password))
+                if (_authProvider.Authenticate(model.Name, model.Password))
                 {
                     return Redirect(returnUrl ?? Url.Action("MyPanel", "Admin"));
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Неправильный логин или пароль");
-                    return View();
-                }
-            }
-            else
-            {
+                ModelState.AddModelError("", "Неправильный логин или пароль");
                 return View();
             }
+            return View();
         }
     }
 }

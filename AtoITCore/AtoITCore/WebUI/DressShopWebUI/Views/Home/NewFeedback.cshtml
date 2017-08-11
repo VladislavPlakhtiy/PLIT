@@ -1,0 +1,54 @@
+﻿@model Domain.Entityes.Reviews
+
+<h4>Оцените наш продукт</h4>
+@using (Html.BeginForm("Feedback", "Home", FormMethod.Post))
+{
+    <h3>Оставить отзыв</h3>
+    <br />
+    <br />
+    //хелпер - генирирующий поле ввода данных, стили писал вручную
+    @Html.EditorFor(x => x.ClientName, new { htmlAttributes = new { style = "margin: 0px; width: 500px; height: 20px;", placeholder = "Введите ваше имя" } })
+    @Html.ValidationMessageFor(x => x.ClientName)
+    <br />
+    <br />
+    @Html.EditorFor(x => x.Email, new { htmlAttributes = new { style = "margin: 0px; width: 500px; height: 20px;", placeholder = "Введите ваш E-mail" } })
+    @Html.ValidationMessageFor(x => x.Email)
+    <br />
+    <br />
+    <div id="reviewStars-input">
+        <input id="star-4" type="radio" value="5" name="Rating" />
+        <label title="Великолепно!" for="star-4"></label>
+
+        <input id="star-3" type="radio" value="4" name="Rating" />
+        <label title="Хорошо" for="star-3"></label>
+
+        <input id="star-2" type="radio" value="3" name="Rating" />
+        <label title="Средне" for="star-2"></label>
+
+        <input id="star-1" type="radio" value="2" name="Rating" />
+        <label title="Так себе" for="star-1"></label>
+
+        <input id="star-0" type="radio" value="1" name="Rating" />
+        <label title="Плохо!" for="star-0"></label>
+    </div>
+    <br />
+    <br />
+    @Html.EditorFor(x => x.ClientFeedback, new { htmlAttributes = new { style = "margin: 0px; width: 500px; height: 80px;", placeholder = "Оставьте ваш отзыв" } })
+    @Html.ValidationMessageFor(x => x.ClientFeedback)
+    <br />
+    <br />
+    @Html.EditorFor(x => x.Advantages, new { htmlAttributes = new { style = "margin: 0px; width: 500px; height: 40px;", placeholder = "Достоинства товара" } })
+    @Html.ValidationMessageFor(x => x.Advantages)
+    <br />
+    <br />
+    @Html.EditorFor(x => x.LackOf, new { htmlAttributes = new { style = "margin: 0px; width: 500px; height: 40px;", placeholder = "Недостатки товара" } })
+    @Html.ValidationMessageFor(x => x.LackOf)
+    <br />
+    <br />
+    <button id="form" class="btn" type="submit">Отправить отзыв</button>
+    <br />
+    <br />
+    <br />
+    <br />
+
+}

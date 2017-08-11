@@ -17,7 +17,7 @@
         background-color: #fee;
     }
 
-    .validation-summary-error {
+    .validation-summary-errors {
         font-weight: bold;
         color: #ff0000;
     }
@@ -28,37 +28,46 @@
 </style>
 <br />
 <br />
-<h1 align="center">@ViewBag.Sorry</h1>
+<h2 align="center">@ViewBag.Sorry</h2>
 
 @foreach (var line in Model.Basket.Lines)
 {
-    <img title="@line.Product.Name" src="~/PhotoForDB/@line.PhotoUrl" height="80" width="75" />
-    if (line.Product.Discount != 0)
+    foreach (var i in line.Photo)
+    {
+        if (i.Priority)
+        {
+            //получаем фото продукта
+            <img title="@line.Name" src="~/PhotoForDB/@i.PhotoUrl" height="80" width="75" />
+        }
+    }
+
+    if (line.Discount != 0)
     {
         <p>
-            <strong>Цена -</strong> @((double)(line.Product.Price - line.Product.Price * line.Product.Discount / 100)) грн
+            <strong>Цена -</strong> @(line.Price - line.Price * line.Discount / 100) грн
         </p>
     }
     else
     {
         <p>
-            <strong>Цена -</strong> @line.Product.Price.ToString("# грн")
+            <strong>Цена -</strong> @line.Price.ToString("# грн")
         </p>
     }
-    <p>Платье  "@line.Product.Name"</p>
+    <p>Платье  "@line.Name"</p>
 
-
+    //кнопка удаления продукта из корзины
     using (Html.BeginForm("RemoveFromBasket", "Basket"))
     {
-        @Html.Hidden("photoId", line.PhotoId)
+        @Html.Hidden("productId", line.ProductId)
         @Html.HiddenFor(x => x.ReturnUrl)
         <input class="btn" type="submit" value="Удалить из корзины" style="float: right" />
     }
-    
+
 }
 <br />
 <br />
 <br />
+@*суммарная стоимость покупки*@
 @if (Model.Basket.CountItem != 0)
 {
     <h3>Итого: @Model.Basket.ComputeTotalValue().ToString("# грн")</h3>
@@ -66,7 +75,7 @@
 
 <br />
 <br />
-
+@*форма для оформления заказа*@
 @using (Html.BeginForm())
 {
     @Html.EditorFor(x => x.Orders.ClientName, new { htmlAttributes = new { style = "margin: 0px; width: 500px; height: 20px;", placeholder = "Имя" } })
@@ -84,16 +93,16 @@
     <h4>Способ оплаты</h4>
     <input id="Radio1" type="radio" value="наличными" name="Orders.Payment" data-val-required="Вы не выбрали способ оплаты" data-val="true" /><label style="margin: 5px">Наличными</label>
     <br />
-     <input id="Radio2" type="radio" value="перевод на карту" name="Orders.Payment" data-val-required="Вы не выбрали способ оплаты" data-val="true" /><label style="margin: 5px">Перевод на карту</label>
+    <input id="Radio2" type="radio" value="перевод на карту" name="Orders.Payment" data-val-required="Вы не выбрали способ оплаты" data-val="true" /><label style="margin: 5px">Перевод на карту</label>
     <br />
-      <input id="Radio3" type="radio" value="SWIFT" name="Orders.Payment" data-val-required="Вы не выбрали способ оплаты" data-val="true" /><label style="margin: 5px">SWIFT</label>
+    <input id="Radio3" type="radio" value="SWIFT" name="Orders.Payment" data-val-required="Вы не выбрали способ оплаты" data-val="true" /><label style="margin: 5px">SWIFT</label>
     @Html.ValidationMessageFor(x => x.Orders.Payment)
     <br />
     <br />
     <h4>Способ достаки</h4>
     <input id="Radio4" type="radio" value="cамовывоз" name="Orders.Delivery" data-val-required="Вы не выбрали способ доставки" data-val="true" /><label style="margin: 5px">Самовывоз</label>
     <br />
-     <input id="Radio5" type="radio" value="почта" name="Orders.Delivery" data-val-required="Вы не выбрали способ доставки" data-val="true" /><label style="margin: 5px">Почта</label>
+    <input id="Radio5" type="radio" value="почта" name="Orders.Delivery" data-val-required="Вы не выбрали способ доставки" data-val="true" /><label style="margin: 5px">Почта</label>
     @Html.ValidationMessageFor(x => x.Orders.Delivery)
     <br />
     <br />
@@ -108,14 +117,17 @@
     <br />
     <br />
     <br />
-    @Html.HiddenFor(x => x.ReturnUrl)
-    <input class="btn" type="submit" value="Оформить заказ" style="float: right" />
+    //кнопка продолжить покупки
+    <div>
+        <a href="@Model.ReturnUrl">
+            <input id="Button1" type="button" value="Продолжить покупку"style="float: right" />
+        </a>
+    </div>
+    //кнопка оформить заказ
+    @*@Html.HiddenFor(x => x.ReturnUrl)*@
+    <input class="btn" type="submit" value="Оформить заказ"  />
 }
-<div>
-    <a href="@Model.ReturnUrl">
-        <input id="Button1" type="button" value="Продолжить покупку" />
-    </a>
-</div>
+
 <br />
 <br />
 <br />

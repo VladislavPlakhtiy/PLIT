@@ -1,4 +1,4 @@
-﻿@model DressShopWebUI.Authentication.AuthenticationModel
+﻿@model DressShopWebUI.Models.AuthenticationModel
 @{
     Layout = null;
 }
@@ -28,7 +28,7 @@
             background-color: #fee;
         }
 
-        .validation-summary-error {
+        .validation-summary-errors {
             font-weight: bold;
             color: #ff0000;
         }
@@ -44,7 +44,7 @@
         <div class="" align="center">
             @using (Html.BeginForm())
             {
-                <h5 align="center" style="color: red">@Html.ValidationSummary()</h5>
+                @Html.ValidationSummary()
                 <div class="">
                     <label>Логин  :</label>
                     @Html.TextBoxFor(m => m.Name, new { @class = "" })

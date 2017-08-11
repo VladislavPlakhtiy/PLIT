@@ -1,7 +1,8 @@
-﻿@model IEnumerable<Domain.Entityes.Photo>
+﻿@model ICollection<Domain.Entityes.Photo>
 
-@if (!Model.Count().Equals(0))
+@if (!Model.Count.Equals(0))
 {
+   <h3 align="center" style="color:  red">@ViewBag.Error</h3>
 <table class="table">
     <tr>
         <th class="text-center">

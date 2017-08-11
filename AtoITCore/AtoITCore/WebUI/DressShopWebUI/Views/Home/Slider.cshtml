@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Domain.Entityes.Product>
+@{
+    string path = "";
+    foreach (var a in Model)
+    {
+        foreach (var i in a.Photo)
+        {
+            if (i.Priority)
+            {
+                if (i.Product.Category.Equals("Selling"))
+                {
+                    path = "/Home/Selling";
+                }
+                if (i.Product.Category.Equals("Gallery"))
+                {
+                    path = "/Home/Gallery";
+                }
+                if (i.Product.Category.Equals("Partners"))
+                {
+                    path = "/Home/Partners";
+                }
+
+                //выбираю фотографию с высоким приоритетом и отдаю ее в диве для слайдера
+                //генирирую уникальный Id, может пригодится, путь для перехода и тайтл
+                <div class="sliderObject">
+                    <a href="@path"><img id="@("ImgId" + i.PhotoId)" title="@a.Name" src="~/PhotoForDB/@i.PhotoUrl" height="100" width="95" /></a>
+                </div>
+            }
+        }
+    }
+}
